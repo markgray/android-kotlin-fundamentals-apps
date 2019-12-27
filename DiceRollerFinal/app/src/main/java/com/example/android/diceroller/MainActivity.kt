@@ -16,12 +16,11 @@
 
 package com.example.android.diceroller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import timber.log.Timber
 import java.util.*
 
 /**
@@ -29,12 +28,14 @@ import java.util.*
  * It contains one button that updates a text view with a random
  * value between 1 and 6.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class MainActivity : AppCompatActivity() {
 
     lateinit var diceImage : ImageView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Timber.i("onCreate called")
         setContentView(R.layout.activity_main)
 
         // Get the Button view from the layout and assign a click
@@ -44,15 +45,45 @@ class MainActivity : AppCompatActivity() {
         diceImage = findViewById(R.id.dice_image)
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        Timber.i("onStart Called")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Timber.i("onResume Called")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Timber.i("onPause Called")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Timber.i("onStop Called")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Timber.i("onDestroy Called")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Timber.i("onRestart Called")
+    }
+
     /**
      * Click listener for the Roll button.
      */
     private fun rollDice() {
         // Toast.makeText(this, "button clicked",
         //  Toast.LENGTH_SHORT).show()
-        val randomInt = Random().nextInt(6) + 1
 
-        val drawableResource = when (randomInt) {
+        val drawableResource = when (Random().nextInt(6) + 1) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
