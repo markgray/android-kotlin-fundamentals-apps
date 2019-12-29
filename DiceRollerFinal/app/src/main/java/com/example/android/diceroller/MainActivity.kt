@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity
 import timber.log.Timber
 import java.util.*
 
+const val SAVED_DICE_VALUE = "SAVED_DICE_VALUE"
+
 /**
  * DiceRoller demonstrates simple interactivity in an Android app.
  * It contains one button that updates a text view with a random
@@ -32,6 +34,7 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
 
     lateinit var diceImage : ImageView
+    var diceValue: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +46,24 @@ class MainActivity : AppCompatActivity() {
         val rollButton: Button = findViewById(R.id.roll_button)
         rollButton.setOnClickListener { rollDice() }
         diceImage = findViewById(R.id.dice_image)
+        if (savedInstanceState != null) {
+            diceValue = savedInstanceState.getInt(SAVED_DICE_VALUE, 6)
+            val drawableResource = when (diceValue) {
+                1 -> R.drawable.dice_1
+                2 -> R.drawable.dice_2
+                3 -> R.drawable.dice_3
+                4 -> R.drawable.dice_4
+                5 -> R.drawable.dice_5
+                else -> R.drawable.dice_6
+            }
+            diceImage.setImageResource(drawableResource)
+        }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Timber.i("onSaveInstanceState Called")
+        outState.putInt(SAVED_DICE_VALUE, diceValue)
     }
 
     override fun onStart() {
@@ -83,7 +104,8 @@ class MainActivity : AppCompatActivity() {
         // Toast.makeText(this, "button clicked",
         //  Toast.LENGTH_SHORT).show()
 
-        val drawableResource = when (Random().nextInt(6) + 1) {
+        diceValue = Random().nextInt(6) + 1
+        val drawableResource = when (diceValue) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
