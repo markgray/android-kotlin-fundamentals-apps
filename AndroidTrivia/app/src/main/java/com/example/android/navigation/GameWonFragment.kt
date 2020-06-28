@@ -58,7 +58,7 @@ class GameWonFragment : Fragment() {
     }
 
     // Showing the Share Menu Item Dynamically
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.winner_menu, menu)
         // check if the activity resolves
@@ -69,7 +69,7 @@ class GameWonFragment : Fragment() {
     }
 
     // Sharing from the Menu
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item!!.itemId) {
             R.id.share -> shareSuccess()
         }
