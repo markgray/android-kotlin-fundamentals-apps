@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.os.Bundle
@@ -56,7 +58,7 @@ class SleepTrackerFragment : Fragment() {
                 ViewModelProviders.of(
                         this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
         binding.sleepTrackerViewModel = sleepTrackerViewModel
 
