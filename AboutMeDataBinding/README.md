@@ -1,7 +1,11 @@
 Data binding basics - Solution Code
 ==================================
 
-Solution code for the Data binding basics codelab.
+Solution code for the Data binding basics codelab:
+
+Android Kotlin Fundamentals 02.4: Data-binding basics
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-data-binding-basics/#0]
 
 Introduction
 ------------

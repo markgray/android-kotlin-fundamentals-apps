@@ -20,11 +20,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
- *     * LinearLayout with TextViews, ImageView, and ScrollView
- *     * ScrollView to display scrollable text
+ *  * LinearLayout with TextViews, ImageView, and ScrollView
+ *  * ScrollView to display scrollable text
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting. We just set our content view to our layout file
+     * [R.layout.activity_main].
+     *
+     * @param savedInstanceState we do not implement [onSaveInstanceState], so do not use
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)

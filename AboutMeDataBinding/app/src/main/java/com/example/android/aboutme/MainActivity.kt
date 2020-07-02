@@ -27,20 +27,38 @@ import com.example.android.aboutme.databinding.ActivityMainBinding
 
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
- *     * LinearLayout with TextViews, ImageView, Button, EditText, and ScrollView
- *     * ScrollView to display scrollable text
- *     * Getting user input with an EditText.
- *     * Click handler for a Button to retrieve text from an EditText and set it in a TextView.
- *     * Setting the visibility status of a view.
- *     * Data binding between MainActivity and activity_main.xml. How to remove findViewById,
- *       and how to display data in views using the data binding object.
+ *  * LinearLayout with TextViews, ImageView, Button, EditText, and ScrollView
+ *  * ScrollView to display scrollable text
+ *  * Getting user input with an EditText.
+ *  * Click handler for a Button to retrieve text from an EditText and set it in a TextView.
+ *  * Setting the visibility status of a view.
+ *  * Data binding between MainActivity and activity_main.xml. How to remove findViewById,
+ *  and how to display data in views using the data binding object.
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Binding handle associated with the inflated content view of our layout file (resource ID
+     * [R.layout.activity_main] which we can use to reference views in it.
+     */
     private lateinit var binding: ActivityMainBinding
 
+    /**
+     * Our instance of the data class [MyName], which holds both "name" and "nickname".
+     */
     private val myName: MyName = MyName("Aleks Haecky")
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
+     * We then initialize our [ActivityMainBinding] field [binding] to the binding associated with
+     * our content view which the [DataBindingUtil.setContentView] method creates when it inflates
+     * our layout file `layout/activity_main.xml` We then use [binding] to set the `myName` variable
+     * of our UI to our [MyName] field [myName], and to set the `OnClickListener` of the
+     * `doneButton` in our UI to a lambda which calls our [addNickname] method with the [View] that
+     * was clicked (the `doneButton` itself of course).
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
@@ -54,9 +72,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Click handler for the Done button.
-     * Demonstrates how data binding can be used to make code much more readable
-     * by eliminating calls to findViewById and changing data in the binding object.
+     * Click handler for the Done button. Demonstrates how data binding can be used to make code
+     * much more readable by eliminating calls to findViewById and changing data in the binding
+     * object. We use the `apply` extension function of our [ActivityMainBinding] field [binding]
+     * to set the `nickname` field of its `myName` variable to the text contents of the
+     * `nicknameEdit` `EditText` in the UI, call its `invalidateAll` method to invalidate all
+     * of its binding expressions and request a new rebind to refresh the UI, set the visibility
+     * of the `nicknameEdit` `EditText` to GONE, the visibility of the `doneButton` `Button` to
+     * GONE, and the visibility of the `nicknameText` `TextView` to `VISIBLE`.
+     *
+     * We then initialize our [InputMethodManager] variable `val imm` with a handle to an instance
+     * to use to access input methods, then call its `hideSoftInputFromWindow` method with a token
+     * of our [View] parameter [view] to hide the soft input window (the keyboard that popped up
+     * when the user clicked the `nicknameEdit` `EditText` to begin entering text into it).
+     *
+     * @param view [View] that was clicked (always the `doneButton` `Button` in our case).
      */
     private fun addNickname(view: View) {
         binding. apply {

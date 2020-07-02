@@ -3,6 +3,10 @@ AboutMe - Solution Code
 
 Solution code for the Linear Layout using Layout Editor codelab.
 
+Android Kotlin Fundamentals 02.1: Linear layout using the Layout Editor
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-linear-layout/#0]
+
 Introduction
 ------------
 The AboutMe app demonstrates how to work with LinearLayout

@@ -16,6 +16,8 @@
 
 package com.example.android.aboutme
 
-
+/**
+ * Data class which holds our name and nickname
+ */
 data class MyName(var name: String = "", var nickname: String = "")
 
