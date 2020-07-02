@@ -27,10 +27,10 @@ import android.widget.TextView
 
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
- *     * Getting user input with an EditText.
- *     * Click handler for a Button to retrieve text from an EditText and set it in a TextView.
- *     * Setting a click handler on a TextView.
- *     * Setting the visibility status of a view.
+ *  * Getting user input with an EditText.
+ *  * Click handler for a Button to retrieve text from an EditText and set it in a TextView.
+ *  * Setting a click handler on a TextView.
+ *  * Setting the visibility status of a view.
  */
 class MainActivity : AppCompatActivity() {
 

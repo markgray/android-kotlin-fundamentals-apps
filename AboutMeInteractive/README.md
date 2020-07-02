@@ -3,6 +3,10 @@ AboutMeInteractive - Solution Code
 
 Solution code for the Adding user Interactivity codelab.
 
+Android Kotlin Fundamentals 02.2: Add user interactivity
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-interactivity/#0]
+
 Introduction
 ------------
 AboutMeInteractive app adds user interactivity to the AboutMe app, from a previous codelab. This app consists of a field to enter a nickname, a DONE button and a text view to display the nickname. Once the user enters a nickname and tap the DONE button, the text view updates to show the entered nickname. The nickname can be updated by tapping the  text view.
