@@ -26,14 +26,32 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.databinding.FragmentGameBinding
 
+/**
+ * This [Fragment] handles the UI for playing the AndroidTrivia game.
+ */
 class GameFragment : Fragment() {
+    /**
+     * This Data class holds a question to ask the user in its [text] field, and a list of possible
+     * answers in its [answers] field.
+     */
     data class Question(
+            /**
+             * The question we are asking the user.
+             */
             val text: String,
-            val answers: List<String>)
+            /**
+             * The list of possible answers to the question in our [text] field. The first answer
+             * in the list is the correct one.
+             */
+            val answers: List<String>
+    )
 
-    // The first answer is the correct one.  We randomize the answers before showing the text.
-    // All questions must have four answers.  We'd want these to contain references to string
-    // resources so we could internationalize. (Or better yet, don't define the questions in code...)
+    /**
+     * Our list of [Question] questions. The first answer in the `answers` field of every [Question]
+     * is the correct one. We randomize the answers before showing the text. All questions must have
+     * four answers. We'd want these to contain references to string resources so we could
+     * internationalize. (Or better yet, don't define the questions in code...)
+     */
     private val questions: MutableList<Question> = mutableListOf(
             Question(text = "What is Android Jetpack?",
                     answers = listOf("All of these", "Tools", "Documentation", "Libraries")),
@@ -57,12 +75,17 @@ class GameFragment : Fragment() {
                     answers = listOf("<layout>", "<binding>", "<data-binding>", "<dbinding>"))
     )
 
-
-
+    /**
+     * The current question that we are asking. It is used to set the text of the `questionText`
+     * TextView in our layout file using a android:text="@{game.currentQuestion.text}" Layout
+     * expression as well as in our fragment's code when we determine if the user answered the
+     * question correctly (which occurs in the `OnClickListener` lamda of the `submitButton`
+     * Button in our layout).
+     */
     lateinit var currentQuestion: Question
     lateinit var answers: MutableList<String>
     private var questionIndex = 0
-    private val numQuestions = Math.min((questions.size + 1) / 2, 3)
+    private val numQuestions = ((questions.size + 1) / 2).coerceAtMost(3)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

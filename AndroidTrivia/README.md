@@ -4,6 +4,10 @@ AndroidTrivia - final solution code
 This app is the solution code for Android Kotlin Fundamentals codelab 3.3:
 Invoke an external activity.
 
+Android Kotlin Fundamentals 03.3: Start an external activity
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-start-external-activity/index.html#0]
+
 Introduction
 ------------
  
