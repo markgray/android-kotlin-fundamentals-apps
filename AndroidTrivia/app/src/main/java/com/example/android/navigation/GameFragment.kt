@@ -83,16 +83,60 @@ class GameFragment : Fragment() {
      * Button in our layout).
      */
     lateinit var currentQuestion: Question
+
+    /**
+     * The shuffled `answers` list field of the [Question] field [currentQuestion]. They are each
+     * displayed using android:text="@{game.answers}" Layout expressions in the attributes of
+     * their respective `RadioButton` widgets in our layout file as in our fragment's code when we
+     * determine if the user answered the question correctly.
+     */
     lateinit var answers: MutableList<String>
+
+    /**
+     * Index into our [questions] field which we use to choose the next [currentQuestion]
+     */
     private var questionIndex = 0
+
+    /**
+     * The number of questions we ask in each round of the game (at most 3).
+     */
     private val numQuestions = ((questions.size + 1) / 2).coerceAtMost(3)
 
+    /**
+     * Called to have the fragment instantiate its user interface view. This will be called between
+     * [onCreate] and [onActivityCreated]. It is recommended to only inflate the layout in this
+     * method and move logic that operates on the returned View to [onViewCreated].
+     *
+     * We initialize our [FragmentGameBinding] binding variable `val binding` by having the method
+     * [DataBindingUtil.inflate] use our [LayoutInflater] parameter [inflater] to inflate our binding
+     * layout file (resource ID [R.layout.fragment_game]), with its LayoutParams generated from our
+     * [ViewGroup] parameter [container] without attaching to it. Then we call our method
+     * [randomizeQuestions] to have it shuffle the questions and set the question index to the first
+     * question. We set the `game` variable in our `binding` to our layout to `this`. We set the
+     * `OnClickListener` of the `submitButton` in `binding` to a lambda
+     *
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here. We do not call [onSaveInstanceState]
+     * so do not use.
+     *
+     * @return Return the View for the fragment's UI, or null.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
         val binding = DataBindingUtil.inflate<FragmentGameBinding>(
-                inflater, R.layout.fragment_game, container, false)
+                inflater,
+                R.layout.fragment_game,
+                container,
+                false
+        )
 
         // Shuffles the questions and sets the question index to the first question.
         randomizeQuestions()
@@ -101,8 +145,7 @@ class GameFragment : Fragment() {
         binding.game = this
 
         // Set the onClickListener for the submitButton
-        binding.submitButton.setOnClickListener @Suppress("UNUSED_ANONYMOUS_PARAMETER")
-        { view: View ->
+        binding.submitButton.setOnClickListener { view: View ->
             val checkedId = binding.questionRadioGroup.checkedRadioButtonId
             // Do nothing if nothing is checked (id == -1)
             if (-1 != checkedId) {
