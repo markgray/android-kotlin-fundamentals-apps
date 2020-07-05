@@ -113,8 +113,27 @@ class GameFragment : Fragment() {
      * [ViewGroup] parameter [container] without attaching to it. Then we call our method
      * [randomizeQuestions] to have it shuffle the questions and set the question index to the first
      * question. We set the `game` variable in our `binding` to our layout to `this`. We set the
-     * `OnClickListener` of the `submitButton` in `binding` to a lambda
+     * `OnClickListener` of the `submitButton` in `binding` to a lambda which retrieves the ID of
+     * the checked radio button in the `questionRadioGroup` radio group of `binding` to set the
+     * variable `val checkedId` and if it is not equal to -1 uses a `when` block to set the
+     * variable `var answerIndex` to 0, 1, 2, or 3 depending on which radio button was checked, then
+     * branches on whether the `answerIndex` entry in [answers] is equal to the 0'th entry in
+     * the `answers` field of the [currentQuestion] (the first answer in the original question is
+     * always the correct one):
      *
+     *  - Answer is correct: it increments [questionIndex] and if [questionIndex] is less than the
+     *  number of questions in [numQuestions] sets [currentQuestion] to the [questionIndex] entry
+     *  in [questions], calls our [setQuestion] method to set the question and randomize the answers
+     *  then calls the `invalidateAll` method of [FragmentGameBinding] `binding` to our layout to
+     *  have it invalidate all binding expressions and request a new rebind to refresh UI with the
+     *  updated [currentQuestion] values. If [questionIndex] is not less than [numQuestions] the
+     *  user has won the game so we Navigate to the GameWonFragment passing [numQuestions], and
+     *  [questionIndex] as its safe arguments.
+     *
+     *  - Answer is incorrect: it navigates to the GameOverFragment.
+     *
+     * Finally we return the `root` property of `binding` (the outermost [View] in the layout file
+     * associated with the Binding) to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment,
@@ -168,7 +187,11 @@ class GameFragment : Fragment() {
                         // We've won!  Navigate to the gameWonFragment.
                         view.findNavController()
                                 .navigate(GameFragmentDirections
-                                        .actionGameFragmentToGameWonFragment(numQuestions, questionIndex))
+                                        .actionGameFragmentToGameWonFragment(
+                                                numQuestions,
+                                                questionIndex
+                                        )
+                                )
                     }
                 } else {
                     // Game over! A wrong answer sends us to the gameOverFragment.
@@ -180,21 +203,36 @@ class GameFragment : Fragment() {
         return binding.root
     }
 
-    // randomize the questions and set the first question
+    /**
+     * Randomize the questions and set the first question. It does this by shuffling the list of
+     * [Question] objects in [questions], setting the index into that list ([questionIndex]) to 0
+     * and then calling our [setQuestion] method.
+     */
     private fun randomizeQuestions() {
         questions.shuffle()
         questionIndex = 0
         setQuestion()
     }
 
-    // Sets the question and randomizes the answers.  This only changes the data, not the UI.
-    // Calling invalidateAll on the FragmentGameBinding updates the data.
+    /**
+     * Sets the question and randomizes the answers. This only changes the data, not the UI.
+     * Calling invalidateAll on the [FragmentGameBinding] updates the display of the data in
+     * the UI. We set the current question [currentQuestion] to the [questionIndex] entry in
+     * [questions], set [answers] to a copy of the [answers] field of [currentQuestion], and
+     * then shuffle [answers]. Finally we set the title of our action bar to a formatted string
+     * displaying the current question number and the total number of questions to be asked.
+     */
     private fun setQuestion() {
         currentQuestion = questions[questionIndex]
         // randomize the answers into a copy of the array
         answers = currentQuestion.answers.toMutableList()
         // and shuffle them
         answers.shuffle()
-        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.title_android_trivia_question, questionIndex + 1, numQuestions)
+        (activity as AppCompatActivity).supportActionBar?.title =
+                getString(
+                        R.string.title_android_trivia_question,
+                        questionIndex + 1,
+                        numQuestions
+                )
     }
 }
