@@ -2,8 +2,11 @@ AndroidTriviaFragment - solution code
 =====================================
 
 This app is the solution code for Android Kotlin Fundamentals codelab 3.1:
-Create and add a fragment. The app is also the starter code for Android Kotlin
-Fundamentals codelab 3.2: Define navigation paths.
+Create and add a fragment.
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-create-and-add-fragment/#0]
+ 
+The app is also the starter code for Android Kotlin Fundamentals codelab 3.2: Define navigation paths.
 
 Introduction
 ------------
