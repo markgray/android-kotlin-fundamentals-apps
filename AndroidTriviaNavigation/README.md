@@ -1,9 +1,11 @@
 AndroidTriviaNavigation - solution code
 =======================================
 
-This app is the solution code for Android Kotlin Fundamentals codelab 3.2:
-Define navigation paths. The app is also the starter code for Android Kotlin
-Fundamentals codelab 3.3: Invoke an external activity.
+This app is the solution code for Android Kotlin Fundamentals codelab 3.2: Define navigation paths.
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-add-navigation/#0]
+ 
+The app is also the starter code for Android Kotlin Fundamentals codelab 3.3: Invoke an external activity.
 
 Introduction
 ------------
