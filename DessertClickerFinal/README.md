@@ -3,6 +3,8 @@ DessertClickerFinal - Solution Code
 
 Solution code for Android Kotlin Fundamentals Codelab 4.2 Managing complex lifecycle situations.
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-complex-lifecycle/#0]
+
 Introduction
 ------------
 

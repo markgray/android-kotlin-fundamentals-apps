@@ -18,7 +18,6 @@ package com.example.android.dessertclicker
 
 import android.content.ActivityNotFoundException
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.Toast
@@ -29,17 +28,47 @@ import com.example.android.dessertclicker.databinding.ActivityMainBinding
 import timber.log.Timber
 
 /** onSaveInstanceState Bundle Keys **/
+/**
+ * Key under which we store our `revenue` field in the bundle passed to our
+ * `onSaveInstanceState` override.
+ */
 const val KEY_REVENUE = "revenue_key"
+
+/**
+ * Key under which we store our `dessertsSold` field in the bundle passed to our
+ * `onSaveInstanceState` override.
+ */
 const val KEY_DESSERT_SOLD = "dessert_sold_key"
+
+/**
+ * Key under which we store the `secondsCount` field of our `dessertTimer` timer instance
+ * in the bundle passed to our `onSaveInstanceState` override.
+ */
 const val KEY_TIMER_SECONDS = "timer_seconds_key"
 
+/**
+ * This is the main activity of our DessertClicker app.
+ */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Running total of the price of all desserts sold so far.
+     */
     private var revenue = 0
-    private var dessertsSold = 0
-    private lateinit var dessertTimer : DessertTimer;
 
-    // Contains all the views
+    /**
+     * Total number of desserts sold so far.
+     */
+    private var dessertsSold = 0
+
+    /**
+     * Handle to our [DessertTimer] instance.
+     */
+    private lateinit var dessertTimer : DessertTimer
+
+    /**
+     * Contains binding links to all the views in our layout file which have ID's
+     */
     private lateinit var binding: ActivityMainBinding
 
     /** Dessert Data **/
@@ -51,7 +80,9 @@ class MainActivity : AppCompatActivity() {
      */
     data class Dessert(val imageId: Int, val price: Int, val startProductionAmount: Int)
 
-    // Create a list of all desserts, in order of when they start being produced
+    /**
+     * Create a list of all desserts, in order of when they start being produced
+     */
     private val allDesserts = listOf(
             Dessert(R.drawable.cupcake, 5, 0),
             Dessert(R.drawable.donut, 10, 5),
@@ -67,8 +98,21 @@ class MainActivity : AppCompatActivity() {
             Dessert(R.drawable.nougat, 5000, 16000),
             Dessert(R.drawable.oreo, 6000, 20000)
     )
+
+    /**
+     * The current [Dessert] we are selling (and displaying in our UI).
+     */
     private var currentDessert = allDesserts[0]
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * and then we log the fact that we were called. We initialize our [ActivityMainBinding] field
+     * [binding] to the binding to the view that the [DataBindingUtil.setContentView] creates when
+     * it inflates our layout file [R.layout.activity_main] and sets the view to be our content view.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being shut
+     * down then this [Bundle] contains the data it most recently supplied in [onSaveInstanceState].
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
