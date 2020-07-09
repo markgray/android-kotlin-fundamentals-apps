@@ -3,6 +3,8 @@ DessertClickerLogs - Solution Code
 
 Solution code for Android Kotlin Fundamentals Codelab 4.1: Lifecycles and logging.
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-lifecycles-logging/#0]
+
 Introduction
 ------------
 
