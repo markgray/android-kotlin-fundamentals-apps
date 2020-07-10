@@ -1,7 +1,9 @@
 DevByteRepository - Solution Code
 ==================================
 
-Solution code for the Repository codelab.
+Solution code for Android Kotlin Fundamentals 09.1: Repository
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-repository/#0]
 
 Introduction
 ------------

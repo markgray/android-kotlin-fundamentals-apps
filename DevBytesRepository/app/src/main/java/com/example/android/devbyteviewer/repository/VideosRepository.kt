@@ -32,7 +32,8 @@ import timber.log.Timber
  */
 class VideosRepository(private val database: VideosDatabase) {
 
-    val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()) {
+    val videos: LiveData<List<DevByteVideo>>
+            = Transformations.map(database.videoDao.getVideos()) {
         it.asDomainModel()
     }
 
@@ -46,7 +47,7 @@ class VideosRepository(private val database: VideosDatabase) {
      */
     suspend fun refreshVideos() {
         withContext(Dispatchers.IO) {
-            Timber.d("refresh videos is called");
+            Timber.d("refresh videos is called")
             val playlist = DevByteNetwork.devbytes.getPlaylist().await()
             database.videoDao.insertAll(playlist.asDatabaseModel())
         }

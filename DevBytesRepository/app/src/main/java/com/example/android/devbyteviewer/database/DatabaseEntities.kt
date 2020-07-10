@@ -20,15 +20,20 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.android.devbyteviewer.domain.DevByteVideo
 
-
 /**
- * Database entities go in this file. These are responsible for reading and writing from the
- * database.
+ * Database entities go in this file. These define the SQLite tables in the database, and they
+ * are read or written to using the DAO Data Access Object `VideoDao` defined in `Room.kt`,
  */
 
 
 /**
  * DatabaseVideo represents a video entity in the database.
+ *
+ * @param url the YouTube Url for the video.
+ * @param updated the date that the video was last updated
+ * @param title the title of the video
+ * @param description the description of the video
+ * @param thumbnail the Url for the app:imageUrl attribute of the `ImageView`
  */
 @Entity
 data class DatabaseVideo constructor(
@@ -41,7 +46,9 @@ data class DatabaseVideo constructor(
 
 
 /**
- * Map DatabaseVideos to domain entities
+ * Map `DatabaseVideos` to `DevByteVideo` domain entities. Extension function that converts a list
+ * of `DatabaseVideo` objects read from our database to a list of `DevByteVideo` objects containing
+ * the exact same information but in a form usable by our `DevByteViewModel` for display to the user.
  */
 fun List<DatabaseVideo>.asDomainModel(): List<DevByteVideo> {
         return map {

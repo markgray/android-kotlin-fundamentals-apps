@@ -20,11 +20,32 @@ import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.room.*
 
+/**
+ * The Data Access Object we use to read and write to our Room database.
+ */
 @Dao
 interface VideoDao {
+    /**
+     * Query method for reading all of the `DatabaseVideo` entries in our "databasevideo" table into
+     * a [LiveData] of a `List` of `DatabaseVideo`. It is used by the initializer of the `videos`
+     * field of `VideosRepository` where it is mapped from a `LiveData<List<DatabaseVideo>>` to
+     * a `LiveData<List<DevByteVideo>>` using the `Transformations.map` function and the
+     * `asDomainModel` extension of `List<DatabaseVideo>`.
+     *
+     * @return a [LiveData] list of all of the [DatabaseVideo] objects in our database
+     */
     @Query("select * from databasevideo")
     fun getVideos(): LiveData<List<DatabaseVideo>>
 
+    /**
+     * Insert method for inserting a List of [DatabaseVideo] entities into our database, it uses
+     * the [OnConflictStrategy.REPLACE] strategy to replace the old data if there is a conflict.
+     * It is used by the `refreshVideos` method of `VideosRepository` to write a list of
+     * `NetworkVideo` objects encapsulated in a `NetworkVideoContainer` to our database after it
+     * converts the objects to `DatabaseVideo` entities.
+     *
+     * @param videos the `List` of [DatabaseVideo] objects we are to write to our database.
+     */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertAll( videos: List<DatabaseVideo>)
 }
