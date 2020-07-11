@@ -50,15 +50,32 @@ interface VideoDao {
     fun insertAll( videos: List<DatabaseVideo>)
 }
 
-
-
+/**
+ * Marks this class as a [RoomDatabase] with one table: [DatabaseVideo] and one DAO class to use to
+ * access it, the [VideoDao] field [videoDao].
+ */
 @Database(entities = [DatabaseVideo::class], version = 1)
 abstract class VideosDatabase: RoomDatabase() {
     abstract val videoDao: VideoDao
 }
 
+/**
+ * Our cached [VideosDatabase] singleton instance, which is lazily built the first time our factory
+ * method [getDatabase] is called.
+ */
 private lateinit var INSTANCE: VideosDatabase
 
+/**
+ * Factory method to retrieve a singleton instance of [VideosDatabase] which is only built the first
+ * time we are called. Synchronized on a Java Class instance corresponding to our [VideosDatabase]
+ * KClass, we check if our lateinit field [INSTANCE] has not yet been initialized and if so we
+ * initialize it to the [VideosDatabase] that a [Room.databaseBuilder] instance creates and
+ * initializes whose name is "videos". Now that we know [INSTANCE] is initialized we return it to
+ * the caller.
+ *
+ * @param context the [Context] of the application.
+ * @return our singleton instance of [VideosDatabase]
+ */
 fun getDatabase(context: Context): VideosDatabase {
     synchronized(VideosDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {

@@ -22,12 +22,19 @@ import com.example.android.devbyteviewer.util.smartTruncate
  * Domain objects are plain Kotlin data classes that represent the things in our app. These are the
  * objects that should be displayed on screen, or manipulated by the app.
  *
- * see database package for objects that are mapped to the database
- * see network package for objects that parse or prepare network calls
+ * See database package for objects that are mapped to the database
+ *
+ * See network package for objects that parse or prepare network calls
  */
 
 /**
- * Videos represent a devbyte that can be played.
+ * [DevByteVideo] objects represent a devbyte video that can be played.
+ *
+ * @param title the title of the video
+ * @param description the description of the video
+ * @param url the YouTube Url for the video.
+ * @param updated the date that the video was last updated
+ * @param thumbnail the Url for the app:imageUrl attribute of the `ImageView`
  */
 data class DevByteVideo(val title: String,
                         val description: String,
@@ -36,7 +43,9 @@ data class DevByteVideo(val title: String,
                         val thumbnail: String) {
 
     /**
-     * Short description is used for displaying truncated descriptions in the UI
+     * Short description is used for displaying truncated descriptions in the UI. We return the
+     * [String] returned by the `smartTruncate` extension function when it truncates our
+     * [description] property to 200 characters.
      */
     val shortDescription: String
         get() = description.smartTruncate(200)
