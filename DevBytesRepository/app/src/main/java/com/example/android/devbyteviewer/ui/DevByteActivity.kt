@@ -27,8 +27,11 @@ import com.example.android.devbyteviewer.R
 class DevByteActivity : AppCompatActivity() {
 
     /**
-     * Called when the activity is starting.  This is where most initialization
-     * should go
+     * Called when the activity is starting. This is where most initialization should go. First we
+     * call our super's implementation of `onCreate`, then we set our content view to our layout
+     * file [R.layout.activity_dev_byte_viewer].
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
