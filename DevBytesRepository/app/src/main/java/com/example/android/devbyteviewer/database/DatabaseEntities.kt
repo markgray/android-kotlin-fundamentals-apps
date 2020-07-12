@@ -33,7 +33,7 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
  * @param updated the date that the video was last updated
  * @param title the title of the video
  * @param description the description of the video
- * @param thumbnail the Url for the app:imageUrl attribute of the `ImageView`
+ * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView`
  */
 @Entity
 data class DatabaseVideo constructor(

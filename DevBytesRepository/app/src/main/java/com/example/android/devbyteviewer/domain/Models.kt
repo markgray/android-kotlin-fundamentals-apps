@@ -34,7 +34,8 @@ import com.example.android.devbyteviewer.util.smartTruncate
  * @param description the description of the video
  * @param url the YouTube Url for the video.
  * @param updated the date that the video was last updated
- * @param thumbnail the Url for the app:imageUrl attribute of the `ImageView`
+ * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView` in the
+ * layout file devbyte_item.xml, the adapter is used to display images from URL using Glide.
  */
 data class DevByteVideo(val title: String,
                         val description: String,

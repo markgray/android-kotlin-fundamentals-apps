@@ -52,7 +52,7 @@ data class NetworkVideoContainer(val videos: List<NetworkVideo>)
  * @param description the description of the video
  * @param url the YouTube Url for the video.
  * @param updated the date that the video was last updated
- * @param thumbnail the Url for the app:imageUrl attribute of the `ImageView`
+ * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView`
  * @param closedCaptions always `null` in our case (could be Url for closed captions?)
  */
 @JsonClass(generateAdapter = true)
