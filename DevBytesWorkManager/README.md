@@ -1,7 +1,9 @@
 DevByteWorkManager - Solution Code
 ==================================
 
-Solution code for the WorkManager codelab.
+Solution code for the Android Kotlin Fundamentals 09.2: WorkManager codelab.
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-work-manager/#0]
 
 Introduction
 ------------
