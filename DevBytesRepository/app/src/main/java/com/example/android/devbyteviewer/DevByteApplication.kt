@@ -26,10 +26,13 @@ import timber.log.Timber
 class DevByteApplication : Application() {
 
     /**
-     * onCreate is called before the first screen is shown to the user.
+     * [onCreate] is called before the first screen is shown to the user.
      *
      * Use it to setup any background tasks, running expensive setup operations in a background
      * thread to avoid delaying app start.
+     *
+     * First we call our super's implementation of `onCreate`, then we call the [Timber.plant] method
+     * to add a new logging tree for debug builds to [Timber].
      */
     override fun onCreate() {
         super.onCreate()
