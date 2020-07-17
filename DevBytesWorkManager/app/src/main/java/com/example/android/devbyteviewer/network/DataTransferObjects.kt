@@ -25,7 +25,7 @@ import com.squareup.moshi.JsonClass
  * or formatting objects to send to the server. You should convert these to domain objects before
  * using them.
  *
- * @see domain package for
+ * See domain package for the plain Kotlin data classes that represent the things in our app.
  */
 
 /**
@@ -33,15 +33,27 @@ import com.squareup.moshi.JsonClass
  *
  * This is to parse first level of our network result which looks like
  *
- * {
- *   "videos": []
- * }
+ *     {
+ *       "videos": []
+ *     }
+ *
+ * The JsonClass(generateAdapter = true) annotation triggers the annotation processor to generate
+ * an adapter for this type.
+ *
+ * @param videos list of [NetworkVideo] objects, each one representing a devbyte that can be played.
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideoContainer(val videos: List<NetworkVideo>)
 
 /**
  * Videos represent a devbyte that can be played.
+ *
+ * @param title the title of the video
+ * @param description the description of the video
+ * @param url the YouTube Url for the video.
+ * @param updated the date that the video was last updated
+ * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView`
+ * @param closedCaptions always `null` in our case (could be Url for closed captions?)
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
@@ -53,7 +65,11 @@ data class NetworkVideo(
         val closedCaptions: String?)
 
 /**
- * Convert Network results to database objects
+ * Convert Network results to domain objects. This extension function converts its receiver's
+ * `videos` list of [NetworkVideo] objects to a list of [DevByteVideo] domain objects.
+ *
+ * @return a list of [DevByteVideo] domain objects containing all the information in the receiver's
+ * `videos` list of [NetworkVideo] objects
  */
 fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
@@ -68,7 +84,11 @@ fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
 
 
 /**
- * Convert Network results to database objects
+ * Convert Network results to database objects. This extension function converts its receiver's
+ * `videos` list of [NetworkVideo] objects to a list of [DatabaseVideo] database objects.
+ *
+ * @return a list of [DatabaseVideo] database objects containing all the information in the
+ * receiver's `videos` list of [NetworkVideo] objects
  */
 fun NetworkVideoContainer.asDatabaseModel(): List<DatabaseVideo> {
     return videos.map {
