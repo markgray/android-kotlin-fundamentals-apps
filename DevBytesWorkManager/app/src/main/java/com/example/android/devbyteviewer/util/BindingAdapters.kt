@@ -22,7 +22,18 @@ import androidx.databinding.BindingAdapter
 import com.bumptech.glide.Glide
 
 /**
- * Binding adapter used to hide the spinner once data is available.
+ * Binding adapter used to hide the spinner once data is available, it is called when both the
+ * "app:isNetworkError" and the "app:playlist" attributes are used on a View, which they are in the
+ * layout file layout/fragment_dev_byte.xml for the progress bar with ID R.id.loading_spinner.
+ * (Note: if either attribute can be omitted use the annotation argument "requireAll = false")
+ *
+ * If our [playlist] parameter is not `null` we set the visibility of our [View] parameter [view]
+ * to [View.GONE], otherwise we set it to [View.VISIBLE]. If our [Boolean] parameter [isNetWorkError]
+ * is `true` set the visibility of [view] to [View.GONE].
+ *
+ * @param view the [View] on which "app:isNetworkError" and the "app:playlist" attributes are used
+ * @param isNetWorkError the value of the "app:isNetworkError" attribute
+ * @param playlist the value of the "app:playlist" attribute
  */
 @BindingAdapter("isNetworkError", "playlist")
 fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
@@ -34,7 +45,19 @@ fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
 }
 
 /**
- * Binding adapter used to display images from URL using Glide
+ * Binding adapter used to display images from URL using Glide, it is called when the "app:imageUrl"
+ * attribute is used on a [ImageView], which it is for the [ImageView] with ID R.id.video_thumbnail
+ * in the layout file layout/devbyte_item.xml (which is used for items in the `RecyclerView` with
+ * ID R.id.recycler_view in the layout file layout/fragment_dev_byte.xml).
+ *
+ * We use the [Glide.with] method to begin a load with Glide by passing in the context of our
+ * [ImageView] parameter [imageView] and use the `RequestManager` for the top level application
+ * that it returns to call its `load` method to obtain a request builder for loading a `Drawable`
+ * from our URL parameter [url], and to use the `into` method of the builder to load the resource
+ * into our [ImageView] parameter [imageView].
+ *
+ * @param imageView the [ImageView] we are to load the image into.
+ * @param url the network Url for the image we are to download.
  */
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {

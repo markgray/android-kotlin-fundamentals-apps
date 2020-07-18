@@ -27,7 +27,7 @@ import androidx.annotation.LayoutRes
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.android.devbyteviewer.R
@@ -50,7 +50,7 @@ class DevByteFragment : Fragment() {
         val activity = requireNotNull(this.activity) {
             "You can only access the viewModel after onActivityCreated()"
         }
-        ViewModelProviders.of(this, DevByteViewModel.Factory(activity.application))
+        ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
                 .get(DevByteViewModel::class.java)
     }
 
@@ -60,10 +60,18 @@ class DevByteFragment : Fragment() {
     private var viewModelAdapter: DevByteAdapter? = null
 
     /**
-     * Called when the fragment's activity has been created and this
-     * fragment's view hierarchy instantiated.  It can be used to do final
-     * initialization once these pieces are in place, such as retrieving
-     * views or restoring state.
+     * Called when the fragment's activity has been created and this fragment's view hierarchy
+     * instantiated. It can be used to do final initialization once these pieces are in place,
+     * such as retrieving views or restoring state.
+     *
+     * First we call our super's implementation of `onActivityCreated`. Then we add a lambda as an
+     * [Observer] to the `playlist` property of our [DevByteViewModel] field `viewModel` using the
+     * `LifecycleOwner` that represents this Fragment's View as the `LifecycleOwner` which controls
+     * the observer. This lambda calls a function block which sets the `videos` property of our
+     * [DevByteAdapter] to the List of `DevByteVideo` contained in `playlist` whenever that `LiveData`
+     * property is updated.
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use
      */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -75,30 +83,56 @@ class DevByteFragment : Fragment() {
     }
 
     /**
-     * Called to have the fragment instantiate its user interface view.
+     * Called to have the fragment instantiate its user interface view. First we initialize our
+     * [FragmentDevByteBinding] variable `val binding` to the binding returned by the method
+     * [DataBindingUtil.inflate] when it uses our [LayoutInflater] parameter [inflater] to
+     * inflate our layout file [R.layout.fragment_dev_byte] using our [ViewGroup] parameter
+     * [container] for the `LayoutParams` without attaching to it. We set the `lifecycleOwner`
+     * property of `binding` to a LifecycleOwner that represents this Fragment's View lifecycle,
+     * and set the `viewModel` property of `binding` to our [DevByteViewModel] field [viewModel].
+     * We initialize our [DevByteAdapter] field [viewModelAdapter] constructed to use an
+     * instance of [VideoClick] to use as the click listener whose lambda block first tries to
+     * initialize a `PackageManager` variable `val packageManager` with a new instance and if it
+     * fails it discards the click. Then it initializes an [Intent] variable `var intent` with an
+     * direct intent to launch the YouTube app using the `launchUri` extension property of the
+     * [DevByteVideo] clicked to create the YouTube Uri. If `packageManager` is not able to
+     * resolve the YouTube `intent` (the app is not installed) we set `intent` to an ACTION_VIEW
+     * [Intent] for the parsed `url` property of the [DevByteVideo] clicked. Finally the lambda
+     * starts an activity to handle `intent`.
      *
-     * <p>If you return a View from here, you will later be called in
-     * {@link #onDestroyView} when the view is being released.
+     * Next we find the [RecyclerView] in the `root` view property of `binding` with ID
+     * [R.id.recycler_view] and set its `layoutManager` property to an instance of
+     * [LinearLayoutManager] and its `adapter` property to our [DevByteAdapter] field
+     * [viewModelAdapter]. We set an [Observer] for the `eventNetworkError` [Boolean] `LiveData`
+     * property of [viewModel] (event triggered for network error) whose lambda calls our
+     * [onNetworkError] method to display a Toast error message if `eventNetworkError` is `true`.
      *
-     * @param inflater The LayoutInflater object that can be used to inflate
-     * any views in the fragment,
+     * Finally we return the outermost View in the layout file associated with `binding` to the
+     * caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment
      * @param container If non-null, this is the parent view that the fragment's
-     * UI should be attached to.  The fragment should not add the view itself,
+     * UI will be attached to. The fragment should not add the view itself,
      * but this can be used to generate the LayoutParams of the view.
      * @param savedInstanceState If non-null, this fragment is being re-constructed
      * from a previous saved state as given here.
      *
-     * @return Return the View for the fragment's UI.
+     * @return Return the [View] for the fragment's UI.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
                 inflater,
                 R.layout.fragment_dev_byte,
                 container,
-                false)
+                false
+        )
         // Set the lifecycleOwner so DataBinding can observe LiveData
-        binding.setLifecycleOwner(viewLifecycleOwner)
+        binding.lifecycleOwner = viewLifecycleOwner
 
         binding.viewModel = viewModel
 
@@ -126,7 +160,7 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        viewModel.eventNetworkError.observe(this, Observer<Boolean> { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
 
@@ -169,6 +203,7 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
 /**
  * RecyclerView Adapter for setting up data binding on the items in the list.
  */
+@Suppress("MemberVisibilityCanBePrivate")
 class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     /**
