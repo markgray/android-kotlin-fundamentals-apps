@@ -46,7 +46,7 @@ class DevByteApplication : Application() {
      * thread to avoid delaying app start.
      *
      * First we call our super's implementation of `onCreate`, then we call our [delayedInit] method
-     * to add a new logging tree for debug builds to [Timber], and call our [setupRecurringWork]
+     * to add a new logging tree for debug builds to [Timber], and to call our [setupRecurringWork]
      * method to set up our [WorkManager] periodic refresh of our database from the network.
      */
     override fun onCreate() {
