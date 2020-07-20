@@ -4,6 +4,8 @@ Dice Roller - Challenge
 Solution code for the challenge app in Android Kotlin Fundamentals Codelab 1.2:
 Get Started
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-app-anatomy/#6]
+
 Introduction
 ------------
 
