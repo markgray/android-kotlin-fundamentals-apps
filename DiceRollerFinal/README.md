@@ -4,6 +4,8 @@ Dice Roller Final - Solution Code
 Solution code for Android Kotlin Fundamentals Codelab 1.3: Image resources
 and compatibility.
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-images-compat/#0]
+
 Introduction
 ------------
 
