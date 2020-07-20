@@ -3,6 +3,8 @@ Dice Roller - Solution Code
 
 Solution code for Android Kotlin Fundamentals Codelab 1.2: Get Started
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-app-anatomy/#0]
+
 Introduction
 ------------
 

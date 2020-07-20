@@ -16,12 +16,10 @@
 
 package com.example.android.diceroller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * DiceRoller demonstrates simple interactivity in an Android app.
@@ -30,6 +28,17 @@ import java.util.*
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * then we set our content view to our layout file [R.layout.activity_main]. We initialize our
+     * [Button] variable `val rollButton` by finding the view with ID [R.id.roll_button] and set its
+     * `OnClickListener` to a lambda which calls our [rollDice] method.
+     *
+     * @param savedInstanceState If the activity is being re-initialized after previously being
+     * shut down then this Bundle contains the data it most recently supplied in an override of
+     * [onSaveInstanceState] Otherwise it is null. We do not override [onSaveInstanceState] so
+     * do not use.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -41,7 +50,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Click listener for the Roll button.
+     * Click listener for the Roll button. We initialize our variable `val randomInt` to an [Int]
+     * from the [IntRange] 1 to 6. We initialize our [TextView] variable `val resultText` by
+     * finding the view with ID [R.id.result_text] and set its text to the [String] value of
+     * `randomInt`.
      */
     private fun rollDice() {
         // Toast.makeText(this, "button clicked",
