@@ -30,8 +30,8 @@ import kotlinx.coroutines.withContext
 class GdgChapterRepository(gdgApiService: GdgApiService) {
 
     /**
-     * A single network request, the results won't change. For this lesson we did not add an offline cache for simplicity
-     * and the result will be cached in memory.
+     * A single network request, the results won't change. For this lesson we did not add an offline
+     * cache for simplicity and the result will be cached in memory.
      */
     private val request = gdgApiService.getChapters()
 
@@ -53,8 +53,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      *
      * This will be cancel if a new location is sent before the result is available.
      *
-     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet started
-     * it will start a new sort (which may happen if location is disabled on the device)
+     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet
+     * started it will start a new sort (which may happen if location is disabled on the device)
      */
     suspend fun getChaptersForFilter(filter: String?): List<GdgChapter> {
         val data = sortedData()
@@ -69,8 +69,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      *
      * This will cancel if a new location is sent before the result is available.
      *
-     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet started
-     * it will start a new sort (which may happen if location is disabled on the device)
+     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet
+     * started it will start a new sort (which may happen if location is disabled on the device)
      */
     suspend fun getFilters(): List<String> = sortedData().filters
 
@@ -80,35 +80,41 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      * This will always cancel if the location changes while the sort is in progress.
      */
     private suspend fun sortedData(): SortedData = withContext(Dispatchers.Main) {
-        // We need to ensure we're on Dispatchers.Main so that this is not running on multiple Dispatchers and we
-        // modify the member inProgressSort.
-
-        // Since this was called from viewModelScope, that will always be a simple if check (not expensive), but
-        // by specifying the dispatcher we can protect against incorrect usage.
-
-        // if there's currently a sort running (or completed) wait for it to complete and return that value
-        // otherwise, start a new sort with no location (the user has likely not given us permission to use location
-        // yet)
         inProgressSort?.await() ?: doSortData()
+        /**
+         * We need to ensure we're on Dispatchers.Main so that this is not running on multiple
+         * Dispatchers and we modify the member inProgressSort. Since this was called from
+         * viewModelScope, that will always be a simple if check (not expensive), but by specifying
+         * the dispatcher we can protect against incorrect usage. If there's currently a sort
+         * running (or completed) wait for it to complete and return that value otherwise, start a
+         * new sort with no location (the user has likely not given us permission to use location
+         * yet)
+         */
     }
 
     /**
      * Call this to force a new sort to start.
      *
-     * This will start a new coroutine to perform the sort. Future requests to sorted data can use the deferred in
-     * [inProgressSort] to get the result of the last sort without sorting the data again. This guards against multiple
-     * sorts being performed on the same data, which is inefficient.
+     * This will start a new coroutine to perform the sort. Future requests to sorted data can use
+     * the deferred in [inProgressSort] to get the result of the last sort without sorting the data
+     * again. This guards against multiple sorts being performed on the same data, which is
+     * inefficient.
      *
      * This will always cancel if the location changes while the sort is in progress.
      *
      * @return the result of the started sort
      */
     private suspend fun doSortData(location: Location? = null): SortedData {
-        // since we'll need to launch a new coroutine for the sorting use coroutineScope.
-        // coroutineScope will automatically wait for anything started via async {} or await{} in it's block to
-        // complete.
+        /**
+         * Since we'll need to launch a new coroutine for the sorting use coroutineScope.
+         * coroutineScope will automatically wait for anything started via async {} or await{}
+         * in it's block to complete.
+         */
         val result = coroutineScope {
-            // launch a new coroutine to do the sort (so other requests can wait for this sort to complete)
+            /**
+             * launch a new coroutine to do the sort (so other requests can wait for this sort to
+             * complete)
+             */
             val deferred = async { SortedData.from(request.await(), location) }
             // cache the Deferred so any future requests can wait for this sort
             inProgressSort = deferred
@@ -121,16 +127,18 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     /**
      * Call when location changes.
      *
-     * This will cancel any previous queries, so it's important to re-request the data after calling this function.
+     * This will cancel any previous queries, so it's important to re-request the data after
+     * calling this function.
      *
      * @param location the location to sort by
      */
     suspend fun onLocationChanged(location: Location) {
-        // We need to ensure we're on Dispatchers.Main so that this is not running on multiple Dispatchers and we
-        // modify the member inProgressSort.
-
-        // Since this was called from viewModelScope, that will always be a simple if check (not expensive), but
-        // by specifying the dispatcher we can protect against incorrect usage.
+        /**
+         * We need to ensure we're on Dispatchers.Main so that this is not running on multiple
+         * Dispatchers and we modify the member inProgressSort. Since this was called from
+         * viewModelScope, that will always be a simple if check (not expensive), but by
+         * specifying the dispatcher we can protect against incorrect usage.
+         */
         withContext(Dispatchers.Main) {
             isFullyInitialized = true
 
@@ -144,8 +152,8 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     /**
      * Holds data sorted by the distance from the last location.
      *
-     * Note, by convention this class won't sort on the Main thread. This is not a public API and should
-     * only be called by [doSortData].
+     * Note, by convention this class won't sort on the Main thread. This is not a public API and
+     * should only be called by [doSortData].
      */
     private class SortedData private constructor(
         val chapters: List<GdgChapter>,
@@ -177,7 +185,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
 
 
             /**
-             * Sort a list of GdgChapter by their distance from the specified location.
+             * Sort a list of [GdgChapter] by their distance from the specified location.
              *
              * @param currentLocation returned list will be sorted by the distance, or unsorted if null
              */
@@ -192,7 +200,13 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
              */
             private fun distanceBetween(start: LatLong, currentLocation: Location): Float {
                 val results = FloatArray(3)
-                Location.distanceBetween(start.lat, start.long, currentLocation.latitude, currentLocation.longitude, results)
+                Location.distanceBetween(
+                    start.lat,
+                    start.long,
+                    currentLocation.latitude,
+                    currentLocation.longitude,
+                    results
+                )
                 return results[0]
             }
         }
