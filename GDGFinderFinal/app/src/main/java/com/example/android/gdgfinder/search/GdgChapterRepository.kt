@@ -27,6 +27,10 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.withContext
 
+/**
+ * The Repository for our app. There is no offline cache for simplicity and the result of the
+ * network is just cached in memory.
+ */
 class GdgChapterRepository(gdgApiService: GdgApiService) {
 
     /**
@@ -37,24 +41,31 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
 
     /**
      * An in-progress (or potentially completed) sort, this may be null or cancelled at any time.
-     *
      * If this is non-null, calling await will get the result of the last sorting request.
-     *
      * This will be cancelled whenever location changes, as the old results are no longer valid.
      */
     private var inProgressSort: Deferred<SortedData>? = null
 
+    /**
+     * Set to `true` in our [onLocationChanged] method when the devices location has been found.
+     * The `init` block of `GdgListViewModel` launches a coroutine which waits 5 seconds then sets
+     * the value of its `MutableLiveData` wrapped [Boolean] property `_showNeedLocation` to the
+     * inverse of [isFullyInitialized] which triggers an observer of `showNeedLocation` created
+     * in the `onCreateView` override of `GdgListFragment` to pop up a `Snackbar` to tell the user
+     * to enable location for the app if it is `true` (ie. [isFullyInitialized] is `false`).
+     */
     var isFullyInitialized = false
         private set
 
-
     /**
-     * Get the chapters list for a specified filter.
+     * Get the chapters list for a specified filter. This will be cancel if a new location is sent
+     * before the result is available. This works by first waiting for any previously in-progress
+     * sorts, and if a sort has not yet started it will start a new sort (which may happen if
+     * location is disabled on the device).
      *
-     * This will be cancel if a new location is sent before the result is available.
-     *
-     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet
-     * started it will start a new sort (which may happen if location is disabled on the device)
+     * @param filter the region key of the `chaptersByRegion` map of the [SortedData] created from
+     * our `Deferred<GdgResponse>` field [request] that we wish to filter by.
+     * @return the [GdgChapter] list for the specified region [filter].
      */
     suspend fun getChaptersForFilter(filter: String?): List<GdgChapter> {
         val data = sortedData()
@@ -110,6 +121,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
          * coroutineScope will automatically wait for anything started via async {} or await{}
          * in it's block to complete.
          */
+        @Suppress("UnnecessaryVariable")
         val result = coroutineScope {
             /**
              * launch a new coroutine to do the sort (so other requests can wait for this sort to
