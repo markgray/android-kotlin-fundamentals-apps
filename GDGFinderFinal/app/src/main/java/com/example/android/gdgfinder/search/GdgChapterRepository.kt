@@ -61,7 +61,13 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      * Get the chapters list for a specified filter. This will be cancel if a new location is sent
      * before the result is available. This works by first waiting for any previously in-progress
      * sorts, and if a sort has not yet started it will start a new sort (which may happen if
-     * location is disabled on the device).
+     * location is disabled on the device). First we initialize our [SortedData] variable `val data`
+     * to the [SortedData] instance returned by our method [sortedData]. When our [String] parameter
+     * [filter] is `null` we return the `chapters` field of `data` (this is the entire list of
+     * [GdgChapter] objects sorted by distance from our devices current location if that is
+     * available or the unsorted list if it is not). When our [String] parameter [filter] is not
+     * `null` we return the list of [GdgChapter] objects stored under the [filter] key in the
+     * `chaptersByRegion` field of `data` or an empty read-only list if there was none there).
      *
      * @param filter the region key of the `chaptersByRegion` map of the [SortedData] created from
      * our `Deferred<GdgResponse>` field [request] that we wish to filter by.
@@ -76,19 +82,24 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     }
 
     /**
-     * Get the filters sorted by distance from the last location.
+     * Get the filters sorted by distance from the last location. This will cancel if a new location
+     * is sent before the result is available. This works by first waiting for any previously
+     * in-progress sorts, and if a sort has not yet started it will start a new sort (which may
+     * happen if location is disabled on the device). We return the `filters` field of the
+     * [SortedData] instance returned by the [sortedData] method.
      *
-     * This will cancel if a new location is sent before the result is available.
-     *
-     * This works by first waiting for any previously in-progress sorts, and if a sort has not yet
-     * started it will start a new sort (which may happen if location is disabled on the device)
+     * @return the `filters` field of the [SortedData] instance created by our [sortedData] method.
      */
     suspend fun getFilters(): List<String> = sortedData().filters
 
     /**
      * Get the computed sorted data after it completes, or start a new sort if none are running.
+     * This will always cancel if the location changes while the sort is in progress. If our
+     * [Deferred] wrapped [SortedData] field [inProgressSort] is not `null` a sort is in progress
+     * so call its [Deferred.await] method to wait for the result and return that, otherwise we
+     * return the [SortedData] instance returned by our [doSortData] method.
      *
-     * This will always cancel if the location changes while the sort is in progress.
+     * @return the computed sorted verison of our GDG list in a [SortedData] instance
      */
     private suspend fun sortedData(): SortedData = withContext(Dispatchers.Main) {
         inProgressSort?.await() ?: doSortData()
@@ -104,16 +115,22 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     }
 
     /**
-     * Call this to force a new sort to start.
+     * Call this to force a new sort to start. This will start a new coroutine to perform the sort.
+     * Future requests for sorted data can use the deferred in [inProgressSort] to get the result of
+     * the last sort without sorting the data again. This guards against multiple sorts being
+     * performed on the same data, which is inefficient. This will always cancel if the location
+     * changes while the sort is in progress. To initialize our [SortedData] variable `val result`
+     * we create a `CoroutineScope` which launches a suspend block which initializes a [Deferred]
+     * wrapped [SortedData] variable `val deferred` to the result returned by the coroutine that
+     * the [async] method creates whose coroutine code block calls the [SortedData.from] method
+     * to process the [GdgResponse] object that results from calling the `await` method of [request]
+     * using our [Location] parameter [location] as the location to sort for. The `deferred` value
+     * is then cached in our filed [inProgressSort] before we call the [Deferred.await] method of
+     * `deferred` to produce the final [SortedData] instance to that we initialize `result` to.
+     * Finally we return `result` to the caller.
      *
-     * This will start a new coroutine to perform the sort. Future requests to sorted data can use
-     * the deferred in [inProgressSort] to get the result of the last sort without sorting the data
-     * again. This guards against multiple sorts being performed on the same data, which is
-     * inefficient.
-     *
-     * This will always cancel if the location changes while the sort is in progress.
-     *
-     * @return the result of the started sort
+     * @param location the current [Location] of the device we are running on.
+     * @return the result of the started sort stored in a [SortedData] instance
      */
     private suspend fun doSortData(location: Location? = null): SortedData {
         /**
@@ -137,18 +154,20 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     }
 
     /**
-     * Call when location changes.
-     *
-     * This will cancel any previous queries, so it's important to re-request the data after
-     * calling this function.
+     * Call when location changes. This will cancel any previous queries, so it's important to
+     * re-request the data after calling this function. We call a suspending block on the
+     * [Dispatchers.Main] coroutine context suspending until it completes. The block sets our
+     * [isFullyInitialized] property to `true` then cancels the [inProgressSort] job if it is not
+     * `null`, and calls our [doSortData] method with our [Location] parameter [location] to
+     * start a new sort.
      *
      * @param location the location to sort by
      */
     suspend fun onLocationChanged(location: Location) {
         /**
          * We need to ensure we're on Dispatchers.Main so that this is not running on multiple
-         * Dispatchers and we modify the member inProgressSort. Since this was called from
-         * viewModelScope, that will always be a simple if check (not expensive), but by
+         * Dispatchers and we modify the member [inProgressSort]. Since this was called from
+         * viewModelScope, that will always be a simple `if` check (not expensive), but by
          * specifying the dispatcher we can protect against incorrect usage.
          */
         withContext(Dispatchers.Main) {
@@ -162,10 +181,15 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
     }
 
     /**
-     * Holds data sorted by the distance from the last location.
+     * Holds data sorted by the distance from the last location. Note, by convention this class
+     * won't sort on the Main thread. This is not a public API and should only be called by
+     * [doSortData].
      *
-     * Note, by convention this class won't sort on the Main thread. This is not a public API and
-     * should only be called by [doSortData].
+     * @param chapters the list of [GdgChapter] objects sorted by distance from the devices location
+     * @param filters the list of regions that one can filter by objects sorted by distance from the
+     * devices location
+     * @param chaptersByRegion a map whose key is the region of the [GdgChapter] and whose value is
+     * the list of [GdgChapter] objects that share that region.
      */
     private class SortedData private constructor(
         val chapters: List<GdgChapter>,
@@ -175,10 +199,22 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
 
         companion object {
             /**
-             * Sort the data from a [GdgResponse] by the specified location.
+             * Sort the data from a [GdgResponse] by the specified location. We call a suspend block
+             * with the [Dispatchers.Default] coroutine context, suspending until it completes. In
+             * that block we initialize our [List] of [GdgChapter] variable `val chapters` to the
+             * list that our `sortByDistanceFrom` extension method creates from the `chapters` field
+             * of our [GdgResponse] parameter [response] for our [Location] parameter [location].
+             * We then initialize our [List] of [String] variable `val filters` by extracting all
+             * the unique `region` fields of the [GdgChapter] objects in `chapters`. We initialize
+             * our [Map] of [String] to [List] of [GdgChapter] variable `val chaptersByRegion` to
+             * the [Map] created by grouping all of the [GdgChapter] objects in `chapters` under
+             * the key of their `region` field. Finally we return a [SortedData] instance constructed
+             * from `chapters`, `filters`, and `chaptersByRegion`.
              *
              * @param response the response to sort
              * @param location the location to sort by, if null the data will not be sorted.
+             * @return a [SortedData] instance constructed to hold the results of sorting the list
+             * of [GdgChapter] objects by their distance from the devices current location.
              */
             suspend fun from(response: GdgResponse, location: Location?): SortedData {
                 return withContext(Dispatchers.Default) {
@@ -195,11 +231,14 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
 
             }
 
-
             /**
              * Sort a list of [GdgChapter] by their distance from the specified location.
              *
-             * @param currentLocation returned list will be sorted by the distance, or unsorted if null
+             * @param currentLocation returned list will be sorted by the distance from this
+             * [Location], or unsorted if null
+             * @return `this` [List] of [GdgChapter] objects sorted by the distance between their
+             * `geo` [Location] field and our [Location] parameter [currentLocation], or unsorted if
+             * [currentLocation] is `null`.
              */
             private fun List<GdgChapter>.sortByDistanceFrom(currentLocation: Location?): List<GdgChapter> {
                 currentLocation ?: return this
