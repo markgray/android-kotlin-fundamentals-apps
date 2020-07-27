@@ -232,7 +232,12 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             }
 
             /**
-             * Sort a list of [GdgChapter] by their distance from the specified location.
+             * Sort a list of [GdgChapter] by their distance from the specified location. If our
+             * [Location] parameter [currentLocation] is `null` we just return `this`. Otherwise
+             * we return the list returned by the [sortedBy] method when it sorts `this` using a
+             * selector lambda which uses the value that our [distanceBetween] method returns
+             * when it calculates the distance between the `geo` [LatLong] field of the list item
+             * being compared and our [Location] parameter [currentLocation].
              *
              * @param currentLocation returned list will be sorted by the distance from this
              * [Location], or unsorted if null
@@ -247,7 +252,15 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             }
 
             /**
-             * Calculate the distance (in meters) between a LatLong and a Location.
+             * Calculate the distance (in meters) between a LatLong and a Location. We initialize
+             * our [FloatArray] variable `val results` with an instance for 3 float values. Then
+             * we call the [Location.distanceBetween] to have it compute the approximate distance
+             * in meters between the location whose latitude is the `lat` field of our [LatLong]
+             * parameter [start], and longitude is the `long` field of [start], and the location
+             * whose latitude is the `latitude` field of our [Location] parameter [currentLocation],
+             * and longitude is the `longitude` field of [currentLocation]. The results of this
+             * computation is stored in our `results` array, and we return the contents of the
+             * zeroth entry of `results` (the computed distance) to the caller.
              */
             private fun distanceBetween(start: LatLong, currentLocation: Location): Float {
                 val results = FloatArray(3)
