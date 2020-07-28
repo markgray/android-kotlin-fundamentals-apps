@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.gdgfinder.R
@@ -37,19 +38,79 @@ import com.google.android.gms.location.LocationServices
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
 
+/**
+ * The permission request code we use when we call `requestPermissions` to ask user for location
+ * permission.
+ */
 private const val LOCATION_PERMISSION_REQUEST = 1
 
+/**
+ * [String] used to request the "ACCESS_FINE_LOCATION" permission.
+ */
 private const val LOCATION_PERMISSION = "android.permission.ACCESS_FINE_LOCATION"
 
+/**
+ * This [Fragment] displays the list of `GdgChapter` objects downloaded from the network in a
+ * `RecycleView`. The list is sorted by distance from the devices current location if that location
+ * is available.
+ */
 class GdgListFragment : Fragment() {
 
-
+    /**
+     * Our handle to our fragment's singleton [GdgListViewModel] view model.
+     */
     private val viewModel: GdgListViewModel by lazy {
         ViewModelProvider(this).get(GdgListViewModel::class.java)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    /**
+     * Called to have the fragment instantiate its user interface view. We initialize our
+     * [FragmentGdgListBinding] variable `val binding` to the binding object that the method
+     * [FragmentGdgListBinding.inflate] returns when it uses our [LayoutInflater] parameter
+     * [inflater] to inflate our layout file layout/fragment_gdg_list.xml into an instance of
+     * [FragmentGdgListBinding]. We set the `LifecycleOwner` of `binding` to `this` and set the
+     * `viewModel` variable of `binding` to our [GdgListViewModel] field [viewModel]. We set our
+     * [GdgListAdapter] variable `val adapter` to an instance constructed to use a [GdgClickListener]
+     * whose lambda argument uses the `GdgChapter` parameter passed it in `chapter` to create an
+     * [Uri] for the `website` UriString field of `chapter` to initialize variable `val destination`,
+     * and starts an activity with an [Intent] whose activity is [Intent.ACTION_VIEW] and whose
+     * Intent data URI is `destination`.
+     *
+     * Having constructed `adapter` we set the adapter of the `RecyclerView` in our layout file
+     * whose resource ID is R.id.gdg_chapter_list (aka the `gdgChapterList` property of `binding`)
+     * to `adapter`.
+     *
+     * We set an [Observer] on the `showNeedLocation` [LiveData] wrapped [Boolean] property of
+     * [viewModel] whose lambda shows a [Snackbar] when that property transitions to `true` (the
+     * [Snackbar] asks the user to enable location in the settings app). We set an [Observer] on
+     * the `regionList` [LiveData] wrapped list of [String] property of [viewModel] whose lambda
+     * overrides the `onChanged` method with a method which returns having done nothing is its
+     * [List] of [String] parameter `data` is `null`. Otherwise it constructs [Chip] widgets for
+     * every [String] in the `data` [List] whose text and tag are both that string, sets the
+     * chip's `OnCheckedChangeListener` to a lambda which calls the `onFilterChanged` method
+     * of [viewModel] with the tag and the `isChecked` status of the chip. When done creating
+     * the chips the `onChanged` override removes all views from the `regionList` `ChipGroup`
+     * property of `binding` and then loops adding each of the [Chip] widgets we just created
+     * to the `regionList` `ChipGroup`.
+     *
+     * The last things that our [onCreateView] override has to do is to call [setHasOptionsMenu]
+     * with `true` to report that this fragment would like to participate in populating the options
+     * menu, and then to return the outermost [View] in the layout file associated with `binding`
+     * to the caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate layout XML files.
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     * @return Return the [View] for the fragment's UI.
+     */
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         val binding = FragmentGdgListBinding.inflate(inflater)
 
         // Allows Data Binding to Observe LiveData with the lifecycle of this Fragment
@@ -103,6 +164,18 @@ class GdgListFragment : Fragment() {
         return binding.root
     }
 
+    /**
+     * Called to do initial creation of a fragment. This is called after [onAttach] and before
+     * [onCreateView]. Note that this can be called while the fragment's activity is still in the
+     * process of being created. As such, you can not rely on things like the activity's content
+     * view hierarchy being initialized at this point.  If you want to do work once the activity
+     * itself is created, see [onActivityCreated]. First we call our super's implementation of
+     * `onCreate`, then we call our [requestLastLocationOrStartLocationUpdates] method to request
+     * the last location of this device, if known, otherwise to start location updates.
+     *
+     * @param savedInstanceState If the fragment is being re-created from a previous saved state,
+     * this is the state.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -110,25 +183,30 @@ class GdgListFragment : Fragment() {
     }
 
     /**
-     * Show the user a dialog asking for permission to use location.
+     * Show the user a dialog asking for permission to use location. Just calls the method
+     * [requestPermissions] with our [LOCATION_PERMISSION] permission string and our request
+     * code [LOCATION_PERMISSION_REQUEST] ([LOCATION_PERMISSION_REQUEST] will be returned to
+     * our [onRequestPermissionsResult] override so we can verify it was called for this
+     * permission request).
      */
     private fun requestLocationPermission() {
         requestPermissions(arrayOf(LOCATION_PERMISSION), LOCATION_PERMISSION_REQUEST)
     }
 
     /**
-     * Request the last location of this device, if known, otherwise start location updates.
-     *
-     * The last location is cached from the last application to request location.
+     * Request the last location of this device, if known, otherwise start location updates. The
+     * last location is cached from the last application to request location.
      */
     private fun requestLastLocationOrStartLocationUpdates() {
         // if we don't have permission ask for it and wait until the user grants it
-        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION)
+            != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission()
             return
         }
 
-        val fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
+        val fusedLocationClient: FusedLocationProviderClient
+                = LocationServices.getFusedLocationProviderClient(requireContext())
 
         fusedLocationClient.lastLocation.addOnSuccessListener { location ->
             if (location == null) {

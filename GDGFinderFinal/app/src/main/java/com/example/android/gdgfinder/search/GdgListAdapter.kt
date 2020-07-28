@@ -153,16 +153,32 @@ class GdgListAdapter(
     }
 
     /**
-     * Part of the RecyclerView adapter, called when RecyclerView needs to show an item.
+     * Part of the RecyclerView adapter, called when RecyclerView needs to show an item. The
+     * `ViewHolder` passed may be recycled, so make sure that this sets any properties that
+     * may have been set previously. We just call the `bind` method of our [GdgListViewHolder]
+     * parameter [holder] to have it bind itself to the [GdgChapter] that is to be found at
+     * position [position] in our current dataset using our [clickListener] field as the
+     * [GdgClickListener] to use if the item is clicked.
      *
-     * The ViewHolder passed may be recycled, so make sure that this sets any properties that
-     * may have been set previously.
+     * @param holder   The ViewHolder which should be updated to represent the contents of the item
+     * at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: GdgListViewHolder, position: Int) {
         holder.bind(clickListener, getItem(position))
     }
 }
 
+/**
+ * This class exists to invoke the lambda which is passed to its constructor when its [onClick]
+ * method is called. The only instance is created in the `onCreateView` override of
+ * `GdgListFragment`, and its [onClick] method is invoked by a binding expression for the
+ * "android:onClick" attribute of the `ConstraintLayout` widget in the layout/list_item.xml
+ * layout file.
+ *
+ * @param clickListener a function (or lambda) which takes a [GdgChapter] as its argument and
+ * returns nothing.
+ */
 class GdgClickListener(val clickListener: (chapter: GdgChapter) -> Unit) {
     fun onClick(chapter: GdgChapter) = clickListener(chapter)
 }
