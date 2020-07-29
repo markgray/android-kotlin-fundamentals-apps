@@ -25,17 +25,45 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-
+/**
+ * The [ViewModel] which controls our `GdgListFragment`.
+ */
 class GdgListViewModel: ViewModel() {
 
+    /**
+     * Handle to the Repository for our app.
+     */
     private val repository = GdgChapterRepository(GdgApi.retrofitService)
 
+    /**
+     * The `currentValue` property of this [FilterHolder] is used to filter the list of downloaded
+     * [GdgChapter] objects when the user chooses to apply a filter by selecting a `Chip`.
+     */
     private var filter = FilterHolder()
 
+    /**
+     * This [Job] is used to cancel any background coroutines that are already running for a previous
+     * call when our [onQueryChanged] method is called.
+     */
     private var currentJob: Job? = null
 
+    /**
+     * The results of calling the `getChaptersForFilter` method of [repository] for the current filter,
+     * it is updated by our [onQueryChanged] method, and the immutable external [LiveData] interface
+     * to this property is our [gdgList] property.
+     */
     private val _gdgList = MutableLiveData<List<GdgChapter>>()
+
+    /**
+     * The results of calling the `getFilters` method of [repository], it contains the `filters`
+     * field of the `SortedData` instance created by its `sortedData` method and is a list of all
+     * of the unique `region` fields of the downloaded list of [GdgChapter] objects.
+     */
     private val _regionList = MutableLiveData<List<String>>()
+
+    /**
+     *
+     */
     private val _showNeedLocation = MutableLiveData<Boolean>()
 
     // The external LiveData interface to the property is immutable, so only this class can modify

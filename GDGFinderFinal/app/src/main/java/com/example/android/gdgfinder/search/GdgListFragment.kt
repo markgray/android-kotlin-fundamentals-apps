@@ -18,6 +18,7 @@ package com.example.android.gdgfinder.search
 
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -30,6 +31,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.gdgfinder.R
 import com.example.android.gdgfinder.databinding.FragmentGdgListBinding
+import com.example.android.gdgfinder.network.GdgChapter
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
@@ -194,8 +196,19 @@ class GdgListFragment : Fragment() {
     }
 
     /**
-     * Request the last location of this device, if known, otherwise start location updates. The
-     * last location is cached from the last application to request location.
+     * Request the last location of this device if known, otherwise start location updates. The
+     * last location is cached from the last application to request location. First we call the
+     * [ContextCompat.checkSelfPermission] method to see if we already have permission to get
+     * the devices location, and if not we call our [requestLocationPermission] method to show
+     * the user a dialog asking for permission to use location when just return. If we do have
+     * permission we initialize our [FusedLocationProviderClient] variable `val fusedLocationClient`
+     * with a new instance of [FusedLocationProviderClient] for use in the Context this fragment
+     * is currently associated with. We fetch the `lastLocation` property of `fusedLocationClient`
+     * and add an `OnSuccessListener` to the `Task` of [Location] it returns. The lambda of this
+     * `OnSuccessListener` checks if the [Location] is `null` and if so calls our [startLocationUpdates]
+     * method with `fusedLocationClient` as the argument to start location updates, otherwise it calls
+     * the `onLocationUpdated` method of our [GdgListViewModel] field [viewModel] with the [Location]
+     * to have it update its sorted list of [GdgChapter] objects for the new [Location].
      */
     private fun requestLastLocationOrStartLocationUpdates() {
         // if we don't have permission ask for it and wait until the user grants it
@@ -219,6 +232,23 @@ class GdgListFragment : Fragment() {
 
     /**
      * Start location updates, this will ask the operating system to figure out the devices location.
+     * First we call the [ContextCompat.checkSelfPermission] method to check whether we have the
+     * persmission to access the devices location, and if not we ask for it and wait until the user
+     * grants it. If we already have permission we initialize our [LocationRequest] variable
+     * `val request` which a new instance with priority [LocationRequest.PRIORITY_LOW_POWER]. We
+     * initialize our [LocationCallback] variable `val callback` with an instance whose lambda
+     * overrides the [LocationCallback.onLocationResult] method where it uses the [LocationResult]
+     * parameter `locationResult` to fetch its `lastLocation` property returning if it is `null`.
+     * If not `null` we call the `onLocationUpdated` method of our [GdgListViewModel] field [viewModel]
+     * with the [Location] to have it update its sorted list of [GdgChapter] objects for the new
+     * [Location].
+     *
+     * Having set up our [LocationRequest] and [LocationCallback] we call the `requestLocationUpdates`
+     * method of our [FusedLocationProviderClient] parameter [fusedLocationClient] to request location
+     * updates using `request` with the callback `callback`, and a `null` Looper thread.
+     *
+     * @param fusedLocationClient the [FusedLocationProviderClient] we are to use to request location
+     * updates.
      */
     private fun startLocationUpdates(fusedLocationClient: FusedLocationProviderClient) {
         // if we don't have permission ask for it and wait until the user grants it
@@ -226,7 +256,6 @@ class GdgListFragment : Fragment() {
             requestLocationPermission()
             return
         }
-
 
         val request = LocationRequest().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
@@ -239,11 +268,22 @@ class GdgListFragment : Fragment() {
     }
 
     /**
-     * This will be called by Android when the user responds to the permission request.
+     * This will be called by Android when the user responds to the permission request. If granted,
+     * continue with the operation that the user gave us permission to do. First we call our super's
+     * implementation of `onRequestPermissionsResult`. If our [requestCode] parameter is our
+     * constant [LOCATION_PERMISSION_REQUEST] we check if the zeroth entry in the [grantResults]
+     * parameter is [PackageManager.PERMISSION_GRANTED] and if so we call our method
+     * [requestLastLocationOrStartLocationUpdates].
      *
-     * If granted, continue with the operation that the user gave us permission to do.
+     * @param requestCode request code of the call to [requestPermissions] whose result this is.
+     * @param permissions the permissions requested.
+     * @param grantResults the grant results for the corresponding permissions in [permissions]
      */
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {
