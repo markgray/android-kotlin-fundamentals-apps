@@ -25,7 +25,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.io.IOException
 
-
 class GdgListViewModel: ViewModel() {
 
     private val repository = GdgChapterRepository(GdgApi.retrofitService)
@@ -42,6 +41,7 @@ class GdgListViewModel: ViewModel() {
     val gdgList: LiveData< List<GdgChapter>>
         get() = _gdgList
 
+    @Suppress("unused")
     val regionList: LiveData<List<String>>
         get() = _regionList
 
@@ -82,6 +82,7 @@ class GdgListViewModel: ViewModel() {
         }
     }
 
+    @Suppress("unused")
     fun onFilterChanged(filter: String, isChecked: Boolean) {
         if (this.filter.update(filter, isChecked)) {
             onQueryChanged()
