@@ -20,8 +20,10 @@ import android.os.Parcelable
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
-
-
+/**
+ * Moshi parses the JSON objects in the "data" array of our JSON file into a list of these kotlin
+ * objects. The @Json annotation supplies the JSON field name when it differs from the kotlin one.
+ */
 @Parcelize
 data class GdgChapter(
     @Json(name = "chapter_name") val name: String,
@@ -32,19 +34,29 @@ data class GdgChapter(
     val geo: LatLong
  ): Parcelable
 
+/**
+ * This class is the class Moshi parses the contents of the "geo" field's JSON object into.
+ */
 @Parcelize
 data class LatLong(
     val lat: Double,
-    @Json(name = "lng")
-    val long: Double
+    @Json(name = "lng") val long: Double
 ) : Parcelable
 
+/**
+ * This class holds both the parsed "filters_" JSON array (a [List] of [String]) and the parsed
+ * "data" JSON array (a [List] of [GdgChapter] objects) that are parsed from the JSON file when the
+ * `getChapters` method of `GdgApiService` is called.
+ */
 @Parcelize
 data class GdgResponse(
         @Json(name = "filters_") val filters: Filter,
         @Json(name = "data") val chapters: List<GdgChapter>
 ): Parcelable
 
+/**
+ * Moshi parses the "region" array of the JSON object "filters_" into this kotlin class.
+ */
 @Parcelize
 data class Filter(
         @Json(name = "region") val regions: List<String>
