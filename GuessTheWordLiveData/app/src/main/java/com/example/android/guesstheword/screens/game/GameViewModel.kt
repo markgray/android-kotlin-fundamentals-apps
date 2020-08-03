@@ -21,7 +21,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-
 class GameViewModel : ViewModel() {
 
     // The current _word
@@ -119,6 +118,7 @@ class GameViewModel : ViewModel() {
 
     /** Method for the game completed event **/
 
+    @Suppress("MemberVisibilityCanBePrivate")
     fun onGameFinish() {
         _eventGameFinish.value = true
     }
