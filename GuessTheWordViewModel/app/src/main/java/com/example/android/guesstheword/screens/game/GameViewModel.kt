@@ -20,22 +20,28 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 
 /**
- * ViewModel containing all the logic needed to run the game
+ * ViewModel containing all the logic needed to run the game displayed by `GameFragment`
  */
 class GameViewModel : ViewModel() {
 
-    // The current word
+    /**
+     * The current word
+     */
     var word = ""
 
-    // The current score
+    /**
+     * The current score
+     */
     var score = 0
 
-    // The list of words - the front of the list is the next word to guess
+    /**
+     * The list of words - the front of the list is the next word to guess
+     */
     private lateinit var wordList: MutableList<String>
 
 
     /**
-     * Resets the list of words and randomizes the order
+     * Resets the list of words in [wordList] and randomizes the order by shuffling
      */
     private fun resetList() {
         wordList = mutableListOf(
@@ -71,7 +77,8 @@ class GameViewModel : ViewModel() {
     }
 
     /**
-     * Callback called when the ViewModel is destroyed
+     * Callback called when the [ViewModel] is destroyed. First we call our super's implementation
+     * of `onCleared`, then we log the fact that the [GameViewModel] has been destroyed.
      */
     override fun onCleared() {
         super.onCleared()
@@ -79,21 +86,34 @@ class GameViewModel : ViewModel() {
     }
 
     /** Methods for updating the UI **/
+
+    /**
+     * Called from the `onSkip` method of `GameFragment` when the user clicks the "Skip" button.
+     * We decrement the current score in [score], then call our [nextWord] method to move to the
+     * next word in our [wordList] list.
+     */
     fun onSkip() {
         score--
         nextWord()
     }
+
+    /**
+     * Called from the `onCorrect` method of `GameFragment` when the user clicks the "Got it" button.
+     * We increment the current score in [score], then call our [nextWord] method to move to the
+     * next word in our [wordList] list.
+     */
     fun onCorrect() {
         score++
         nextWord()
     }
 
     /**
-     * Moves to the next word in the list.
+     * Moves to the next word in the list. If our [wordList] list of words field is not empty we
+     * remove its zeroth entry and set our [word] field to it.
      */
     private fun nextWord() {
         //Select and remove a word from the list
-        if (!wordList.isEmpty()) {
+        if (wordList.isNotEmpty()) {
             word = wordList.removeAt(0)
         }
     }

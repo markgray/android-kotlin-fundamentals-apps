@@ -20,11 +20,13 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 
 /**
- * ViewModel for the final screen showing the score
+ * ViewModel for the final screen in `ScoreFragment` showing the score
  */
 class ScoreViewModel(finalScore: Int) : ViewModel() {
 
-    // The final score
+    /**
+     * The final score
+     */
     var score = finalScore
 
     init {

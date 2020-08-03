@@ -138,23 +138,45 @@ class GameFragment : Fragment() {
         updateWordText()
     }
 
+    /**
+     * This is called when the "End game" button is clicked (`endGameButton` property of [binding],
+     * aka resource ID [R.id.end_game_button] in our layout file). We just call our [gameFinished]
+     * method which toasts the message "Game has just finished", creates an `ActionGameToScore`
+     * "action", sets the `score` property [viewModel] as the `score` argument of the action and
+     * then uses that action to navigate to the `ScoreFragment`.
+     */
     private fun onEndGame() {
         gameFinished()
     }
 
     /** Methods for updating the UI **/
 
+    /**
+     * Sets the text of the `TextView` of the `wordText` property of [binding] (aka resource ID
+     * [R.id.word_text]) to the `word` property of our [GameViewModel] field [viewModel] (the next
+     * word to guess).
+     */
     private fun updateWordText() {
         binding.wordText.text = viewModel.word
 
     }
 
+    /**
+     * Sets the text of the `TextView` of the `scoreText` property of [binding] (aka resource ID
+     * [R.id.score_text]) to the [String] value of the `score` property of our [GameViewModel] field
+     * [viewModel] (the current score).
+     */
     private fun updateScoreText() {
         binding.scoreText.text = viewModel.score.toString()
     }
 
     /**
-     * Called when the game is finished
+     * Called when the game is finished. First we toast the message "Game has just finished", then
+     * we initialize our variable `val action` with a new [GameFragmentDirections.ActionGameToScore]
+     * instance, set the `score` property of `action` to the `score` property of our [GameViewModel]
+     * field [viewModel] (the final score), then locate the `NavController` associated with this
+     * [Fragment], and use it to navigate to `action` (the `ScoreFragment` with the safe argument
+     * score set to the final score).
      */
     private fun gameFinished() {
         Toast.makeText(activity, "Game has just finished", Toast.LENGTH_SHORT).show()
