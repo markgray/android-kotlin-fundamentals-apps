@@ -1,7 +1,9 @@
 LiveData - Solution Code
 ==================================
 
-This is solution code for Use as starter code for the LiveData codelab.
+This is solution code for Android Kotlin Fundamentals 05.2: LiveData and LiveData observers
+
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-live-data/#0]
 
 Introduction
 ------------
