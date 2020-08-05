@@ -42,7 +42,22 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
     val score: LiveData<Int>
         get() = _score
 
+    /**
+     * Play the game again event private so only this class can modify, public read-only access is
+     * available by the [eventPlayAgain] property. When `true` an `Observer` of the [eventPlayAgain]
+     * public version added in the `onCreateView` override of `ScoreFragment` will navigate to the
+     * `GameFragment`. Set to `true` by our [onPlayAgain] method (which is called when the "Play
+     * Again" `Button` with resourse ID R.id.play_again_button is clicked), and reset to `false` by
+     * our [onPlayAgainComplete] method (which needs to be called to prevent repeating the action
+     * after navigating to the `GameFragment`0.
+     */
     private val _eventPlayAgain = MutableLiveData<Boolean>()
+
+    /**
+     * Public read-only access to our [_eventPlayAgain] property. An `Observer` added to it in the
+     * `onCreateView` override of `ScoreFragment` navigates to the `GameFragment` when it toggles
+     * to `true`.
+     */
     val eventPlayAgain: LiveData<Boolean>
         get() = _eventPlayAgain
 
@@ -51,10 +66,19 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
         _score.value = finalScore
     }
 
+    /**
+     * Called to set the value of our [_eventPlayAgain] property to `true`. This is called when the
+     * "Play Again" `Button` with resourse ID R.id.play_again_button is clicked.
+     */
     fun onPlayAgain() {
         _eventPlayAgain.value = true
     }
 
+    /**
+     * Called to set the value of our [_eventPlayAgain] property to `false`. This is called when the
+     * `Observer` of [eventPlayAgain] has navigated to the `GameFragment` in order to prevent the
+     * repetition of the action.
+     */
     fun onPlayAgainComplete() {
         _eventPlayAgain.value = false
     }

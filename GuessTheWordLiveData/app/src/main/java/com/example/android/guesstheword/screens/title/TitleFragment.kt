@@ -31,11 +31,39 @@ import com.example.android.guesstheword.databinding.TitleFragmentBinding
  */
 class TitleFragment : Fragment() {
 
+    /**
+     * Called to have the fragment instantiate its user interface view. This will be called between
+     * [onCreate] and [onActivityCreated]. It is recommended to only inflate the layout in this
+     * method and move logic that operates on the returned View to [onViewCreated].
+     *
+     * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
+     * inflate our layout file [R.layout.title_fragment] with our [ViewGroup] parameter [container]
+     * supplying the LayoutParams, and initialize our [TitleFragmentBinding] variable `val binding`
+     * to the binding object it returns. We set the `OnClickListener` of the `playGameButton`
+     * property of `binding` (the "Play" `Button` with ID [R.id.play_game_button]) to a lambda which
+     * finds a `NavController` for this fragment and uses its `navigate` method to navigate to the
+     * `GameFragment`. Finally we return the outermost View in the layout file associated with
+     * `binding` to the caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment.
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Return the [View] for the fragment's UI, or null.
+     */
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View {
         // Inflate the layout for this fragment
         val binding: TitleFragmentBinding = DataBindingUtil.inflate(
-                inflater, R.layout.title_fragment, container, false)
+                inflater,
+                R.layout.title_fragment,
+                container,
+                false
+        )
 
         binding.playGameButton.setOnClickListener {
             findNavController().navigate(TitleFragmentDirections.actionTitleToGame())
