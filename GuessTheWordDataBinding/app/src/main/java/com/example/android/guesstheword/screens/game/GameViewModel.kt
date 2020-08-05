@@ -22,29 +22,59 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 /**
- * ViewModel containing all the logic needed to run the game
+ * ViewModel containing all the logic needed to run the game displayed by `GameFragment`
  */
 class GameViewModel : ViewModel() {
 
-    // The current _word
+    /**
+     * The current word to guess, private so only this class can modify, public read-only access is
+     * available by the [word] property. Set by our [nextWord] method.
+     */
     private val _word = MutableLiveData<String>()
+
+    /**
+     * Public read-only access to our [_word] property. A binding expression in the `GameFragment`
+     * layout file layout/game_fragment.xml accesses it when it changes to set the text of the
+     * `TextView` with resource ID R.id.word_text.
+     */
     val word: LiveData<String>
         get() = _word
 
-    // The current score
+    /**
+     * The current score, private so only this class can modify, public read-only access is
+     * available by the [score] property. Incremented by our [onCorrect] method, and decremented
+     * by our [onSkip] method.
+     */
     private val _score = MutableLiveData<Int>()
+
+    /**
+     * Public read-only access to our [_score] property. Read by the `gameFinished` method of
+     * `GameFragment` to supply the final score when navigating to the `ScoreFragment`, and a
+     * binding expression in the `GameFragment` layout file layout/game_fragment.xml accesses it
+     * when it changes to set the text of the `TextView` with resource ID R.id.score_text.
+     */
     val score: LiveData<Int>
         get() = _score
 
-    // Countdown time
+    /**
+     * The game is over, time to navigate to the `ScoreFragment`, private so only this class can
+     * modify, public read-only access is available by the [eventGameFinish] property. Set to
+     * `true` by our [onGameFinish] method, reset to `false` by our [onGameFinishComplete] method.
+     */
     private val _eventGameFinish = MutableLiveData<Boolean>()
+
+    /**
+     * Public read-only access to our [_eventGameFinish] property. An `Observer` with a lambda which
+     * calls the `GameFragment.gameFinished` method when it transitions to `true` is added to it in
+     * the `onCreateView` override of `GameFragment`.
+     */
     val eventGameFinish: LiveData<Boolean>
         get() = _eventGameFinish
 
-
-    // The list of words - the front of the list is the next _word to guess
+    /**
+     * The list of words - the front of the list is the next _word to guess
+     */
     private lateinit var wordList: MutableList<String>
-
 
     /**
      * Resets the list of words and randomizes the order
@@ -85,7 +115,8 @@ class GameViewModel : ViewModel() {
     }
 
     /**
-     * Callback called when the ViewModel is destroyed
+     * Callback called when the ViewModel is destroyed. First we call our super's implementation of
+     * `onCleared`, then we log the fact that we were destroyed.
      */
     override fun onCleared() {
         super.onCleared()
@@ -93,17 +124,33 @@ class GameViewModel : ViewModel() {
     }
 
     /** Methods for updating the UI **/
+
+    /**
+     * Called by a binding expression that is the value of the "android:onClick" attribute of the
+     * `Button` with resource ID R.id.skip_button in the `GameFragment` layout/game_fragment.xml
+     * layout file. We decrement the current score in [_score], then call our [nextWord] method to
+     * move to the next word in our [wordList] list.
+     */
     fun onSkip() {
         _score.value = (_score.value)?.minus(1)
         nextWord()
     }
+
+    /**
+     * Called by a binding expression that is the value of the "android:onClick" attribute of the
+     * `Button` with resource ID R.id.correct_button in the `GameFragment` layout/game_fragment.xml
+     * layout file. We increment the current score in [_score], then call our [nextWord] method to
+     * move to the next word in our [wordList] list.
+     */
     fun onCorrect() {
         _score.value = (_score.value)?.plus(1)
         nextWord()
     }
 
     /**
-     * Moves to the next _word in the list.
+     * Moves to the next word in the list. If our [wordList] list of words field is empty we call
+     * our [onGameFinish] method to end the game. Otherwise we remove the zeroth entry of [wordList]
+     * and set our [_word] field to it.
      */
     private fun nextWord() {
         if (wordList.isEmpty()) {
@@ -115,14 +162,24 @@ class GameViewModel : ViewModel() {
         }
     }
 
+    /** Methods for the game completed event **/
 
-
-    /** Method for the game completed event **/
-
+    /**
+     * Resets the value of our [_eventGameFinish] property to `false`. It is called from the
+     * `gameFinished` method of `GameFragment` after it navigates to the `ScoreFragment` to
+     * prevent repeating the action.
+     */
     fun onGameFinishComplete() {
         _eventGameFinish.value = false
     }
 
+    /**
+     * Our game is over. Called from our [nextWord] method when we run out of words to guess and by
+     * a binding expression that is the value of the "android:onClick" attribute of the `Button`
+     * with resource ID R.id.end_game_button in the `GameFragment` layout/game_fragment.xml layout
+     * file. We set the value of our [_eventGameFinish] property to `true` and an `Observer` of the
+     * public version [eventGameFinish] will navigate to the `ScoreFragment` on this transition.
+     */
     fun onGameFinish() {
         _eventGameFinish.value = true
     }
