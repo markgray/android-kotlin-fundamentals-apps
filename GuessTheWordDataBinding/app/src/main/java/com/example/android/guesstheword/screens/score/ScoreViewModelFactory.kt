@@ -19,10 +19,25 @@ package com.example.android.guesstheword.screens.score
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 
+/**
+ * [ViewModelProvider.Factory] for [ViewModelProvider] to use to construct a [ScoreViewModel]
+ *
+ * @param finalScore the safe args `score` passed when the `GameFragment` navigates to `ScoreFragment`
+ */
 class ScoreViewModelFactory (private val finalScore: Int) : ViewModelProvider.Factory {
 
+    /**
+     * Creates a new instance of the given [Class]. After a sanity check to make sure we are only
+     * being used to create a [ScoreViewModel] instance we return a [ScoreViewModel] constructed
+     * to use our [finalScore] property as its `score` property.
+     *
+     * @param modelClass a [Class] whose instance is requested
+     * @param T        The type parameter for the ViewModel.
+     * @return a newly created [ScoreViewModel] view model.
+     */
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST")
             return ScoreViewModel(finalScore) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
