@@ -3,6 +3,8 @@ MarsRealEstateNetwork - Solution Code
 
 Solution code for Android Kotlin Fundamentals Codelab 8.1 Getting data from the internet
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-internet-data/#0]
+
 Introduction
 ------------
 
