@@ -23,7 +23,9 @@ import com.example.android.marsrealestate.network.MarsProperty
 
 /**
  * Simple ViewModel factory that provides the MarsProperty and context to the ViewModel.
+ * Skeleton code for later code lab
  */
+@Suppress("unused")
 class DetailViewModelFactory(
         private val marsProperty: MarsProperty,
         private val application: Application) : ViewModelProvider.Factory {
