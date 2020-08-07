@@ -4,6 +4,8 @@ MarsRealEstateGrid - Solution Code
 Solution code for Android Kotlin Fundamentals Codelab 8.2 Loading and displaying 
 images from the internet.
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-internet-images/#0]
+
 Introduction
 ------------
 
