@@ -43,7 +43,7 @@ class OverviewFragment : Fragment() {
     /**
      * Called to have the fragment instantiate its user interface view. This will be called between
      * [onCreate] and [onActivityCreated]. We initialize our [FragmentOverviewBinding] variable
-     * `val binding` by having the [FragmentOverviewBinding.inflate] use our [LayoutInflater]
+     * `val binding` by having the [FragmentOverviewBinding.inflate] method use our [LayoutInflater]
      * parameter [inflater] to inflate the layout file it is associated with (the layout file
      * layout/fragment_overview.xml) into a [FragmentOverviewBinding] instance. the LifecycleOwner
      * that should be used for observing changes of LiveData in `binding` to `this` [OverviewFragment],
@@ -84,6 +84,9 @@ class OverviewFragment : Fragment() {
      * Inflates the overflow menu that contains filtering options. We just use our [MenuInflater]
      * parameter [inflater] to inflate our layout file menu/overflow_menu.xml into our [Menu]
      * parameter [menu] and then call our super's implementation of `onCreateOptionsMenu`.
+     *
+     * @param menu The options menu in which you place your items.
+     * @param inflater a [MenuInflater] you can use to inflate an XML file into a menu.
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
