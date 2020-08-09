@@ -17,6 +17,7 @@
 
 package com.example.android.marsrealestate
 
+import android.net.Uri
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -29,7 +30,16 @@ import com.example.android.marsrealestate.overview.MarsApiStatus
 import com.example.android.marsrealestate.overview.PhotoGridAdapter
 
 /**
- * When there is no Mars property data (data is null), hide the [RecyclerView], otherwise show it.
+ * This is the BindingAdapter for the "app:listData" attribute. A binding expression for that
+ * attribute on a [RecyclerView] in the layout file layout/fragment_overview.xml observes the
+ * `properties` property of the `OverviewViewModel` and when that `LiveData` wrapped [List]
+ * of [MarsProperty] changes this BindingAdapter is invoked. We retrieve the [PhotoGridAdapter]
+ * of our [RecyclerView] parameter [recyclerView] to initialize our variable `val adapter`, then
+ * call the `submitList` method of `adapter` to submit our [data] parameter to be diffed, and
+ * displayed.
+ *
+ * @param recyclerView the [RecyclerView] which uses the "app:listData" attribute.
+ * @param data the new list passed by the binding expression of the "app:listData" attribute.
  */
 @BindingAdapter("listData")
 fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
@@ -38,12 +48,27 @@ fun bindRecyclerView(recyclerView: RecyclerView, data: List<MarsProperty>?) {
 }
 
 /**
- * Uses the Glide library to load an image by URL into an [ImageView]
+ * This is the BindingAdapter for the "app:imageUrl" attribute. A binding expression for that
+ * attribute on a [ImageView] in the layout file layout/grid_view_item.xml observes the
+ * `imgSrcUrl` property of the [MarsProperty] it is displaying and when that changes value
+ * calls this BindingAdapter with that [String]. If our [imgUrl] parameter is not `null` we
+ * initialize our [Uri] variable `val imgUri` to the [Uri] parsed from our [imgUrl] parameter
+ * from which we use to construct a new builder, copying the attributes from that [Uri], setting
+ * the scheme to "https" then building the [Uri]. We call the [Glide.with] method to begin a load
+ * using the context of our [ImageView] parameter [imgView], creating a RequestBuilder to load
+ * `imgUri`, to which we apply the [RequestOptions] to use R.drawable.loading_animation as the
+ * place holder and R.drawable.ic_broken_image as the resource to display if the load fails.
+ * Finally we set the [ImageView] the resource will be loaded into to our [imgView] parameter,
+ * canceling any existing loads into the view. (Short version: Uses the Glide library to load an
+ * image by URL into an [ImageView].)
+ *
+ * @param imgView the [ImageView] that uses the "app:imageUrl" attribute.
+ * @param imgUrl the `imgSrcUrl` property of the [MarsProperty] passed us by the binding expression.
  */
 @BindingAdapter("imageUrl")
 fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
-        val imgUri = imgUrl.toUri().buildUpon().scheme("https").build()
+        val imgUri : Uri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
                 .load(imgUri)
                 .apply(RequestOptions()
