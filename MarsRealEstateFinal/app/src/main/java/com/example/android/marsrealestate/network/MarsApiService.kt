@@ -26,24 +26,39 @@ import retrofit2.http.GET
 import kotlinx.coroutines.Deferred
 import retrofit2.http.Query
 
+/**
+ * The values of this enum are used to append a "Query" parameter to the URL. Which [MarsApiFilter]
+ * to use is selected in the `onOptionsItemSelected` override of `OverViewFragment` when the user
+ * uses the option menu to select a filter. The `updateFilter` method of `OverviewViewModel` is
+ * then called with the new [MarsApiFilter] to have the `getMarsRealEstateProperties` method reload
+ * the [List] of [MarsProperty] from the internet using the new filter as the query.
+ */
 enum class MarsApiFilter(val value: String) {
     SHOW_RENT("rent"),
     SHOW_BUY("buy"),
     SHOW_ALL("all") }
 
+/**
+ * The API base URL for our [Retrofit] instance.
+ */
 private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.com/"
 
 /**
- * Build the Moshi object that Retrofit will be using, making sure to add the Kotlin adapter for
- * full Kotlin compatibility.
+ * Build the [Moshi] object that [Retrofit] will be using, making sure to add the Kotlin adapter for
+ * full Kotlin compatibility. The [KotlinJsonAdapterFactory] is a reflection adapter that uses
+ * Kotlin’s reflection library to convert your Kotlin classes to and from JSON.
  */
 private val moshi = Moshi.Builder()
         .add(KotlinJsonAdapterFactory())
         .build()
 
 /**
- * Use the Retrofit builder to build a retrofit object using a Moshi converter with our Moshi
- * object.
+ * Use the [Retrofit] builder to build a retrofit object using our [Moshi] converter [moshi]. We
+ * construct a new instance of [Retrofit.Builder] then add a converter factory for serialization
+ * and deserialization of objects created from our [Moshi] object [moshi], add a
+ * [CoroutineCallAdapterFactory] call adapter factory for supporting the service method return type
+ * [Deferred] rather than `Call`, set the API base URL to [BASE_URL] then build the builder into a
+ * [Retrofit] instance.
  */
 private val retrofit = Retrofit.Builder()
         .addConverterFactory(MoshiConverterFactory.create(moshi))
@@ -54,12 +69,18 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public interface that exposes the [getProperties] method
  */
+@Suppress("DeferredIsResult")
 interface MarsApiService {
     /**
-     * Returns a Coroutine [Deferred] [List] of [MarsProperty] which can be fetched with await() if
-     * in a Coroutine scope.
+     * Returns a Coroutine [Deferred] wrapped [List] of [MarsProperty] which can be fetched with
+     * await() if in a Coroutine scope.
+     *
      * The @GET annotation indicates that the "realestate" endpoint will be requested with the GET
-     * HTTP method
+     * HTTP method, and the "@Query" annotation appends a Query parameter to the URL.
+     *
+     * @param type the [MarsApiFilter] to use with the "filter" query parameter, one of "rent",
+     * "buy" or "all".
+     * @return a [Deferred] list of [MarsProperty] which can be made active by invoking `await`.
      */
     @GET("realestate")
     fun getProperties(@Query("filter") type: String):
