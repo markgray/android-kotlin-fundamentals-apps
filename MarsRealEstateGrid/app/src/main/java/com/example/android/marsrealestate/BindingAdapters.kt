@@ -79,10 +79,18 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
 }
 
 /**
- * This binding adapter displays the [MarsApiStatus] of the network request in an image view.  When
- * the request is loading, it displays a loading_animation.  If the request has an error, it
- * displays a broken image to reflect the connection error.  When the request is finished, it
- * hides the image view.
+ * This binding adapter displays the [MarsApiStatus] of the network request in an image view. When
+ * the request is loading, it displays a loading_animation (R.drawable.loading_animation). If the
+ * request has an error, it displays a broken image to reflect the connection error
+ * (R.drawable.ic_connection_error). When the request is finished, it hides the image view. It is
+ * invoked when the binding expression of an "app:marsApiStatus" attribute on an [ImageView] observes
+ * a change in the "viewModel.status" property, as happens for the [ImageView] with ID R.id.status_image
+ * in the layout/fragment_overview.xml layout file.
+ *
+ * @param statusImageView the [ImageView] which has an "app:marsApiStatus" attribute
+ * @param status the value of the "app:marsApiStatus" attribute, which is the result of evaluating
+ * a binding expression which is observing the `status` property of the `OverviewViewModel` variable
+ * `viewModel` in the layout file.
  */
 @BindingAdapter("marsApiStatus")
 fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
