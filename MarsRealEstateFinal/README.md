@@ -4,6 +4,8 @@ MarsRealEstateFinal - Solution Code
 Solution code for Android Kotlin Fundamentals Codelab 8.3 Filtering and detail views with 
 internet data.
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-internet-filtering/#0]
+
 Introduction
 ------------
 
