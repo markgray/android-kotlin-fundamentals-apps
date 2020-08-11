@@ -3,6 +3,8 @@ TrackMySleepQuality with RecyclerView - Solution Code for 7.1
 
 Solution code for Android Kotlin Fundamentals Codelab 7.1 RecyclerView Fundamentals
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-recyclerview-fundamentals/#0]
+
 Introduction
 ------------
 
