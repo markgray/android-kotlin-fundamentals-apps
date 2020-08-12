@@ -27,6 +27,12 @@ import androidx.room.RoomDatabase
  *
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
+ *
+ * The `@Database` annotation marks this class as a [RoomDatabase], the `entities` annotation
+ * processor argument specifies one table to be generated from the [SleepNight] class (it has an
+ * `@Entity(tableName = "daily_sleep_quality_table")` which overrides the default class name table
+ * name), the database `version` is 1, and the `exportSchema` = `false` argument prevents [Room]
+ * from exporting the database schema into a folder.
  */
 @Database(entities = [SleepNight::class], version = 1, exportSchema = false)
 abstract class SleepDatabase : RoomDatabase() {
