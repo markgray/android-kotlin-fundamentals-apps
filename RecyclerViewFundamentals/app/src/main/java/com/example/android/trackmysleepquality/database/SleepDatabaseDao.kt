@@ -85,15 +85,18 @@ interface SleepDatabaseDao {
     fun clear()
 
     /**
-     * Selects and returns all rows in the table,
-     *
-     * sorted by start time in descending order.
+     * Selects and returns all rows in the table, sorted by `nightId` in descending order. Called
+     * by the initializer of the `nights` field of `SleepTrackerViewModel`
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
     fun getAllNights(): LiveData<List<SleepNight>>
 
     /**
-     * Selects and returns the latest night.
+     * Selects and returns the latest night. Called by the `getTonightFromDatabase` method of
+     * `SleepTrackerViewModel`, which is called by its `initializeTonight` method (which is
+     * called by its `init` block) and by its `onStart` method (called when the "START" button
+     * is clicked thanks to a binding expression for the "android:onClick" attribute of that button
+     * in the layout file layout/fragment_sleep_tracker.xml).
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
     fun getTonight(): SleepNight?
