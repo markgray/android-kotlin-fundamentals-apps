@@ -27,8 +27,19 @@ import com.example.android.trackmysleepquality.convertDurationToFormatted
 import com.example.android.trackmysleepquality.convertNumericQualityToString
 import com.example.android.trackmysleepquality.database.SleepNight
 
+/**
+ * The adapter we use for the [RecyclerView] with resource ID R.id.sleep_list in the layout file
+ * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database.
+ */
+@Suppress("MemberVisibilityCanBePrivate")
 class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
 
+    /**
+     * Our dataset of [SleepNight] records read from our database. It is set by an `Observer` added
+     * to the `nights` property of `SleepTrackerViewModel` in the `onCreateView` override of
+     * `SleepTrackerFragment`, and so it gets set whenever that `LiveData` wrapped property gets
+     * updated by the `getAllNights` method of the `SleepDatabaseDao`.
+     */
     var data =  listOf<SleepNight>()
         set(value) {
             field = value
