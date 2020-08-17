@@ -32,6 +32,9 @@ import kotlinx.coroutines.withContext
 
 /**
  * ViewModel for SleepTrackerFragment.
+ *
+ * @param dataSource the [SleepDatabaseDao] to use to access the database
+ * @param application the Application to use to access resources
  */
 class SleepTrackerViewModel(
         dataSource: SleepDatabaseDao,
@@ -51,23 +54,30 @@ class SleepTrackerViewModel(
     private var viewModelJob = Job()
 
     /**
-     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel.
-     *
-     * Because we pass it [viewModelJob], any coroutine started in this uiScope can be cancelled
-     * by calling `viewModelJob.cancel()`
-     *
-     * By default, all coroutines started in uiScope will launch in [Dispatchers.Main] which is
-     * the main thread on Android. This is a sensible default because most coroutines started by
-     * a [ViewModel] update the UI after performing some processing.
+     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel. Because we pass
+     * it [viewModelJob], any coroutine started in this scope can be cancelled by calling
+     * `viewModelJob.cancel()`. By default, all coroutines started in [uiScope] will launch in
+     * [Dispatchers.Main] which is the main thread on Android. This is a sensible default because
+     * most coroutines started by a [ViewModel] update the UI after performing some processing.
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    /**
+     * The latest [SleepNight] read back from the database if a sleep recording is in progress (the
+     * `endTimeMilli` and `startTimeMilli` fields are equal), or `null` if we are not recording a
+     * sleep quality (the last [SleepNight] entered that we read by calling the `getTonight` method
+     * of [database] had different `endTimeMilli` and `startTimeMilli` fields). When non-null we
+     * update it in our [onStop] method when the STOP button is clicked.
+     */
     private var tonight = MutableLiveData<SleepNight?>()
 
+    /**
+     * The [LiveData] wrapped list of all of the [SleepNight] entries read from the database.
+     */
     val nights = database.getAllNights()
 
     /**
-     * Converted nights to Spanned for displaying.
+     * Converted nights to Spanned for displaying (used before the RecyclerView was added).
      */
     @Suppress("unused")
     val nightsString = Transformations.map(nights) { nights ->
@@ -97,46 +107,53 @@ class SleepTrackerViewModel(
 
 
     /**
-     * Request a toast by setting this value to true.
-     *
-     * This is private because we don't want to expose setting this value to the Fragment.
+     * Request a Snackbar by setting this value to true. This is private because we don't want to
+     * expose setting this value to the Fragment, publicly available read-only access is provided
+     * by [showSnackBarEvent]. This is set to `true` by our [onClear] method and set to `null` by
+     * our [doneShowingSnackbar] method. [onClear] is called by a binding expression for the
+     * "android:onClick" attribute of the "Clear" button, and [doneShowingSnackbar] is called by
+     * the `Observer` added to [showSnackBarEvent] after it shows the Snackbar.
      */
     private var _showSnackbarEvent = MutableLiveData<Boolean?>()
 
     /**
-     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     * If this is true, immediately `show()` a Snackbar and call [doneShowingSnackbar] to reset to
+     * `null`. An `Observer` is added to it in the `onCreateView` override of `SleepTrackerFragment`
+     * which shows a Snackbar informing the user "All your data is gone forever"
      */
     val showSnackBarEvent: LiveData<Boolean?>
         get() = _showSnackbarEvent
 
     /**
-     * Variable that tells the Fragment to navigate to a specific `SleepQualityFragment`
-     *
-     * This is private because we don't want to expose setting this value to the Fragment.
+     * Variable that tells the Fragment to navigate to `SleepQualityFragment` using the specified
+     * [SleepNight] as the safe args for the fragment. This is private because we don't want to
+     * expose setting this value to the Fragment. Set to the value of our [tonight] if it is not
+     * `null` by our [onStop] method which is called by a binding expression for the "android:onClick"
+     * attribute of the "Stop" button. Set to `null` by our [doneNavigating] method which is called
+     * after navigating to the `SleepQualityFragment` to prevent repeated navigating.
      */
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
 
     /**
-     * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating]
+     * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating].
+     * An `Observer` is added to it in the `onCreateView` override of `SleepTrackerFragment` which
+     * navigates to `SleepTrackerFragment` using the `nightId` primary key of the [SleepNight] as
+     * the safe args to pass.
      */
     val navigateToSleepQuality: LiveData<SleepNight>
         get() = _navigateToSleepQuality
 
     /**
-     * Call this immediately after calling `show()` on a toast.
-     *
-     * It will clear the toast request, so if the user rotates their phone it won't show a duplicate
-     * toast.
+     * Call this immediately after calling `show()` on a Snackbar. It will clear the Snackbar request,
+     * so if the user rotates their phone it won't show a duplicate Snackbar.
      */
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = null
     }
 
     /**
-     * Call this immediately after navigating to `SleepQualityFragment`
-     *
-     * It will clear the navigation request, so if the user rotates their phone it won't navigate
-     * twice.
+     * Call this immediately after navigating to `SleepQualityFragment`. It will clear the navigation
+     * request, so if the user rotates their phone it won't navigate twice.
      */
     fun doneNavigating() {
         _navigateToSleepQuality.value = null
@@ -146,6 +163,13 @@ class SleepTrackerViewModel(
         initializeTonight()
     }
 
+    /**
+     * Called by our `init` block to initialize our [tonight] field to the last entry added to the
+     * database iff it represents a [SleepNight] in progress (`endTimeMilli` == `startTimeMilli`),
+     * or to `null` if they are different (the last entry is a completed [SleepNight]). We just
+     * launch a coroutine on the [uiScope] `CoroutineScope` which sets the value of [tonight] to
+     * the value returned by our suspend function [getTonightFromDatabase].
+     */
     private fun initializeTonight() {
         uiScope.launch {
             tonight.value = getTonightFromDatabase()
@@ -153,11 +177,19 @@ class SleepTrackerViewModel(
     }
 
     /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
+     * Handling the case of the stopped app or forgotten recording, when the start and end times
+     * will be the same. If the start time and end time are not the same, then we do not have an
+     * unfinished recording so we return `null`. We call a suspending block with the coroutine
+     * context of [Dispatchers.IO], suspending until it completes. The suspending block lambda sets
+     * the [SleepNight] variable `var night` to the [SleepNight] returned by the `getTonight` method
+     * of [database]. It the `endTimeMilli` field of `night` is not equal to its `startTimeMilli`
+     * field we set `night` to `null`. When the lambda completes we return its `night` variable to
+     * the caller. Called by our [initializeTonight] method and by our [onStart] method when the
+     * user clicks the "Start" button (a binding expression for the "android:onClick" attribute of
+     * the button calls [onStart]).
      *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
+     * @return the last [SleepNight] added to the database if its `endTimeMilli` and `startTimeMilli`
+     * are the same (a sleep recording in progress) or `null` if they differ.
      */
     private suspend fun getTonightFromDatabase(): SleepNight? {
         return withContext(Dispatchers.IO) {
@@ -169,6 +201,15 @@ class SleepTrackerViewModel(
         }
     }
 
+    /**
+     * Inserts its [SleepNight] parameter [night] into the database. We call a suspending block with
+     * the coroutine context of [Dispatchers.IO], suspending until it completes. The suspending block
+     * lambda calls the `insert` method of [database] to insert our [SleepNight] parameter [night]
+     * into the database. Called by our [onStart] method with a newly constructed [SleepNight]. A
+     * binding expression for the "android:onClick" attribute of the "Start" button calls [onStart].
+     *
+     * @param night the [SleepNight] to insert into the database.
+     */
     private suspend fun insert(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.insert(night)
