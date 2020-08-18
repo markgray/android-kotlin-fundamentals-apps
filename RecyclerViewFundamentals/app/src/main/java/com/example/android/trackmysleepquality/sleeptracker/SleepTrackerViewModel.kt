@@ -216,12 +216,33 @@ class SleepTrackerViewModel(
         }
     }
 
+    /**
+     * Updates its [SleepNight] parameter [night] in the database if it already exists (checked by
+     * primary key). We call a suspending block with the coroutine context of [Dispatchers.IO],
+     * suspending until it completes. The suspending block lambda calls the `update` method of
+     * [database] to update our [SleepNight] parameter [night]'s entry in the database. Called by
+     * our [onStop] method with a modified copy of the [tonight] field (its `endTimeMilli` field
+     * has been updated to the current time in milliseconds). [onStop] is called by a binding
+     * expression for the "android:onClick" attribute of the "STOP" button in the layout file
+     * layout/fragment_sleep_tracker.xml when the user clicks that button.
+     *
+     * @param night the [SleepNight] object whose entry in the database should be updated.
+     */
     private suspend fun update(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.update(night)
         }
     }
 
+    /**
+     * Deletes all values from the "daily_sleep_quality_table" table without deleting the table
+     * itself. We call a suspending block with the coroutine context of [Dispatchers.IO],
+     * suspending until it completes. The suspending block lambda calls the `clear` method of
+     * [database] to delete all values from the "daily_sleep_quality_table" table. Called by our
+     * [onClear] method which is called by a binding expression for the "android:onClick" attribute
+     * of the "CLEAR" button in the layout file layout/fragment_sleep_tracker.xml when the user
+     * clicks that button.
+     */
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
