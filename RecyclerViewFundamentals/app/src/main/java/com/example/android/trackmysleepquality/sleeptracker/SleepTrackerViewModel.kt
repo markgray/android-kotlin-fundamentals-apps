@@ -250,7 +250,17 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the START button is clicked.
+     * Starts the recording of a new [SleepNight] entry. We launch a new coroutine without blocking
+     * the current thread using the [CoroutineScope] of [uiScope], initializing our [SleepNight]
+     * variable `val newNight` with a new instance of [SleepNight] (the constructor captures the
+     * current time in both its `startTimeMilli` and `endTimeMilli` fields). We then call our
+     * suspend function [insert] to have it insert `newNight` into the database. We then set the
+     * valuse of our `MutableLiveData<SleepNight?>` field [tonight] to the value that our suspend
+     * function [getTonightFromDatabase] reads back from the database (it reads the last [SleepNight]
+     * inserted into the database, it is necessary to do this because Room auto-generates the primary
+     * key `nightId` when it inserts a [SleepNight] into the database). Executes when the START
+     * button is clicked because of a binding expression for the "android:onClick" attribute of the
+     * button R.id.start_button in the layout file layout/fragment_sleep_tracker.xml
      */
     fun onStart() {
         uiScope.launch {
@@ -265,7 +275,18 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the STOP button is clicked.
+     * Stops the recording of the present [SleepNight] entry. We launch a new coroutine without
+     * blocking the current thread using the [CoroutineScope] of [uiScope], initializing our
+     * [SleepNight] variable `val oldNight` with the value of our `MutableLiveData<SleepNight?>`
+     * field [tonight] if it is not `null` and returning from the `launch` having done nothing if
+     * it is `null`. Continuing with a non-null `oldNight` we set the `endTimeMilli` field of
+     * `oldNight` to the current time. We then call our suspend function [update] to have it update
+     * the `oldNight` entry in the database. Upon resuming we set the value of our [MutableLiveData]
+     * wrapped [SleepNight] field [_navigateToSleepQuality] to `oldNight` which will trigger the
+     * navigation to the `SleepQualityFragment` thanks to an `Observer` of [navigateToSleepQuality].
+     * Executes when the STOP button is clicked because of a binding expression for the
+     * "android:onClick" attribute of the button R.id.stop_button in the layout file
+     * layout/fragment_sleep_tracker.xml
      */
     fun onStop() {
         uiScope.launch {
@@ -285,7 +306,15 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the CLEAR button is clicked.
+     * Deletes all values from the "daily_sleep_quality_table" table without deleting the table
+     * itself. We launch a new coroutine without blocking the current thread using the [CoroutineScope]
+     * of [uiScope] and call our suspend function [clear] to clear the database table. On resuming
+     * we set the value of our `MutableLiveData<SleepNight?>` field [tonight] to `null` (since it's
+     * no longer in the database), and set our [MutableLiveData] wrapped [Boolean] field [_showSnackbarEvent]
+     * to `true` causing an `Observer` of [showSnackBarEvent] to post a `SnackBar` informing the user
+     * that his data is gone. Executes when the CLEAR button is clicked because of a binding expression
+     * for the "android:onClick" attribute of the button R.id.clear_button in the layout file
+     * layout/fragment_sleep_tracker.xml
      */
     fun onClear() {
         uiScope.launch {
@@ -301,10 +330,11 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Called when the ViewModel is dismantled.
-     * At this point, we want to cancel all coroutines;
-     * otherwise we end up with processes that have nowhere to return to
-     * using memory and resources.
+     * Called when the ViewModel is dismantled. After calling our super's implementation of `onCleared`
+     * we cancel all coroutines started using our [CoroutineScope] field [uiScope] by calling the
+     * `cancel` method of our [Job] field [viewModelJob] (recall that [uiScope] uses [viewModelJob]
+     * as part of its coroutine context). If we don't do this we might end up with processes that
+     * have nowhere to return to using memory and resources.
      */
     override fun onCleared() {
         super.onCleared()
