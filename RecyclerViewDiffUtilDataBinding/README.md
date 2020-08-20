@@ -3,6 +3,8 @@ TrackMySleepQuality with RecyclerView - Solution Code for 7.2
 
 Solution code for Android Kotlin Fundamentals Codelab 7.2 DiffUtil and data binding with RecyclerView
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-diffutil-databinding/#0]
+
 Introduction
 ------------
 
