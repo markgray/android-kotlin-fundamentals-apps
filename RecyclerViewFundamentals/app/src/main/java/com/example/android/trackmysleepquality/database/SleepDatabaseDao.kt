@@ -56,7 +56,7 @@ interface SleepDatabaseDao {
     fun update(night: SleepNight)
 
     /**
-     * The `@Query` annotation marks this as an update method. The value of the annotation includes
+     * The `@Query` annotation marks this as an query method. The value of the annotation includes
      * the query that will be run when this method is called. This query is verified at compile time
      * by Room to ensure that it compiles fine against the database. The arguments of the method will
      * be bound to the bind arguments in the SQL statement when they are prefixed by ":".
@@ -67,12 +67,13 @@ interface SleepDatabaseDao {
      * layout file layout/fragment_sleep_quality.xml.
      *
      * @param key `nightId` primary key to match.
+     * @return the [SleepNight] whose `nightId` column primary key is our parameter [key].
      */
     @Query("SELECT * from daily_sleep_quality_table WHERE nightId = :key")
     fun get(key: Long): SleepNight
 
     /**
-     * The `@Query` annotation marks this as an update method. The value of the annotation includes
+     * The `@Query` annotation marks this as an query method. The value of the annotation includes
      * the query that will be run when this method is called.
      *
      * Deletes all values from the table. This does not delete the table, only its contents. Called
@@ -87,6 +88,9 @@ interface SleepDatabaseDao {
     /**
      * Selects and returns all rows in the table, sorted by `nightId` in descending order. Called
      * by the initializer of the `nights` field of `SleepTrackerViewModel`
+     *
+     * @return a [LiveData] wrapped list of all of the [SleepNight] entries in our database sorted
+     * by the `nightId` column primary key in descending order.
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC")
     fun getAllNights(): LiveData<List<SleepNight>>
@@ -97,6 +101,8 @@ interface SleepDatabaseDao {
      * called by its `init` block) and by its `onStart` method (called when the "START" button
      * is clicked thanks to a binding expression for the "android:onClick" attribute of that button
      * in the layout file layout/fragment_sleep_tracker.xml).
+     *
+     * @return the newest [SleepNight] added to the database.
      */
     @Query("SELECT * FROM daily_sleep_quality_table ORDER BY nightId DESC LIMIT 1")
     fun getTonight(): SleepNight?
