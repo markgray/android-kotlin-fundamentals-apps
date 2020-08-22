@@ -55,7 +55,14 @@ fun TextView.setSleepQualityString(item: SleepNight) {
 }
 
 /**
+ * This is the BindingAdapter for the "app:sleepImage" attribute. A binding expression
+ * for that attribute on the [ImageView] with ID R.id.quality_image in the layout file used for
+ * the items in our `RecylclerView` (the file layout/list_item_sleep_night.xml) calls this with
+ * the [SleepNight] in its "sleep" variable. This method then sets the drawable as the content
+ * of this [ImageView] whose resource ID is chosen based on the value of the `sleepQuality`
+ * property of our [SleepNight] parameter [item].
  *
+ * @param item the [SleepNight] whose sleep quality icon the [ImageView] needs to display.
  */
 @BindingAdapter("sleepImage")
 fun ImageView.setSleepImage(item: SleepNight) {
