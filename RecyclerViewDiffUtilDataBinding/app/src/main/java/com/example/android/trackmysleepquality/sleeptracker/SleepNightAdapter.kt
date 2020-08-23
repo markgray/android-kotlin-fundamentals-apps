@@ -73,17 +73,44 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
         return ViewHolder.from(parent)
     }
 
+    /**
+     * The ViewHolder constructor takes the binding variable from the associated layout file
+     * layout/list_item_sleep_night.xml, which nicely gives it access to the full [SleepNight]
+     * information display just by setting its `sleep` variable.
+     *
+     * @param binding the [ListItemSleepNightBinding] for the view we are to display our item in
+     */
     class ViewHolder private constructor(
             val binding: ListItemSleepNightBinding
     ) : RecyclerView.ViewHolder(binding.root)
     {
 
+        /**
+         * Binds this [ViewHolder] instance to its [SleepNight] parameter [item] by setting the
+         * `sleep` variable of our [ListItemSleepNightBinding] field [binding] to [item] then
+         * calling the `executePendingBindings` method of [binding] to have it evaluate the pending
+         * binding, updating any Views that have expressions bound to the modified variable.
+         *
+         * @param item the [SleepNight] whose information that we are to display.
+         */
         fun bind(item: SleepNight) {
             binding.sleep = item
             binding.executePendingBindings()
         }
 
         companion object {
+            /**
+             * Factory method to create a new instance of [ViewHolder]. We initialize our variable
+             * `val layoutInflater` with the [LayoutInflater] for the context of our [ViewGroup]
+             * parameter [parent]. The we initialize our [ListItemSleepNightBinding] variable
+             * `val binding` by having the [ListItemSleepNightBinding.inflate] use `layoutInflater`
+             * to inflate its associated layout file layout/list_item_sleep_night.xml with [parent]
+             * supplying the layout params. Finally we return a new instance of [ViewHolder] which
+             * is constructed to use `binding` as its [ListItemSleepNightBinding].
+             *
+             * @param parent The [ViewGroup] into which the new View will be added after it is bound
+             * to an adapter position.
+             */
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding
@@ -98,14 +125,34 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
     }
 }
 
-
+/**
+ * Callback for calculating the diff between two non-null [SleepNight] objects in our list.
+ * It is used to calculate updates for our RecyclerView [SleepNightAdapter]
+ */
 class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepNight>() {
 
+    /**
+     * Called to check whether two objects represent the same item. For example, if your items have
+     * unique ids, this method should check their id equality. We just return the result of comparing
+     * the primary key `nightId` property of the two [SleepNight] parameters for equality.
+     *
+     * @param oldItem The [SleepNight] in the old list.
+     * @param newItem The [SleepNight] in the new list.
+     * @return `true` if the two items represent the same object or `false` if they are different.
+     */
     override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
         return oldItem.nightId == newItem.nightId
     }
 
-
+    /**
+     * Called to check whether two items have the same data. This information is used to detect if
+     * the contents of an item have changed. We just return the result of comparing our two [SleepNight]
+     * parameters for equality.
+     *
+     * @param oldItem The item in the old list.
+     * @param newItem The item in the new list.
+     * @return True if the contents of the items are the same or false if they are different.
+     */
     override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
         return oldItem == newItem
     }
