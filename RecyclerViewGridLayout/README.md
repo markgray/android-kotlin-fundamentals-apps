@@ -3,6 +3,8 @@ TrackMySleepQuality with RecyclerView - Solution Code for 7.3
 
 Solution code for Android Kotlin Fundamentals Codelab 7.3 GridLayout with RecyclerView
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-grid-layout/#0]
+
 Introduction
 ------------
 
