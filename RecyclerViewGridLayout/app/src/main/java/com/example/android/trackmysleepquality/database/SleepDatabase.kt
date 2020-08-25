@@ -27,12 +27,19 @@ import androidx.room.RoomDatabase
  *
  * This pattern is pretty much the same for any database,
  * so you can reuse it.
+ *
+ * The `@Database` annotation marks this class as a [RoomDatabase], the `entities` annotation
+ * processor argument specifies one table to be generated from the [SleepNight] class (it has an
+ * `@Entity(tableName = "daily_sleep_quality_table")` which overrides the default class name table
+ * name), the database `version` is 1, and the `exportSchema` = `false` argument prevents [Room]
+ * from exporting the database schema into a folder.
  */
 @Database(entities = [SleepNight::class], version = 1, exportSchema = false)
 abstract class SleepDatabase : RoomDatabase() {
 
     /**
-     * Connects the database to the DAO.
+     * Connects the database to the DAO. This is essentially an abstract method that has 0 arguments
+     * and returns the class that is annotated with `@Dao`.
      */
     abstract val sleepDatabaseDao: SleepDatabaseDao
 
@@ -44,7 +51,7 @@ abstract class SleepDatabase : RoomDatabase() {
      */
     companion object {
         /**
-         * INSTANCE will keep a reference to any database returned via getInstance.
+         * [INSTANCE] will keep a reference to any database returned via [getInstance].
          *
          * This will help us avoid repeatedly initializing the database, which is expensive.
          *
@@ -56,21 +63,28 @@ abstract class SleepDatabase : RoomDatabase() {
         private var INSTANCE: SleepDatabase? = null
 
         /**
-         * Helper function to get the database.
-         *
-         * If a database has already been retrieved, the previous database will be returned.
-         * Otherwise, create a new database.
-         *
-         * This function is threadsafe, and callers should cache the result for multiple database
-         * calls to avoid overhead.
+         * Helper function to get the database. If a database has already been retrieved, the
+         * previous database will be returned, otherwise create a new database. This function
+         * is threadsafe, and callers should cache the result for multiple database calls to
+         * avoid overhead.
          *
          * This is an example of a simple Singleton pattern that takes another Singleton as an
-         * argument in Kotlin.
-         *
-         * To learn more about Singleton read the wikipedia article:
+         * argument in Kotlin. To learn more about Singleton read the wikipedia article:
          * https://en.wikipedia.org/wiki/Singleton_pattern
          *
+         * In a block synchronized on `this` we set our [SleepDatabase] variable `var instance`
+         * to our cached [SleepDatabase] instance [INSTANCE]. If `instance` is `null` we need to
+         * build (or load) an instance of [SleepDatabase] so we construct a [RoomDatabase.Builder]
+         * using the context of the single, global Application object of the current process, using
+         * [SleepDatabase] as the class, and the "sleep_history_database" as the name, we allow the
+         * builder to destructively recreate database tables, then build the builder into a
+         * [SleepDatabase] which we assign to `instance`. We cache `instance` in [INSTANCE].
+         *
+         * Having set `instance` either to a non-null [INSTANCE], or constructed a new [SleepDatabase]
+         * for it, we return `instance` to the caller.
+         *
          * @param context The application context Singleton, used to get access to the filesystem.
+         * @return our singleton [SleepDatabase] instance.
          */
         fun getInstance(context: Context): SleepDatabase {
             // Multiple threads can ask for the database at the same time, ensure we only initialize

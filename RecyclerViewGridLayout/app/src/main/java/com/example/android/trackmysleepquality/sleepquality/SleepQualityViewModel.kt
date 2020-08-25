@@ -60,15 +60,15 @@ class SleepQualityViewModel(
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
     /**
-     * Variable that tells the fragment whether it should navigate to [SleepTrackerFragment].
+     * Variable that tells the fragment whether it should navigate to `SleepTrackerFragment`.
      *
      * This is `private` because we don't want to expose the ability to set [MutableLiveData] to
-     * the [Fragment]
+     * the `Fragment`
      */
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
 
     /**
-     * When true immediately navigate back to the [SleepTrackerFragment]
+     * When true immediately navigate back to the `SleepTrackerFragment`
      */
     val navigateToSleepTracker: LiveData<Boolean?>
         get() = _navigateToSleepTracker
@@ -85,7 +85,7 @@ class SleepQualityViewModel(
 
 
     /**
-     * Call this immediately after navigating to [SleepTrackerFragment]
+     * Call this immediately after navigating to `SleepTrackerFragment`
      */
     fun doneNavigating() {
         _navigateToSleepTracker.value = null
