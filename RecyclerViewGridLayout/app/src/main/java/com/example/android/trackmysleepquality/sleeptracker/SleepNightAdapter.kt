@@ -125,12 +125,34 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
     }
 }
 
+/**
+ * Callback for calculating the diff between two non-null [SleepNight] objects in our list.
+ * It is used to calculate updates for our RecyclerView [SleepNightAdapter]
+ */
 class SleepNightDiffCallback : DiffUtil.ItemCallback<SleepNight>() {
 
+    /**
+     * Called to check whether two objects represent the same item. For example, if your items have
+     * unique ids, this method should check their id equality. We just return the result of comparing
+     * the primary key `nightId` property of the two [SleepNight] parameters for equality.
+     *
+     * @param oldItem The [SleepNight] in the old list.
+     * @param newItem The [SleepNight] in the new list.
+     * @return `true` if the two items represent the same object or `false` if they are different.
+     */
     override fun areItemsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
         return oldItem.nightId == newItem.nightId
     }
 
+    /**
+     * Called to check whether two items have the same data. This information is used to detect if
+     * the contents of an item have changed. We just return the result of comparing our two [SleepNight]
+     * parameters for equality.
+     *
+     * @param oldItem The item in the old list.
+     * @param newItem The item in the new list.
+     * @return True if the contents of the items are the same or false if they are different.
+     */
     override fun areContentsTheSame(oldItem: SleepNight, newItem: SleepNight): Boolean {
         return oldItem == newItem
     }
