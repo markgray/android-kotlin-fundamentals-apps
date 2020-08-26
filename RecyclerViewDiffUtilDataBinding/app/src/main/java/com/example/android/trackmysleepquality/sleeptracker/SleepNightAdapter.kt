@@ -102,7 +102,7 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
             /**
              * Factory method to create a new instance of [ViewHolder]. We initialize our variable
              * `val layoutInflater` with the [LayoutInflater] for the context of our [ViewGroup]
-             * parameter [parent]. The we initialize our [ListItemSleepNightBinding] variable
+             * parameter [parent]. Then we initialize our [ListItemSleepNightBinding] variable
              * `val binding` by having the [ListItemSleepNightBinding.inflate] use `layoutInflater`
              * to inflate its associated layout file layout/list_item_sleep_night.xml with [parent]
              * supplying the layout params. Finally we return a new instance of [ViewHolder] which
