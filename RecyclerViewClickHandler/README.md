@@ -3,6 +3,8 @@ TrackMySleepQuality with RecyclerView - Solution Code for 7.4
 
 Solution code for Android Kotlin Fundamentals Codelab 7.4 Interacting with RecyclerView items
 
+[https://codelabs.developers.google.com/codelabs/kotlin-android-training-interacting-with-items/#0]
+
 Introduction
 ------------
 
