@@ -103,8 +103,8 @@ class SleepDetailViewModel(
 
     /**
      * Cancels all coroutines when the ViewModel is cleared, to cleanup any pending work.
-     *
-     * onCleared() gets called when the ViewModel is destroyed.
+     * onCleared() gets called when the ViewModel is destroyed. We do not start any
+     * coroutines so this is not really necessary
      */
     override fun onCleared() {
         super.onCleared()
@@ -113,12 +113,22 @@ class SleepDetailViewModel(
 
 
     /**
-     * Call this immediately after navigating to `SleepTrackerFragment`
+     * Call this immediately after navigating to `SleepTrackerFragment`, we just set our [LiveData]
+     * wrapped [Boolean] field [_navigateToSleepTracker] to `null`. Called by the Observer added
+     * to [navigateToSleepTracker] in the `onCreateView` override of `SleepDetailFragment` after
+     * it navigates to `SleepTrackerFragment`.
      */
     fun doneNavigating() {
         _navigateToSleepTracker.value = null
     }
 
+    /**
+     * Sets our [LiveData] wrapped [Boolean] field [_navigateToSleepTracker] to `true` to trigger
+     * the navigation to `SleepTrackerFragment` by the Observer added to [navigateToSleepTracker] in
+     * the `onCreateView` override of `SleepDetailFragment`. It is called by the binding expression
+     * for the "android:onClick" attribute of the "CLOSE" `Button` in the layout file
+     * layout/fragment_sleep_detail.xml.
+     */
     fun onClose() {
         _navigateToSleepTracker.value = true
     }
