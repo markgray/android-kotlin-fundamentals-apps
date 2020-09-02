@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-@file:Suppress("DEPRECATION")
-
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.os.Bundle
@@ -25,7 +23,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.android.trackmysleepquality.R
@@ -65,7 +63,7 @@ class SleepTrackerFragment : Fragment() {
 
         // Get a reference to the ViewModel associated with this fragment.
         val sleepTrackerViewModel =
-                ViewModelProviders.of(
+                ViewModelProvider(
                         this, viewModelFactory).get(SleepTrackerViewModel::class.java)
 
         // To use the View Model with data binding, you have to explicitly
@@ -79,6 +77,7 @@ class SleepTrackerFragment : Fragment() {
         binding.sleepList.adapter = adapter
 
 
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
@@ -91,6 +90,7 @@ class SleepTrackerFragment : Fragment() {
 
         // Add an Observer on the state variable for showing a Snackbar message
         // when the CLEAR button is pressed.
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
@@ -105,6 +105,7 @@ class SleepTrackerFragment : Fragment() {
         })
 
         // Add an Observer on the state variable for Navigating when STOP button is pressed.
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, Observer { night ->
             night?.let {
                 // We need to get the navController from this, because button is not ready, and it
@@ -124,6 +125,7 @@ class SleepTrackerFragment : Fragment() {
         })
 
         // Add an Observer on the state variable for Navigating when and item is clicked.
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.navigateToSleepDetail.observe(viewLifecycleOwner, Observer { night ->
             night?.let {
 
