@@ -136,7 +136,7 @@ class SleepTrackerViewModel(
     /**
      * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating].
      * An `Observer` is added to it in the `onCreateView` override of `SleepTrackerFragment` which
-     * navigates to `SleepTrackerFragment` using the `nightId` primary key of the [SleepNight] as
+     * navigates to `SleepQualityFragment` using the `nightId` primary key of the [SleepNight] as
      * the safe args to pass.
      */
     val navigateToSleepQuality: LiveData<SleepNight>
