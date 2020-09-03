@@ -31,11 +31,15 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 /**
- * ViewModel for SleepTrackerFragment.
+ * ViewModel for `SleepTrackerFragment`.
+ *
+ * @param dataSource the [SleepDatabaseDao] to use to access the database
+ * @param application the [Application] to use to access resources
  */
 class SleepTrackerViewModel(
         dataSource: SleepDatabaseDao,
-        application: Application) : ViewModel() {
+        application: Application
+) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via SleepDatabaseDao.
@@ -50,24 +54,32 @@ class SleepTrackerViewModel(
     private var viewModelJob = Job()
 
     /**
-     * A [CoroutineScope] keeps track of all coroutines started by this ViewModel.
-     *
-     * Because we pass it [viewModelJob], any coroutine started in this uiScope can be cancelled
-     * by calling `viewModelJob.cancel()`
-     *
-     * By default, all coroutines started in uiScope will launch in [Dispatchers.Main] which is
-     * the main thread on Android. This is a sensible default because most coroutines started by
-     * a [ViewModel] update the UI after performing some processing.
+     * A [CoroutineScope] that keeps track of all coroutines started by this ViewModel. Because we
+     * pass it [viewModelJob], any coroutine started in this scope can be cancelled by calling
+     * `viewModelJob.cancel()`. By default, all coroutines started in [uiScope] will launch in
+     * [Dispatchers.Main] which is the main thread on Android. This is a sensible default because
+     * most coroutines started by a [ViewModel] update the UI after performing some processing.
      */
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+    /**
+     * The latest [SleepNight] read back from the database if a sleep recording is in progress (the
+     * `endTimeMilli` and `startTimeMilli` fields are equal), or `null` if we are not recording a
+     * sleep quality (the last [SleepNight] entered that we read by calling the `getTonight` method
+     * of [database] had different `endTimeMilli` and `startTimeMilli` fields). When non-null we
+     * update it in our [onStop] method when the STOP button is clicked.
+     */
     private var tonight = MutableLiveData<SleepNight?>()
 
+    /**
+     * The [LiveData] wrapped list of all of the [SleepNight] entries read from the database.
+     */
     val nights = database.getAllNights()
 
     /**
-     * Converted nights to Spanned for displaying.
+     * Converted nights to Spanned for displaying (used before the RecyclerView was added).
      */
+    @Suppress("unused")
     val nightsString = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
@@ -94,55 +106,80 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Request a toast by setting this value to true.
-     *
-     * This is private because we don't want to expose setting this value to the Fragment.
+     * Request a Snackbar by setting this value to true. This is private because we don't want to
+     * expose setting this value to the Fragment, publicly available read-only access is provided
+     * by [showSnackBarEvent]. This is set to `true` by our [onClear] method and set to `null` by
+     * our [doneShowingSnackbar] method. [onClear] is called by a binding expression for the
+     * "android:onClick" attribute of the "Clear" button, and [doneShowingSnackbar] is called by
+     * the `Observer` added to [showSnackBarEvent] after it shows the Snackbar.
      */
     private var _showSnackbarEvent = MutableLiveData<Boolean?>()
 
     /**
-     * If this is true, immediately `show()` a toast and call `doneShowingSnackbar()`.
+     * If this is true, immediately `show()` a Snackbar and call [doneShowingSnackbar] to reset to
+     * `null`. An `Observer` is added to it in the `onCreateView` override of `SleepTrackerFragment`
+     * which shows a Snackbar informing the user "All your data is gone forever"
      */
     val showSnackBarEvent: LiveData<Boolean?>
         get() = _showSnackbarEvent
 
     /**
-     * Variable that tells the Fragment to navigate to a specific [SleepQualityFragment]
-     *
-     * This is private because we don't want to expose setting this value to the Fragment.
+     * Variable that tells the Fragment to navigate to `SleepQualityFragment` using the specified
+     * [SleepNight] as the safe args for the fragment. This is private because we don't want to
+     * expose setting this value to the Fragment. Set to the value of our [tonight] if it is not
+     * `null` by our [onStop] method which is called by a binding expression for the "android:onClick"
+     * attribute of the "Stop" button. Set to `null` by our [doneNavigating] method which is called
+     * after navigating to the `SleepQualityFragment` to prevent repeated navigating.
      */
     private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
 
     /**
-     * If this is non-null, immediately navigate to [SleepQualityFragment] and call [doneNavigating]
+     * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating].
+     * An `Observer` is added to it in the `onCreateView` override of `SleepTrackerFragment` which
+     * navigates to `SleepQualityFragment` using the `nightId` primary key of the [SleepNight] as
+     * the safe args to pass.
      */
     val navigateToSleepQuality: LiveData<SleepNight>
         get() = _navigateToSleepQuality
 
     /**
-     * Call this immediately after calling `show()` on a toast.
-     *
-     * It will clear the toast request, so if the user rotates their phone it won't show a duplicate
-     * toast.
+     * Call this immediately after calling `show()` on a Snackbar. It will clear the Snackbar request,
+     * so if the user rotates their phone it won't show a duplicate Snackbar.
      */
     fun doneShowingSnackbar() {
         _showSnackbarEvent.value = null
     }
 
     /**
-     * Call this immediately after navigating to [SleepQualityFragment]
-     *
-     * It will clear the navigation request, so if the user rotates their phone it won't navigate
-     * twice.
+     * Call this immediately after navigating to `SleepQualityFragment`. It will clear the navigation
+     * request, so if the user rotates their phone it won't navigate twice.
      */
     fun doneNavigating() {
         _navigateToSleepQuality.value = null
     }
 
     /**
-     * Navigation for the SleepDetail fragment.
+     * Variable that tells the Fragment to navigate to `SleepDetailFragment` using the specified
+     * [Long] as the safe args for the fragment (the `nightId` of the [SleepNight] whose item view
+     * was clicked). This is private because we don't want to expose setting this value to the
+     * Fragment. Public read-only access is provided by [navigateToSleepDetail]. Set to the argument
+     * passed to our [onSleepNightClicked] method by the `SleepNightListener` which each item view
+     * binding (for layout file layout/list_item_sleep_night.xml) uses as its `clickListener` variable
+     * which is in turn invoked by a binding expression for the "android:onClick" attribute of the
+     * containing `ConstraintLayout` with its [SleepNight] variable `sleep` (the `SleepNightListener`
+     * passes the `nightId` field of the [SleepNight] it is called with). Set to `null` by our
+     * [onSleepDetailNavigated] method which is called by the `Observer` of [navigateToSleepDetail]
+     * after it navigates to `SleepDetailFragment`.
      */
     private val _navigateToSleepDetail = MutableLiveData<Long>()
+
+    /**
+     * Public read-only access to our [_navigateToSleepDetail] field. If this is non-null, immediately
+     * navigate to `SleepDetailFragment` and call [onSleepDetailNavigated]. An `Observer` is added to
+     * it in the `onCreateView` override of `SleepTrackerFragment` which, when it transitions to
+     * non-null, navigates to `SleepDetailFragment` passing the new value as the safe args `nightId`
+     * primary key of the [SleepNight] to display.
+     */
     val navigateToSleepDetail
         get() = _navigateToSleepDetail
 
