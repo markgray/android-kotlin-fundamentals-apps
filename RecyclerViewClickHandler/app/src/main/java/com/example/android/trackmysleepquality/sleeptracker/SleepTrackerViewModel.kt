@@ -183,10 +183,30 @@ class SleepTrackerViewModel(
     val navigateToSleepDetail
         get() = _navigateToSleepDetail
 
+    /**
+     * One of the [SleepNight] items in our `RecyclerView` has been clicked. This is called by the
+     * `SleepNightListener` which every item view's `ListItemSleepNightBinding` uses as its
+     * "clickListener" variable with the `nightId` primary key of the `SleepNight` which the view
+     * is displaying. The binding expression for the root `ConstraintLayout` "android:onClick"
+     * attribute calls the `onClick` override of its "clickListener" variable with the [SleepNight]
+     * variable "sleep" and the `SleepNightListener` then calls us with the `nightId` of the
+     * [SleepNight] it was called with. We just set the value of our [_navigateToSleepDetail] field
+     * to our parameter [id], and an Observer of our [navigateToSleepDetail] field that is added to
+     * it in the `onCreateView` override of `SleepTrackerFragment` will pass the value as safe args
+     * when it then navigates to `SleepDetailFragment`.
+     *
+     * @param id the `nightId` primary key of the `SleepNight` in the item view which was clicked.
+     */
     fun onSleepNightClicked(id: Long) {
         _navigateToSleepDetail.value = id
     }
 
+    /**
+     * Call this immediately after navigating to `SleepDetailFragment`. It will clear the navigation
+     * request, so if the user rotates their phone it won't navigate twice. Called by the Observer
+     * of our [navigateToSleepDetail] field that is added to it in the `onCreateView` override of
+     * `SleepTrackerFragment` after navigating to `SleepDetailFragment`.
+     */
     fun onSleepDetailNavigated() {
         _navigateToSleepDetail.value = null
     }
@@ -195,6 +215,13 @@ class SleepTrackerViewModel(
         initializeTonight()
     }
 
+    /**
+     * Called by our `init` block to initialize our [tonight] field to the last entry added to the
+     * database iff it represents a [SleepNight] in progress (`endTimeMilli` == `startTimeMilli`),
+     * or to `null` if they are different (the last entry is a completed [SleepNight]). We just
+     * launch a coroutine on the [uiScope] `CoroutineScope` which sets the value of [tonight] to
+     * the value returned by our suspend function [getTonightFromDatabase].
+     */
     private fun initializeTonight() {
         uiScope.launch {
             tonight.value = getTonightFromDatabase()
@@ -202,11 +229,19 @@ class SleepTrackerViewModel(
     }
 
     /**
-     *  Handling the case of the stopped app or forgotten recording,
-     *  the start and end times will be the same.j
+     * Handling the case of the stopped app or forgotten recording, when the start and end times
+     * will be the same. If the start time and end time are not the same, then we do not have an
+     * unfinished recording so we return `null`. We call a suspending block with the coroutine
+     * context of [Dispatchers.IO], suspending until it completes. The suspending block lambda sets
+     * the [SleepNight] variable `var night` to the [SleepNight] returned by the `getTonight` method
+     * of [database]. It the `endTimeMilli` field of `night` is not equal to its `startTimeMilli`
+     * field we set `night` to `null`. When the lambda completes we return its `night` variable to
+     * the caller. Called by our [initializeTonight] method and by our [onStart] method when the
+     * user clicks the "Start" button (a binding expression for the "android:onClick" attribute of
+     * the button calls [onStart]).
      *
-     *  If the start time and end time are not the same, then we do not have an unfinished
-     *  recording.
+     * @return the last [SleepNight] added to the database if its `endTimeMilli` and `startTimeMilli`
+     * are the same (a sleep recording in progress) or `null` if they differ.
      */
     private suspend fun getTonightFromDatabase(): SleepNight? {
         return withContext(Dispatchers.IO) {
@@ -218,18 +253,48 @@ class SleepTrackerViewModel(
         }
     }
 
+    /**
+     * Inserts its [SleepNight] parameter [night] into the database. We call a suspending block with
+     * the coroutine context of [Dispatchers.IO], suspending until it completes. The suspending block
+     * lambda calls the `insert` method of [database] to insert our [SleepNight] parameter [night]
+     * into the database. Called by our [onStart] method with a newly constructed [SleepNight]. A
+     * binding expression for the "android:onClick" attribute of the "Start" button calls [onStart].
+     *
+     * @param night the [SleepNight] to insert into the database.
+     */
     private suspend fun insert(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.insert(night)
         }
     }
 
+    /**
+     * Updates its [SleepNight] parameter [night] in the database if it already exists (checked by
+     * primary key). We call a suspending block with the coroutine context of [Dispatchers.IO],
+     * suspending until it completes. The suspending block lambda calls the `update` method of
+     * [database] to update our [SleepNight] parameter [night]'s entry in the database. Called by
+     * our [onStop] method with a modified copy of the [tonight] field (its `endTimeMilli` field
+     * has been updated to the current time in milliseconds). [onStop] is called by a binding
+     * expression for the "android:onClick" attribute of the "STOP" button in the layout file
+     * layout/fragment_sleep_tracker.xml when the user clicks that button.
+     *
+     * @param night the [SleepNight] object whose entry in the database should be updated.
+     */
     private suspend fun update(night: SleepNight) {
         withContext(Dispatchers.IO) {
             database.update(night)
         }
     }
 
+    /**
+     * Deletes all values from the "daily_sleep_quality_table" table without deleting the table
+     * itself. We call a suspending block with the coroutine context of [Dispatchers.IO],
+     * suspending until it completes. The suspending block lambda calls the `clear` method of
+     * [database] to delete all values from the "daily_sleep_quality_table" table. Called by our
+     * [onClear] method which is called by a binding expression for the "android:onClick" attribute
+     * of the "CLEAR" button in the layout file layout/fragment_sleep_tracker.xml when the user
+     * clicks that button.
+     */
     private suspend fun clear() {
         withContext(Dispatchers.IO) {
             database.clear()
@@ -237,7 +302,17 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the START button is clicked.
+     * Starts the recording of a new [SleepNight] entry. We launch a new coroutine without blocking
+     * the current thread using the [CoroutineScope] of [uiScope], initializing our [SleepNight]
+     * variable `val newNight` with a new instance of [SleepNight] (the constructor captures the
+     * current time in both its `startTimeMilli` and `endTimeMilli` fields). We then call our
+     * suspend function [insert] to have it insert `newNight` into the database. We then set the
+     * value of our `MutableLiveData<SleepNight?>` field [tonight] to the value that our suspend
+     * function [getTonightFromDatabase] reads back from the database (it reads the last [SleepNight]
+     * inserted into the database, it is necessary to do this because Room auto-generates the primary
+     * key `nightId` when it inserts a [SleepNight] into the database). Executes when the START
+     * button is clicked because of a binding expression for the "android:onClick" attribute of the
+     * button R.id.start_button in the layout file layout/fragment_sleep_tracker.xml
      */
     fun onStart() {
         uiScope.launch {
@@ -252,7 +327,18 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the STOP button is clicked.
+     * Stops the recording of the present [SleepNight] entry. We launch a new coroutine without
+     * blocking the current thread using the [CoroutineScope] of [uiScope], initializing our
+     * [SleepNight] variable `val oldNight` with the value of our `MutableLiveData<SleepNight?>`
+     * field [tonight] if it is not `null` and returning from the `launch` having done nothing if
+     * it is `null`. Continuing with a non-null `oldNight` we set the `endTimeMilli` field of
+     * `oldNight` to the current time. We then call our suspend function [update] to have it update
+     * the `oldNight` entry in the database. Upon resuming we set the value of our [MutableLiveData]
+     * wrapped [SleepNight] field [_navigateToSleepQuality] to `oldNight` which will trigger the
+     * navigation to the `SleepQualityFragment` thanks to an `Observer` of [navigateToSleepQuality].
+     * Executes when the STOP button is clicked because of a binding expression for the
+     * "android:onClick" attribute of the button R.id.stop_button in the layout file
+     * layout/fragment_sleep_tracker.xml
      */
     fun onStop() {
         uiScope.launch {
@@ -272,7 +358,15 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Executes when the CLEAR button is clicked.
+     * Deletes all values from the "daily_sleep_quality_table" table without deleting the table
+     * itself. We launch a new coroutine without blocking the current thread using the [CoroutineScope]
+     * of [uiScope] and call our suspend function [clear] to clear the database table. On resuming
+     * we set the value of our `MutableLiveData<SleepNight?>` field [tonight] to `null` (since it's
+     * no longer in the database), and set our [MutableLiveData] wrapped [Boolean] field [_showSnackbarEvent]
+     * to `true` causing an `Observer` of [showSnackBarEvent] to post a `SnackBar` informing the user
+     * that his data is gone. Executes when the CLEAR button is clicked because of a binding expression
+     * for the "android:onClick" attribute of the button R.id.clear_button in the layout file
+     * layout/fragment_sleep_tracker.xml
      */
     fun onClear() {
         uiScope.launch {
@@ -288,10 +382,11 @@ class SleepTrackerViewModel(
     }
 
     /**
-     * Called when the ViewModel is dismantled.
-     * At this point, we want to cancel all coroutines;
-     * otherwise we end up with processes that have nowhere to return to
-     * using memory and resources.
+     * Called when the ViewModel is dismantled. After calling our super's implementation of `onCleared`
+     * we cancel all coroutines started using our [CoroutineScope] field [uiScope] by calling the
+     * `cancel` method of our [Job] field [viewModelJob] (recall that [uiScope] uses [viewModelJob]
+     * as part of its coroutine context). If we don't do this we might end up with processes that
+     * have nowhere to return to using memory and resources.
      */
     override fun onCleared() {
         super.onCleared()
