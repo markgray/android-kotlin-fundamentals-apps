@@ -17,25 +17,22 @@
 package com.example.android.trackmysleepquality.sleepdetail
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.android.trackmysleepquality.database.SleepDatabaseDao
 import com.example.android.trackmysleepquality.database.SleepNight
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 /**
- * ViewModel for SleepQualityFragment.
+ * ViewModel for SleepDetailFragment.
  *
  * @param sleepNightKey The key of the current night we are working on.
+ * @param dataSource Handle to the [SleepDatabaseDao] to use to call its Room SQLite methods.
  */
 class SleepDetailViewModel(
         private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao) : ViewModel() {
+        dataSource: SleepDatabaseDao
+) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via its SleepDatabaseDao.
@@ -58,15 +55,15 @@ class SleepDetailViewModel(
     }
 
     /**
-     * Variable that tells the fragment whether it should navigate to [SleepTrackerFragment].
+     * Variable that tells the fragment whether it should navigate to `SleepTrackerFragment`.
      *
      * This is `private` because we don't want to expose the ability to set [MutableLiveData] to
-     * the [Fragment]
+     * the `Fragment`
      */
     private val _navigateToSleepTracker = MutableLiveData<Boolean?>()
 
     /**
-     * When true immediately navigate back to the [SleepTrackerFragment]
+     * When true immediately navigate back to the `SleepTrackerFragment`
      */
     val navigateToSleepTracker: LiveData<Boolean?>
         get() = _navigateToSleepTracker
@@ -82,7 +79,7 @@ class SleepDetailViewModel(
     }
 
     /**
-     * Call this immediately after navigating to [SleepTrackerFragment]
+     * Call this immediately after navigating to `SleepTrackerFragment`
      */
     fun doneNavigating() {
         _navigateToSleepTracker.value = null
