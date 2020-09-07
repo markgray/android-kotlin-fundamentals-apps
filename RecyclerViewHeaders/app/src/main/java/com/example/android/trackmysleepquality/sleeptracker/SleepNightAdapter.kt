@@ -31,14 +31,53 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-private val ITEM_VIEW_TYPE_HEADER = 0
-private val ITEM_VIEW_TYPE_ITEM = 1
+/**
+ * View type of a [DataItem.Header] data item (the header at the beginning of our dataset).
+ */
+private const val ITEM_VIEW_TYPE_HEADER = 0
 
-class SleepNightAdapter(val clickListener: SleepNightListener):
-        ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
+/**
+ * View type of a [DataItem.SleepNightItem] data item (a real [SleepNight] in the `nights` list).
+ */
+private const val ITEM_VIEW_TYPE_ITEM = 1
 
+/**
+ * The adapter we use for the [RecyclerView] with resource ID R.id.sleep_list in the layout file
+ * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database,
+ * as well as a "header" `TestView` displaying the string "Sleep Results" which occupies the entire
+ * first row of the [RecyclerView].
+ *
+ * This class implements a [ListAdapter] for [RecyclerView]  which uses Data Binding to present
+ * [List] data, including computing diffs between lists. Note that our [ListAdapter] super class
+ * indirectly holds our dataset and we need to retrieve items using its `get` method rather than
+ * directly from our [SleepTrackerViewModel] dataset field `nights`. An observer of `nights` calls
+ * our [addHeaderAndSubmitList] method which appends a [DataItem.Header] header item to the list
+ * `nights` then calls the [submitList] method of [ListAdapter] with that list to have it diffed
+ * and displayed whenever the `LiveData` list of [SleepNight] changes.
+ *
+ * @param clickListener the [SleepNightListener] each item view binding in our [RecyclerView] should
+ * use as its `clickListener` variable. The binding expression for the "android:onClick" attribute
+ * of the `ConstraintLayout` holding all the views of the layout/list_item_sleep_night.xml layout
+ * file calls the `onClick` method of its `clickListener` variable with its `sleep` variable (the
+ * [SleepNight] it displays).
+ */
+@Suppress("MemberVisibilityCanBePrivate")
+class SleepNightAdapter(
+        val clickListener: SleepNightListener
+): ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
+
+    /**
+     * The [CoroutineScope] we use to launch a new coroutine in our [addHeaderAndSubmitList] method
+     * which calls the [submitList] method of our [ListAdapter] super class using a suspend lambda
+     * on the [Dispatchers.Main] `CoroutineDispatcher` ([submitList] needs to run on the UI thread).
+     */
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
+    /**
+     * Appends a [DataItem.Header] data item to its [List] of [SleepNight] parameter [list] (after
+     * converting each [SleepNight] in [list] to a [DataItem.SleepNightItem]) then submits that list
+     * of [DataItem] to be diffed and displayed.
+     */
     fun addHeaderAndSubmitList(list: List<SleepNight>?) {
         adapterScope.launch {
             val items = when (list) {
@@ -51,7 +90,10 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+    override fun onBindViewHolder(
+            holder: RecyclerView.ViewHolder,
+            position: Int
+    ) {
         when (holder) {
             is ViewHolder -> {
                 val nightItem = getItem(position) as DataItem.SleepNightItem
@@ -60,11 +102,14 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(
+            parent: ViewGroup,
+            viewType: Int
+    ): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
             ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(parent)
-            else -> throw ClassCastException("Unknown viewType ${viewType}")
+            else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 
@@ -86,7 +131,9 @@ class SleepNightAdapter(val clickListener: SleepNightListener):
     }
 
 
-    class ViewHolder private constructor(val binding: ListItemSleepNightBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder private constructor(
+            val binding: ListItemSleepNightBinding
+    ) : RecyclerView.ViewHolder(binding.root){
 
         fun bind(item: SleepNight, clickListener: SleepNightListener) {
             binding.sleep = item
@@ -114,11 +161,9 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
     }
 }
 
-
 class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
     fun onClick(night: SleepNight) = clickListener(night.nightId)
 }
-
 
 sealed class DataItem {
     data class SleepNightItem(val sleepNight: SleepNight): DataItem() {
