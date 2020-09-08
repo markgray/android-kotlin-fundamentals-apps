@@ -44,7 +44,7 @@ private const val ITEM_VIEW_TYPE_ITEM = 1
 /**
  * The adapter we use for the [RecyclerView] with resource ID R.id.sleep_list in the layout file
  * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database,
- * as well as a "header" `TestView` displaying the string "Sleep Results" which occupies the entire
+ * as well as a "header" `TextView` displaying the string "Sleep Results" which occupies the entire
  * first row of the [RecyclerView].
  *
  * This class implements a [ListAdapter] for [RecyclerView]  which uses Data Binding to present
@@ -74,9 +74,24 @@ class SleepNightAdapter(
     private val adapterScope = CoroutineScope(Dispatchers.Default)
 
     /**
-     * Appends a [DataItem.Header] data item to its [List] of [SleepNight] parameter [list] (after
+     * Prepends a [DataItem.Header] data item to its [List] of [SleepNight] parameter [list] (after
      * converting each [SleepNight] in [list] to a [DataItem.SleepNightItem]) then submits that list
      * of [DataItem] to be diffed and displayed.
+     *
+     * We launch a new coroutine on the [adapterScope] `CoroutineScope` without blocking the current
+     * thread. In the lambda of the coroutine we initialize our [List] of [DataItem] variable
+     * `val items` to a list holding only a [DataItem.Header] if [list] is `null` or if it is not
+     * `null` to a list holding a [DataItem.Header] to which we append a list containing the results
+     * of constructing a [DataItem.SleepNightItem] from each of the [SleepNight] objects in our
+     * parameter [list]. Then using the [Dispatchers.Main] coroutine context we start a suspending
+     * lambda, suspending until it completes, which calls the [submitList] method of our [ListAdapter]
+     * super class to submit `items` to be diffed and displayed.
+     *
+     * Called by an Observer of the `LiveData` wrapped list of [SleepNight]'s field `nights` of the
+     * `SleepTrackerViewModel` view model which is added to `nights` in the `onCreateView` override
+     * of `SleepTrackerFragment`.
+     *
+     * @param list the list of [SleepNight] entries read from our database.
      */
     fun addHeaderAndSubmitList(list: List<SleepNight>?) {
         adapterScope.launch {
@@ -90,6 +105,15 @@ class SleepNightAdapter(
         }
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position. This method should
+     * update the contents of the [RecyclerView.ViewHolder] `itemView` to reflect the item at the
+     * given position.
+     *
+     * @param holder The [RecyclerView.ViewHolder] which should be updated to represent the contents
+     * of the item at the given position in the data set.
+     * @param position The position of the item within the adapter's data set.
+    */
     override fun onBindViewHolder(
             holder: RecyclerView.ViewHolder,
             position: Int
