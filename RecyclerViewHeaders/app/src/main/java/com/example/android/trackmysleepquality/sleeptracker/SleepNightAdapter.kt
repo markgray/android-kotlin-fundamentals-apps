@@ -108,7 +108,16 @@ class SleepNightAdapter(
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the [RecyclerView.ViewHolder] `itemView` to reflect the item at the
-     * given position.
+     * given position. We check to see if our [RecyclerView.ViewHolder] parameter [holder] is an
+     * instance of our custom [SleepNightAdapter.ViewHolder] subclass, and it it is we initialize
+     * our [DataItem.SleepNightItem] variable `val nightItem` with the [DataItem] that our super's
+     * [getItem] method returns for our [Int] parameter [position], then we call the `bind` method
+     * of our [RecyclerView.ViewHolder] parameter [holder] to have it "bind" to the [SleepNight]
+     * field `sleepNight` of `nightItem`, and to "bind" to our [SleepNightListener] field [clickListener]
+     * (it sets the `sleep` variable of the [ListItemSleepNightBinding] it holds to its view to
+     * the [SleepNight] we pass and the `clickListener` variable to the [SleepNightListener], then
+     * calls the `executePendingBindings` method of its [ListItemSleepNightBinding] to have it
+     * update the Views that have expressions bound to these modified variables).
      *
      * @param holder The [RecyclerView.ViewHolder] which should be updated to represent the contents
      * of the item at the given position in the data set.
@@ -126,6 +135,20 @@ class SleepNightAdapter(
         }
     }
 
+    /**
+     * Called when [RecyclerView] needs a new [ViewHolder] of the given type to represent an item.
+     * When our [viewType] parameter is an [ITEM_VIEW_TYPE_HEADER] we return the [TextViewHolder]
+     * returned by the [TextViewHolder.from] factory method when passed our [ViewGroup] parameter
+     * [parent], and when our [viewType] parameter is an [ITEM_VIEW_TYPE_ITEM] we return the
+     * [SleepNightAdapter.ViewHolder] returned by the [SleepNightAdapter.ViewHolder.from] factory
+     * method when passed our [ViewGroup] parameter [parent] (they are both subclasses of
+     * [RecyclerView.ViewHolder]). If [viewType] is neither of these we `thow` [ClassCastException].
+     *
+     * @param parent The [ViewGroup] into which the new View will be added after it is bound to
+     * an adapter position.
+     * @param viewType The view type of the new View.
+     * @return A new [ViewHolder] that holds a View of the given view type.
+     */
     override fun onCreateViewHolder(
             parent: ViewGroup,
             viewType: Int
@@ -153,7 +176,6 @@ class SleepNightAdapter(
             }
         }
     }
-
 
     class ViewHolder private constructor(
             val binding: ListItemSleepNightBinding
