@@ -51,7 +51,7 @@ private const val ITEM_VIEW_TYPE_ITEM = 1
  * [List] data, including computing diffs between lists. Note that our [ListAdapter] super class
  * indirectly holds our dataset and we need to retrieve items using its `get` method rather than
  * directly from our [SleepTrackerViewModel] dataset field `nights`. An observer of `nights` calls
- * our [addHeaderAndSubmitList] method which appends a [DataItem.Header] header item to the list
+ * our [addHeaderAndSubmitList] method which prepends a [DataItem.Header] header item to the list
  * `nights` then calls the [submitList] method of [ListAdapter] with that list to have it diffed
  * and displayed whenever the `LiveData` list of [SleepNight] changes.
  *
@@ -109,7 +109,7 @@ class SleepNightAdapter(
      * Called by RecyclerView to display the data at the specified position. This method should
      * update the contents of the [RecyclerView.ViewHolder] `itemView` to reflect the item at the
      * given position. We check to see if our [RecyclerView.ViewHolder] parameter [holder] is an
-     * instance of our custom [SleepNightAdapter.ViewHolder] subclass, and it it is we initialize
+     * instance of our custom [SleepNightAdapter.ViewHolder] subclass, and if it is we initialize
      * our [DataItem.SleepNightItem] variable `val nightItem` with the [DataItem] that our super's
      * [getItem] method returns for our [Int] parameter [position], then we call the `bind` method
      * of our [RecyclerView.ViewHolder] parameter [holder] to have it "bind" to the [SleepNight]
@@ -142,7 +142,7 @@ class SleepNightAdapter(
      * [parent], and when our [viewType] parameter is an [ITEM_VIEW_TYPE_ITEM] we return the
      * [SleepNightAdapter.ViewHolder] returned by the [SleepNightAdapter.ViewHolder.from] factory
      * method when passed our [ViewGroup] parameter [parent] (they are both subclasses of
-     * [RecyclerView.ViewHolder]). If [viewType] is neither of these we `thow` [ClassCastException].
+     * [RecyclerView.ViewHolder]). If [viewType] is neither of these we `throw` [ClassCastException].
      *
      * @param parent The [ViewGroup] into which the new View will be added after it is bound to
      * an adapter position.
@@ -238,9 +238,9 @@ class SleepNightAdapter(
              * [ViewGroup] parameter [parent], then initialize our [ListItemSleepNightBinding]
              * variable `val binding` by having the [ListItemSleepNightBinding.inflate] method
              * use `layoutInflater` to inflate its associated layout file (layout/list_item_sleep_night.xml)
-             * with [parent] supplying the layout params returning the resulting binding object.
-             * Finally we return a new instance of [ViewHolder] constructed to use `binding` as its
-             * [ListItemSleepNightBinding] field `binding`.
+             * with [parent] supplying the layout params in order to produce the resulting binding
+             * object. Finally we return a new instance of [ViewHolder] constructed to use `binding`
+             * as its [ListItemSleepNightBinding] field `binding`.
              *
              * @param parent the [ViewGroup] we should use for layout parameters.
              */
