@@ -33,16 +33,35 @@ import com.example.android.trackmysleepquality.databinding.FragmentSleepTrackerB
 class SleepTrackerFragment : Fragment() {
 
     /**
-     * Called when the Fragment is ready to display content to the screen.
+     * Called to have the fragment instantiate its user interface view. This will be called between
+     * [onCreate] and [onActivityCreated]. First we use the [DataBindingUtil.inflate] method to
+     * inflate our layout file R.layout.fragment_sleep_tracker into an instance of
+     * [FragmentSleepTrackerBinding] to initialize our variable `val binding` to. Finally we return
+     * the outermost [View] in the layout file associated with `binding` to the caller
      *
-     * This function uses DataBindingUtil to inflate R.layout.fragment_sleep_quality.
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return Return the View for the fragment's UI, or null.
      */
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_sleep_tracker, container, false)
+                inflater,
+                R.layout.fragment_sleep_tracker,
+                container,
+                false
+        )
 
         return binding.root
     }

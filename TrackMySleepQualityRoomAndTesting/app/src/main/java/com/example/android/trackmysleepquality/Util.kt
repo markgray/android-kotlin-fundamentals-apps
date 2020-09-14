@@ -25,8 +25,15 @@ import java.text.SimpleDateFormat
  */
 
 /**
- * Returns a string representing the numeric quality rating.
+ * Returns a string describing the quality of sleep based on the numeric quality rating. We use a
+ * `when` switch to set our [String] variable `var qualityString` to different strings from our
+ * resources, then return `qualityString` to the caller.
+ *
+ * @param quality the numeric rating of the sleep quality.
+ * @param resources [Resources] used to load formatted strings.
+ * @return [String] describing the quality of sleep.
  */
+@Suppress("unused")
 fun convertNumericQualityToString(quality: Int, resources: Resources): String {
     var qualityString = resources.getString(R.string.three_ok)
     when (quality) {
@@ -42,14 +49,19 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
 
 
 /**
- * Take the Long milliseconds returned by the system and stored in Room,
- * and convert it to a nicely formatted string for display.
+ * Takes the Long milliseconds returned by the system and stored in Room, and converts it to a
+ * nicely formatted string for display.
  *
- * EEEE - Display the long letter version of the weekday
- * MMM - Display the letter abbreviation of the nmotny
- * dd-yyyy - day in month and full year numerically
- * HH:mm - Hours and minutes in 24hr format
+ *     EEEE - Display the long letter version of the weekday
+ *     MMM - Display the letter abbreviation of the month
+ *     dd-yyyy - day in month and full year numerically
+ *     HH:mm - Hours and minutes in 24hr format
+ *
+ * @param systemTime the difference, measured in milliseconds, between the time and midnight,
+ * January 1, 1970 UTC.
+ * @return the date and time of [systemTime] in the format: "Tuesday Aug-11-2020 Time: 22:42"
  */
+@Suppress("unused")
 @SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
@@ -63,8 +75,8 @@ fun convertLongToDateString(systemTime: Long): String {
  * applicable per word. So, we build a formatted string using HTML. This is handy, but we will
  * learn a better way of displaying this data in a future lesson.
  *
- * @param   nights - List of all SleepNights in the database.
- * @param   resources - Resources object for all the resources defined for our app.
+ * @param   "nights" - List of all SleepNights in the database.
+ * @param   "resources" - Resources object for all the resources defined for our app.
  *
  * @return  Spanned - An interface for text that has formatting attached to it.
  *           See: https://developer.android.com/reference/android/text/Spanned
