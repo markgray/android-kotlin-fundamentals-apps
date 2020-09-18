@@ -34,6 +34,16 @@ import android.widget.TextView
  */
 class MainActivity : AppCompatActivity() {
 
+    /**
+     * Called when the activity is starting. First we call our super's implementation of [onCreate],
+     * then we set our content view to our layout file R.layout.activity_main. We find the [Button]
+     * with ID R.id.done_button (labeled "Done") and set its `OnClickListener` to a lambda which calls
+     * our method [addNickname] with the view that was clicked, and we find the [TextView] with ID
+     * R.id.nickname_text and set its `OnClickListener` to a lambda which calls our method
+     * [updateNickname] with the view that was clicked.
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so do not use
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -48,9 +58,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Click handler for the DONE button.
-     * Hides the EditText and the DONE button.
-     * Sets the EditText content to the TextView and displays it.
+     * Click handler for the "DONE" [Button]. Hides the [EditText] and the "DONE" [Button]. Sets the
+     * text of the [TextView] to the contents of the [EditText] displays the [TextView].
+     *
+     * @param view the [View] that was clicked.
      */
     private fun addNickname(view: View) {
         val editText = findViewById<EditText>(R.id.nickname_edit)
