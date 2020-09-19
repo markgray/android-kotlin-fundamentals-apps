@@ -59,7 +59,16 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Click handler for the "DONE" [Button]. Hides the [EditText] and the "DONE" [Button]. Sets the
-     * text of the [TextView] to the contents of the [EditText] displays the [TextView].
+     * text of the [TextView] to the contents of the [EditText] and displays the [TextView]. First
+     * we initialize our [EditText] variable `val editText` by finding the view with ID R.id.nickname_edit,
+     * and we initialize our [TextView] variable `val nicknameTextView` by finding the view with ID
+     * R.id.nickname_text. We set the text of `nicknameTextView` to the text of `editText`, set the
+     * visibility of `editText` to [View.GONE], set the visibility of our [View] parameter [view] to
+     * [View.GONE] (the "DONE" [Button]) and set the visibility of `nicknameTextView` to [View.VISIBLE].
+     * We initialize our [InputMethodManager] variable `val imm` by fetching a handle to the system
+     * level service [Context.INPUT_METHOD_SERVICE], then call the `hideSoftInputFromWindow` method
+     * of `imm` to hide the soft input window from the context of the window that is currently accepting
+     * input (using the unique token identifying the window that [view] is attached to).
      *
      * @param view the [View] that was clicked.
      */
@@ -79,9 +88,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     /**
-     * Click handler for the nickname TextView.
-     * Displays the EditText and the DONE button.
-     * Hides the nickname TextView.
+     * Click handler for the nickname [TextView]. Displays the [EditText] and the DONE [Button], and
+     * hides the nickname [TextView]. First we initialize our [EditText] variable `val editText` by
+     * finding the view with ID R.id.nickname_edit, and we initialize our [Button] variable
+     * `val doneButton` by finding the view with ID R.id.done_button. We set the visibility of
+     * `editText` to [View.VISIBLE], set the visibility of `doneButton` to [View.VISIBLE], and
+     * the visibility of our [View] parameter [view] (the nickname [TextView]) to [View.GONE].
+     * We call the `requestFocus` method of `editText` to give focus to it. We initialize our
+     * [InputMethodManager] variable `val imm` by fetching a handle to the system level service
+     * [Context.INPUT_METHOD_SERVICE], then call the `showSoftInput` method of `imm` to request that
+     * the current input method's soft input area be shown to the user.
+     *
+     * @param view the [View] that was clicked.
      */
     private fun updateNickname(view: View) {
         val editText = findViewById<EditText>(R.id.nickname_edit)
