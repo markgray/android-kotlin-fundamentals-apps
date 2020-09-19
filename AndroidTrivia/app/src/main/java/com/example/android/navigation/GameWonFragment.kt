@@ -111,7 +111,8 @@ class GameWonFragment : Fragment() {
 
     /**
      * Starting an Activity with our new Intent. We just call the [startActivity] method with the
-     * [Intent] created by our [getShareIntent] method.
+     * [Intent] created by our [getShareIntent] method. Called from our [onOptionsItemSelected]
+     * override when the `itemId` of the [MenuItem] selected is [R.id.share].
      */
     private fun shareSuccess() {
         startActivity(getShareIntent())

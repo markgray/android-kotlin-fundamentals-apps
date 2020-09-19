@@ -37,7 +37,7 @@ class TitleFragment : Fragment() {
      * inflate our layout file [R.layout.fragment_title] using our [ViewGroup] parameter
      * [container] for its LayoutParams without attaching to it. We then set the `OnClickListener`
      * of the `playButton` property of `binding` (the button with ID [R.id.playButton]) to a
-     * lambda which finds the `NavController` associated with the [View] clicked and use it to
+     * lambda which finds the `NavController` associated with the [View] clicked and uses it to
      * navigate to the `GameFragment`. We call the [setHasOptionsMenu] method with `true` to
      * report that this fragment would like to participate in populating the options menu by
      * receiving a call to [onCreateOptionsMenu] and related methods. Finally we return the `root`

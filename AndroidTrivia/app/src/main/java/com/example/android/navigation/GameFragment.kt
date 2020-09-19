@@ -87,7 +87,7 @@ class GameFragment : Fragment() {
     /**
      * The shuffled `answers` list field of the [Question] field [currentQuestion]. They are each
      * displayed using android:text="@{game.answers}" Layout expressions in the attributes of
-     * their respective `RadioButton` widgets in our layout file as in our fragment's code when we
+     * their respective `RadioButton` widgets in our layout file and in our fragment's code when we
      * determine if the user answered the question correctly.
      */
     lateinit var answers: MutableList<String>
