@@ -41,7 +41,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/titleImage" />
+            app:layout_constraintTop_toBottomOf="@+id/titleImage"
+            tools:ignore="HardcodedText" />
 
         <ImageView
             android:id="@+id/titleImage"
@@ -55,7 +56,8 @@
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/android_trivia" />
+            app:srcCompat="@drawable/android_trivia"
+            tools:ignore="ContentDescription" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
