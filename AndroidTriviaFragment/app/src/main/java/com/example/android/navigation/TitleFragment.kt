@@ -16,7 +16,6 @@
 
  package com.example.android.navigation
 
-
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -24,7 +23,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.android.navigation.databinding.FragmentTitleBinding
-
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -34,11 +32,28 @@ private const val ARG_PARAM1 = "param1"
 private const val ARG_PARAM2 = "param2"
 
 /**
- * A simple [Fragment] subclass.
- *
+ * The `startDestination` [Fragment] of our app, it just displays our Title "Android Trivia", and
+ * a "Play" button which will navigate to the `GameFragment` in a later codelab when clicked.
  */
 class TitleFragment : Fragment() {
-
+    /**
+     * Called to have the fragment instantiate its user interface view. We initialize our
+     * [FragmentTitleBinding] variable `val binding` to the binding returned by the method
+     * [DataBindingUtil.inflate] when it uses our [LayoutInflater] parameter [inflater] to
+     * inflate our layout file [R.layout.fragment_title] using our [ViewGroup] parameter
+     * [container] for its LayoutParams without attaching to it. Finally we return the `root`
+     * property of `binding` (the outermost [View] in the layout file associated with the Binding)
+     * to the caller.
+     *
+     * @param inflater The [LayoutInflater] object that can be used to inflate
+     * any views in the fragment
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI will be attached to. The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     * @return Return the [View] for the fragment's UI.
+     */
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
