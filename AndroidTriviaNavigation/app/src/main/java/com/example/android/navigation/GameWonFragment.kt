@@ -25,13 +25,23 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.android.navigation.databinding.FragmentGameWonBinding
 
-
+/**
+ * This is the [Fragment] we navigate to if the user wins the game. It just displays a message and
+ * provides a "Next Match" button that naviagates back to `GameFragment` when it is clicked.
+ */
 class GameWonFragment : Fragment() {
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_game_won, container, false)
+                inflater,
+                R.layout.fragment_game_won,
+                container,
+                false
+        )
 
         binding.nextMatchButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_gameWonFragment_to_gameFragment)
