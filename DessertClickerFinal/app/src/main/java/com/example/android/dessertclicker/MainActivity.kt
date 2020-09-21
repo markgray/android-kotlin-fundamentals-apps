@@ -163,10 +163,10 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert. We add the
-     * `price` field of our [Dessert] field [currentDessert], and increment our [dessertsSold]
-     * field. We set the `revenue` variable of [binding] to our [revenue] field and the `amountSold`
-     * variable of [binding] to our [dessertsSold] field. Finally we call our [showCurrentDessert]
-     * method to show the next dessert to the user.
+     * `price` field of our [Dessert] field [currentDessert] to our field [revenue], and increment
+     * our [dessertsSold] field. We set the `revenue` variable of [binding] to our [revenue] field
+     * and the `amountSold` variable of [binding] to our [dessertsSold] field. Finally we call our
+     * [showCurrentDessert] method to show the next dessert to the user.
      */
     private fun onDessertClicked() {
 
@@ -186,9 +186,9 @@ class MainActivity : AppCompatActivity() {
      * 0'th entry in our [allDesserts] list of desserts field. Then we loop through all the `dessert`
      * in [allDesserts] and if our [dessertsSold] field is greater than or equal to the
      * `startProductionAmount` field of `dessert` we set `newDessert` to `dessert` and loop around
-     * for the next `dessert`. When we reach a `dessert` whose `startProductionAmount` field we
-     * break out of the loop leaving `newDessert` pointing to the last `dessert` we found whose
-     * `startProductionAmount` field was less than or equal to our [dessertsSold] field.
+     * for the next `dessert`. When we reach a `dessert` whose `startProductionAmount` field is less
+     * than [dessertsSold] we break out of the loop leaving `newDessert` pointing to the last `dessert`
+     * we found whose `startProductionAmount` field was less than or equal to our [dessertsSold] field.
      *
      * Finally if `newDessert` is not equal to our [currentDessert] we set [currentDessert] to
      * `newDessert` and set the image displayed by the `dessertButton` ImageButton in [binding] to
@@ -219,7 +219,7 @@ class MainActivity : AppCompatActivity() {
      * an `Intent` for our variable `val shareIntent` which has the action `ACTION_SEND` whose
      * literal text data to be sent as part of the share is a formatted string displaying our
      * [dessertsSold] and [revenue] field and whose type is "text/plain". Then wrapped in a `try`
-     * block intended to catch [ActivityNotFoundException] we launch the activity request by the
+     * block intended to catch [ActivityNotFoundException] we launch the activity requested by the
      * `shareIntent`.
      */
     private fun onShare() {
@@ -299,7 +299,6 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onStart() {
         super.onStart()
-
         Timber.i("onStart called")
     }
 
