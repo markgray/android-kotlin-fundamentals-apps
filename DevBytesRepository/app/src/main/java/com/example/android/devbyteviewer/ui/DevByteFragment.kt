@@ -75,7 +75,8 @@ class DevByteFragment : Fragment() {
      */
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, Observer<List<DevByteVideo>> { videos ->
+        @Suppress("RedundantSamConstructor")
+        viewModel.playlist.observe(viewLifecycleOwner, Observer { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
@@ -160,7 +161,8 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer<Boolean> { isNetworkError ->
+        @Suppress("RedundantSamConstructor")
+        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
             if (isNetworkError) onNetworkError()
         })
 

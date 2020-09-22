@@ -25,11 +25,11 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
  * are read or written to using the DAO Data Access Object `VideoDao` defined in `Room.kt`,
  */
 
-
 /**
- * DatabaseVideo represents a video entity in the database.
+ * DatabaseVideo represents a video entity in the database. Its SQLite table in the database is
+ * named "databasevideo".
  *
- * @param url the YouTube Url for the video.
+ * @param url the YouTube Url for the video, our PrimaryKey.
  * @param updated the date that the video was last updated
  * @param title the title of the video
  * @param description the description of the video
@@ -51,12 +51,12 @@ data class DatabaseVideo constructor(
  * the exact same information but in a form usable by our `DevByteViewModel` for display to the user.
  */
 fun List<DatabaseVideo>.asDomainModel(): List<DevByteVideo> {
-        return map {
-                DevByteVideo(
-                        url = it.url,
-                        title = it.title,
-                        description = it.description,
-                        updated = it.updated,
-                        thumbnail = it.thumbnail)
-        }
+    return map {
+        DevByteVideo(
+                url = it.url,
+                title = it.title,
+                description = it.description,
+                updated = it.updated,
+                thumbnail = it.thumbnail)
+    }
 }
