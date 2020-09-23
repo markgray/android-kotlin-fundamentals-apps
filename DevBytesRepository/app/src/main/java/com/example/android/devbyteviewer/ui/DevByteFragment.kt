@@ -68,8 +68,8 @@ class DevByteFragment : Fragment() {
      * [Observer] to the `playlist` property of our [DevByteViewModel] field `viewModel` using the
      * `LifecycleOwner` that represents this Fragment's View as the `LifecycleOwner` which controls
      * the observer. This lambda calls a function block which sets the `videos` property of our
-     * [DevByteAdapter] to the List of `DevByteVideo` contained in `playlist` whenever that `LiveData`
-     * property is updated.
+     * [DevByteAdapter] field [viewModelAdapter] to the List of `DevByteVideo` contained in
+     * `playlist` whenever that `LiveData` property is updated.
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use
      */
@@ -170,7 +170,11 @@ class DevByteFragment : Fragment() {
     }
 
     /**
-     * Method for displaying a Toast error message for network errors.
+     * Method for displaying a Toast error message for network errors. If the value of the
+     * `isNetworkErrorShown` property of our [DevByteViewModel] field [viewModel] is `false`
+     * we toast the message "Network Error", then call the `onNetworkErrorShown` method of
+     * [viewModel] to reset `_isNetworkErrorShown` to `true` (`onNetworkErrorShown` is the
+     * publicly accessible read-only version of `_isNetworkErrorShown`).
      */
     private fun onNetworkError() {
         if(!viewModel.isNetworkErrorShown.value!!) {
@@ -180,7 +184,12 @@ class DevByteFragment : Fragment() {
     }
 
     /**
-     * Helper method to generate YouTube app links
+     * Helper method to generate YouTube app links. The getter initializes its [Uri] variable
+     * `val httpUri` to the value returned by the [Uri.parse] method when it parses the URI string
+     * in the [String] field `url` of our target [DevByteVideo]. Then we return the [Uri] that
+     * the [Uri.parse] method returns when it parses the URI string formed by concatenating the
+     * [String] "vnd.youtube:" to the query parameter "v" of `httpUri`
+     * (typical result returned: "vnd.youtube:sYGKUtM2ga8")
      */
     private val DevByteVideo.launchUri: Uri
         get() {
