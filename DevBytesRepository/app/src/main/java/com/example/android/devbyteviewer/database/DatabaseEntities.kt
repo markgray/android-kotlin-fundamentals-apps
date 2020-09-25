@@ -27,7 +27,7 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
 
 /**
  * DatabaseVideo represents a video entity in the database. Its SQLite table in the database is
- * named "databasevideo".
+ * named "databasevideo" (the default since the `@Entity` annotations lacks a "tableName" parameter).
  *
  * @param url the YouTube Url for the video, our PrimaryKey.
  * @param updated the date that the video was last updated
@@ -42,7 +42,8 @@ data class DatabaseVideo constructor(
         val updated: String,
         val title: String,
         val description: String,
-        val thumbnail: String)
+        val thumbnail: String
+)
 
 
 /**
