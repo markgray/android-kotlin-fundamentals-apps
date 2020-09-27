@@ -100,20 +100,32 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
         get() = _eventNetworkError
 
     /**
-     * Flag to display the error message. This is private to avoid exposing a
-     * way to set this value to observers.
+     * Flag to suppress the display of the error message for a second time. This is private to avoid
+     * exposing a way to set this value to observers. Public read-only access is provide by our
+     * property [isNetworkErrorShown]. Set to `true` by our [onNetworkErrorShown] method, and set to
+     * `false` by our method [refreshDataFromRepository]. The `onNetworkError` method of
+     * `DevByteFragment` will toast an error message if it is `true`, then call our method
+     * [onNetworkErrorShown] to reset if to `false`. `onNetworkError` is called by an `Observer`
+     * of our [eventNetworkError] event when it transitions to `true`.
      */
     @Suppress("RemoveExplicitTypeArguments")
     private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
     /**
-     * Flag to display the error message. Views should use this to get access to the data.
+     * Flag to suppress the display of the error message for a second time. Views should use this to
+     * get read-only access to [_isNetworkErrorShown]. An `Observer` added to our [eventNetworkError]
+     * property in the `onCreateView` override of `DevByteFragment` calls its `onNetworkError` method
+     * when [eventNetworkError] transitions to `true`, and `onNetworkError` will toast an error message
+     * when [isNetworkErrorShown] is `false` then call our [onNetworkErrorShown] to set is to `true`
+     * to avoid toasting twice if the user rotates the device.
      */
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
 
     /**
-     * init{} is called immediately when this ViewModel is created.
+     * init{} is called immediately when this AndroidViewModel is created. We just call our
+     * `refreshDataFromRepository` method to have it call the `refreshVideos` method of
+     * our `VideosRepository` field `videosRepository` to reload our database from the network.
      */
     init {
         refreshDataFromRepository()
@@ -121,8 +133,8 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     /**
      * Refresh data from the repository. Use a coroutine launch to run in a background thread. We
-     * `lauch` a lambda using our [CoroutineScope] field [viewModelScope], which wrapped in a `try`
-     * block intended to catch [IOException] calls the `refreshVideos` suspending function of our
+     * `lauch` a lambda using our [CoroutineScope] field [viewModelScope], which, wrapped in a `try`
+     * block intended to catch [IOException], calls the `refreshVideos` suspending function of our
      * [VideosRepository] field [videosRepository] and when that function completes sets the `value`
      * of both [_eventNetworkError] and [_isNetworkErrorShown] to `false`. If we catch an [IOException]
      * we check whether the `value` of [playlist] is null or empty and if so we set the `value` of
@@ -146,11 +158,12 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
 
     /**
-     * Resets the network error flag. Called from the `onNetworkError` method of `DevByteFragment`,
-     * which is called from an observer of our `LiveData<Boolean>` property [eventNetworkError]
-     * after toasting an error message when it changes to `true` state. The [_isNetworkErrorShown]
-     * property prevents the `onNetworkError` method of `DevByteFragment` from toasting the error
-     * message more than once.
+     * Sets the [_isNetworkErrorShown] suppress network error message flag to `true`. Called from
+     * the `onNetworkError` method of `DevByteFragment`, which is called from an observer of our
+     * `LiveData<Boolean>` property [eventNetworkError] after toasting an error message when
+     * [eventNetworkError] changes to `true` state. The [_isNetworkErrorShown] property prevents
+     * the `onNetworkError` method of `DevByteFragment` from toasting the error message more than
+     * once.
      */
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
@@ -168,9 +181,20 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Factory for constructing DevByteViewModel with parameter
+     * Factory for constructing DevByteViewModel with [Application] parameter.
+     *
+     * @param app the [Application] that owns this activity.
      */
     class Factory(val app: Application) : ViewModelProvider.Factory {
+        /**
+         * Creates a new instance of the given [Class]. After a sanity check to make sure we are
+         * only being used to create a [DevByteViewModel] instance we return a [DevByteViewModel]
+         * constructed to use our [app] property as its [Application] property `app`.
+         *
+         * @param modelClass a [Class] whose instance is requested
+         * @param T          The type parameter for the ViewModel.
+         * @return a newly created [DevByteViewModel] view model.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
