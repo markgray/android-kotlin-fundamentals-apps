@@ -29,12 +29,14 @@ import timber.log.Timber
 
 /**
  * Repository for fetching devbyte videos from the network and storing them on disk
+ *
+ * @param database the [VideosDatabase] we are to when we write to or read from the disk.
  */
 class VideosRepository(private val database: VideosDatabase) {
 
     /**
-     * [LiveData] list of [DevByteVideo] domain objects, which are converted from the list of
-     * `DatabaseVideo` database objects returned by the `getVideos` method of the `videoDao`
+     * [LiveData] wrapped list of [DevByteVideo] domain objects, which are converted from the list
+     * of `DatabaseVideo` database objects returned by the `getVideos` method of the `videoDao`
      * Room DAO when it reads all the entries in the database.
      */
     val videos: LiveData<List<DevByteVideo>>

@@ -57,20 +57,43 @@ data class NetworkVideoContainer(val videos: List<NetworkVideo>)
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
+        /**
+         * the title of the video
+         */
         val title: String,
+        /**
+         * the description of the video
+         */
         val description: String,
+        /**
+         * the YouTube Url for the video.
+         */
         val url: String,
+        /**
+         * the date that the video was last updated
+         */
         val updated: String,
+        /**
+         * the Url for the thumbnail image
+         */
         val thumbnail: String,
-        val closedCaptions: String?)
+        /**
+         * always `null` in our case (could be Url for closed captions?)
+         */
+        val closedCaptions: String?
+)
 
 /**
  * Convert Network results to domain objects. This extension function converts its receiver's
- * `videos` list of [NetworkVideo] objects to a list of [DevByteVideo] domain objects.
+ * `videos` list of [NetworkVideo] objects to a list of [DevByteVideo] domain objects. We use the
+ * [map] extension method to construct a list of new instances of [DevByteVideo] constructed to
+ * use the corresponding property of each of the [NetworkVideo] objects in the `videos` list of
+ * [NetworkVideo]'s of the receiver [NetworkVideoContainer].
  *
  * @return a list of [DevByteVideo] domain objects containing all the information in the receiver's
  * `videos` list of [NetworkVideo] objects
  */
+@Suppress("unused")
 fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
         DevByteVideo(
@@ -85,7 +108,10 @@ fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
 
 /**
  * Convert Network results to database objects. This extension function converts its receiver's
- * `videos` list of [NetworkVideo] objects to a list of [DatabaseVideo] database objects.
+ * `videos` list of [NetworkVideo] objects to a list of [DatabaseVideo] database objects. We use the
+ * [map] extension method to construct a list of new instances of [DatabaseVideo] constructed to
+ * use the corresponding property of each of the [NetworkVideo] objects in the `videos` list of
+ * [NetworkVideo]'s of the receiver [NetworkVideoContainer].
  *
  * @return a list of [DatabaseVideo] database objects containing all the information in the
  * receiver's `videos` list of [NetworkVideo] objects
@@ -100,4 +126,3 @@ fun NetworkVideoContainer.asDatabaseModel(): List<DatabaseVideo> {
                 thumbnail = it.thumbnail)
     }
 }
-

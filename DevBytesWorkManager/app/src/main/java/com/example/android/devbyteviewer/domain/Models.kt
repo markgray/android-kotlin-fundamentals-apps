@@ -37,11 +37,28 @@ import com.example.android.devbyteviewer.util.smartTruncate
  * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView` in the
  * layout file devbyte_item.xml, the adapter is used to display images from URL using Glide.
  */
-data class DevByteVideo(val title: String,
-                        val description: String,
-                        val url: String,
-                        val updated: String,
-                        val thumbnail: String) {
+data class DevByteVideo(
+        /**
+         * the title of the video
+         */
+        val title: String,
+        /**
+         * the description of the video
+         */
+        val description: String,
+        /**
+         * the YouTube Url for the video.
+         */
+        val url: String,
+        /**
+         * the date that the video was last updated
+         */
+        val updated: String,
+        /**
+         * the Url for the thumbnail image
+         */
+        val thumbnail: String
+) {
 
     /**
      * Short description is used for displaying truncated descriptions in the UI. We return the

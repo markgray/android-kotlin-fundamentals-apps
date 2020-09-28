@@ -51,41 +51,64 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     private val videosRepository = VideosRepository(getDatabase(application))
 
     /**
-     * A playlist of videos displayed on the screen.
+     * A playlist of videos displayed on the screen. The lambda of an `Observer` added to it in the
+     * `onActivityCreated` override of `DevByteFragment` sets the `videos` field of the
+     * `DevByteAdapter` used to feed data to its `RecyclerView` if it is not `null`, and our method
+     * [refreshDataFromRepository] tests if to see if it is `null` or empty when it catches
+     * [IOException] and sets the value of our [_eventNetworkError] property to `true` if it is.
+     * It is also read by the binding expression for the "app:playlist" attribute of the
+     * `ProgressBar` with ID R.id.loading_spinner in the layout file layout/fragment_dev_byte.xml
+     * ("app:playlist" is one of two attributes used for the BindingAdapter `hideIfNetworkError`,
+     * and the other is "app:isNetworkError" and both are used for that `ProgressBar`).
+     * `hideIfNetworkError` sets the visibility of the `View` with the attribute "app:playlist" to
+     * GONE if [playlist] transitions to `null`.
      */
     val playlist: LiveData<List<DevByteVideo>> = videosRepository.videos
 
     /**
-     * This is the job for all coroutines started by this ViewModel.
-     *
-     * Cancelling this job will cancel all coroutines started by this ViewModel.
+     * This is the job for all coroutines started using our [CoroutineScope] field [viewModelScope]
+     * by this ViewModel. Cancelling this job will cancel all coroutines started by this ViewModel.
      */
     private val viewModelJob: CompletableJob = SupervisorJob()
 
     /**
-     * This is the main scope for all coroutines launched by [DevByteViewModel].
-     *
-     * Since we pass [viewModelJob], you can cancel all coroutines launched by [viewModelScope] by
-     * calling `viewModelJob.cancel()`
+     * This is the main scope for all coroutines launched by [DevByteViewModel]. Since we pass
+     * [viewModelJob], you can cancel all coroutines launched by [viewModelScope] by calling
+     * `viewModelJob.cancel()`
      */
     private val viewModelScope: CoroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     /**
-     * Event triggered for network error. This is private to avoid exposing a
-     * way to set this value to observers.
+     * Event triggered for network error. This is private to avoid exposing a way to set this value
+     * to observers. Public read-only access is provide by our property [eventNetworkError].
      */
+    @Suppress("RemoveExplicitTypeArguments")
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
     /**
-     * Event triggered for network error. Views should use this to get access to the data.
+     * Event triggered for network error. Views should use this to get read-only access to
+     * [_eventNetworkError]. An `Observer` is added to it in the `onCreateView` override of
+     * `DevByteFragment` which calls its `onNetworkError` method if it transitions to `true`.
+     * It is read by the binding expression for the "app:isNetworkError" attribute of the
+     * `ProgressBar` with ID R.id.loading_spinner in the layout file layout/fragment_dev_byte.xml
+     * ("app:isNetworkError" is one of two attributes used for the BindingAdapter `hideIfNetworkError`,
+     * and the other is "app:playlist" and both are used for that `ProgressBar`). `hideIfNetworkError`
+     * sets the visibility of the `View` with the attribute "app:isNetworkError" to GONE if
+     * [eventNetworkError] transitions to `true`.
      */
     val eventNetworkError: LiveData<Boolean>
         get() = _eventNetworkError
 
     /**
-     * Flag to display the error message. This is private to avoid exposing a
-     * way to set this value to observers.
+     * Flag to suppress the display of the error message for a second time. This is private to avoid
+     * exposing a way to set this value to observers. Public read-only access is provided by our
+     * property [isNetworkErrorShown]. Set to `true` by our [onNetworkErrorShown] method, and set to
+     * `false` by our method [refreshDataFromRepository]. The `onNetworkError` method of
+     * `DevByteFragment` will toast an error message if it is `true`, then call our method
+     * [onNetworkErrorShown] to reset if to `false`. `onNetworkError` is called by an `Observer`
+     * of our [eventNetworkError] event when it transitions to `true`.
      */
+    @Suppress("RemoveExplicitTypeArguments")
     private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
     /**

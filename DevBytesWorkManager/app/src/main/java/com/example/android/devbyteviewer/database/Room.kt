@@ -52,10 +52,14 @@ interface VideoDao {
 
 /**
  * Marks this class as a [RoomDatabase] with one table: [DatabaseVideo] and one DAO class to use to
- * access it, the [VideoDao] field [videoDao].
+ * access it, the [VideoDao] field [videoDao] (the table name is the default "databasevideo" since
+ * the `@Entity` annotation lacks a "tableName" parameter).
  */
 @Database(entities = [DatabaseVideo::class], version = 1)
 abstract class VideosDatabase: RoomDatabase() {
+    /**
+     * The [VideoDao] to use to run "Room" queries.
+     */
     abstract val videoDao: VideoDao
 }
 
