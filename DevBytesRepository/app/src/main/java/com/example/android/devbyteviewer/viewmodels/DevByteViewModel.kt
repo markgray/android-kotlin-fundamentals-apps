@@ -101,7 +101,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     /**
      * Flag to suppress the display of the error message for a second time. This is private to avoid
-     * exposing a way to set this value to observers. Public read-only access is provide by our
+     * exposing a way to set this value to observers. Public read-only access is provided by our
      * property [isNetworkErrorShown]. Set to `true` by our [onNetworkErrorShown] method, and set to
      * `false` by our method [refreshDataFromRepository]. The `onNetworkError` method of
      * `DevByteFragment` will toast an error message if it is `true`, then call our method
