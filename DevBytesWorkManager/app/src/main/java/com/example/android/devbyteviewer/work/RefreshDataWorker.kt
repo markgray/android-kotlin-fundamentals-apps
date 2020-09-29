@@ -40,7 +40,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
 
     companion object {
         /**
-         * The unique name which for this operation, used in the call to `enqueueUniquePeriodicWork`
+         * The unique name for this operation, used in the call to `enqueueUniquePeriodicWork`
          * in the `setupRecurringWork` method of `DevByteApplication`
          */
         const val WORK_NAME = "com.example.android.devbyteviewer.work.RefreshDataWorker"

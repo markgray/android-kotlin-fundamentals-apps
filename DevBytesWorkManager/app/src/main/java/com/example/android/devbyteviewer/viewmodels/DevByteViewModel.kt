@@ -158,11 +158,12 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
 
     /**
-     * Resets the network error flag. Called from the `onNetworkError` method of `DevByteFragment`,
-     * which is called from an observer of our `LiveData<Boolean>` property [eventNetworkError]
-     * after toasting an error message when it changes to `true` state. The [_isNetworkErrorShown]
-     * property prevents the `onNetworkError` method of `DevByteFragment` from toasting the error
-     * message more than once.
+     * Sets the [_isNetworkErrorShown] suppress network error message flag to `true`. Called from
+     * the `onNetworkError` method of `DevByteFragment`, which is called from an observer of our
+     * `LiveData<Boolean>` property [eventNetworkError] after toasting an error message when
+     * [eventNetworkError] changes to `true` state. The [_isNetworkErrorShown] property prevents
+     * the `onNetworkError` method of `DevByteFragment` from toasting the error message more than
+     * once.
      */
     fun onNetworkErrorShown() {
         _isNetworkErrorShown.value = true
@@ -180,9 +181,20 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     }
 
     /**
-     * Factory for constructing DevByteViewModel with parameter
+     * Factory for constructing DevByteViewModel with [Application] parameter.
+     *
+     * @param app the [Application] that owns this activity.
      */
     class Factory(val app: Application) : ViewModelProvider.Factory {
+        /**
+         * Creates a new instance of the given [Class]. After a sanity check to make sure we are
+         * only being used to create a [DevByteViewModel] instance we return a [DevByteViewModel]
+         * constructed to use our [app] property as its [Application] property `app`.
+         *
+         * @param modelClass a [Class] whose instance is requested
+         * @param T          The type parameter for the ViewModel.
+         * @return a newly created [DevByteViewModel] view model.
+         */
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
