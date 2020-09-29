@@ -105,7 +105,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * property [isNetworkErrorShown]. Set to `true` by our [onNetworkErrorShown] method, and set to
      * `false` by our method [refreshDataFromRepository]. The `onNetworkError` method of
      * `DevByteFragment` will toast an error message if it is `true`, then call our method
-     * [onNetworkErrorShown] to reset if to `false`. `onNetworkError` is called by an `Observer`
+     * [onNetworkErrorShown] to reset it to `false`. `onNetworkError` is called by an `Observer`
      * of our [eventNetworkError] event when it transitions to `true`.
      */
     @Suppress("RemoveExplicitTypeArguments")
@@ -133,7 +133,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
     /**
      * Refresh data from the repository. Use a coroutine launch to run in a background thread. We
-     * `lauch` a lambda using our [CoroutineScope] field [viewModelScope], which, wrapped in a `try`
+     * `launch` a lambda using our [CoroutineScope] field [viewModelScope], which, wrapped in a `try`
      * block intended to catch [IOException], calls the `refreshVideos` suspending function of our
      * [VideosRepository] field [videosRepository] and when that function completes sets the `value`
      * of both [_eventNetworkError] and [_isNetworkErrorShown] to `false`. If we catch an [IOException]
