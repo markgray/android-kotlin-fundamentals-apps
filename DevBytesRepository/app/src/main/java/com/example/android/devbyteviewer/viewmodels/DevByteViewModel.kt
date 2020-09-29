@@ -116,7 +116,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * get read-only access to [_isNetworkErrorShown]. An `Observer` added to our [eventNetworkError]
      * property in the `onCreateView` override of `DevByteFragment` calls its `onNetworkError` method
      * when [eventNetworkError] transitions to `true`, and `onNetworkError` will toast an error message
-     * when [isNetworkErrorShown] is `false` then call our [onNetworkErrorShown] to set is to `true`
+     * when [isNetworkErrorShown] is `false` then call our [onNetworkErrorShown] to set it to `true`
      * to avoid toasting twice if the user rotates the device.
      */
     val isNetworkErrorShown: LiveData<Boolean>
