@@ -112,7 +112,12 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
     private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
     /**
-     * Flag to display the error message. Views should use this to get access to the data.
+     * Flag to suppress the display of the error message for a second time. Views should use this to
+     * get read-only access to [_isNetworkErrorShown]. An `Observer` added to our [eventNetworkError]
+     * property in the `onCreateView` override of `DevByteFragment` calls its `onNetworkError` method
+     * when [eventNetworkError] transitions to `true`, and `onNetworkError` will toast an error message
+     * when [isNetworkErrorShown] is `false` then call our [onNetworkErrorShown] to set it to `true`
+     * to avoid toasting twice if the user rotates the device.
      */
     val isNetworkErrorShown: LiveData<Boolean>
         get() = _isNetworkErrorShown
