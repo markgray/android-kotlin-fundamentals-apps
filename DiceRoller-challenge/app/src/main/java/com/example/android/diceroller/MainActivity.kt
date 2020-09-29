@@ -16,12 +16,10 @@
 
 package com.example.android.diceroller
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
-import java.util.*
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * DiceRoller demonstrates simple interactivity in an Android app.
