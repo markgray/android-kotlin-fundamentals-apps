@@ -86,6 +86,7 @@ class HomeFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
         viewModel.navigateToSearch.observe(viewLifecycleOwner,
                 Observer<Boolean> { navigate ->
                     if(navigate) {
