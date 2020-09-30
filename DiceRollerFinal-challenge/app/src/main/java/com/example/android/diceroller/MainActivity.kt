@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
      */
     lateinit var diceImage : ImageView
     /**
-     * The [ImageView] in our layout file with ID [R.id.dice_image]
+     * The [ImageView] in our layout file with ID [R.id.dice_image2]
      */
     lateinit var diceImage2 : ImageView
 
