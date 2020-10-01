@@ -129,6 +129,7 @@ class GdgListFragment : Fragment() {
         // Sets the adapter of the RecyclerView
         binding.gdgChapterList.adapter = adapter
 
+        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
         viewModel.showNeedLocation.observe(viewLifecycleOwner,
             Observer<Boolean> { show -> // Snackbar is like Toast but it lets us show forever
                 if (show == true) {
