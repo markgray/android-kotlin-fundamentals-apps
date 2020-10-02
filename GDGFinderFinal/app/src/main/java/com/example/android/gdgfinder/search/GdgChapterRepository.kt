@@ -1,4 +1,3 @@
-package com.example.android.gdgfinder.search
 /*
  * Copyright 2019, The Android Open Source Project
  *
@@ -15,6 +14,7 @@ package com.example.android.gdgfinder.search
  * limitations under the License.
  */
 
+package com.example.android.gdgfinder.search
 
 import android.location.Location
 import com.example.android.gdgfinder.network.GdgApiService
