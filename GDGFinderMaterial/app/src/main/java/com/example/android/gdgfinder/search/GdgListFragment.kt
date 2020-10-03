@@ -118,6 +118,7 @@ class GdgListFragment : Fragment() {
         // Sets the adapter of the RecyclerView
         binding.gdgChapterList.adapter = adapter
 
+        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
         viewModel.showNeedLocation.observe(viewLifecycleOwner,
             Observer<Boolean> { show -> // Snackbar is like Toast but it lets us show forever
                 if (show == true) {
@@ -219,8 +220,7 @@ class GdgListFragment : Fragment() {
      */
     private fun startLocationUpdates(fusedLocationClient: FusedLocationProviderClient) {
         // if we don't have permission ask for it and wait until the user grants it
-        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION)
-            != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(requireContext(), LOCATION_PERMISSION) != PackageManager.PERMISSION_GRANTED) {
             requestLocationPermission()
             return
         }
