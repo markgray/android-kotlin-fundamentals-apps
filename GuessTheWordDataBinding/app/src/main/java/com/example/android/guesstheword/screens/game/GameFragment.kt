@@ -103,6 +103,7 @@ class GameFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Observer for the Game finished event
+        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
         viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
             if (hasFinished) gameFinished()
         })
