@@ -37,6 +37,7 @@ import com.example.android.gdgfinder.databinding.ListItemBinding
 class GdgListAdapter(
     val clickListener: GdgClickListener
 ): ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback){
+
     /**
      * The [DiffUtil.ItemCallback] that is used by the framework to calculate the diff between two
      * non-null items in our list of [GdgChapter] objects in order to calculate the minimal number
@@ -148,6 +149,7 @@ class GdgListAdapter(
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GdgListViewHolder {
         return GdgListViewHolder.from(parent)
+
     }
 
     /**

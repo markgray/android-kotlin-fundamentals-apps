@@ -82,7 +82,7 @@ class GdgListViewModel: ViewModel() {
      * displayed. "app:showOnlyWhenEmpty" is a binding adapter for `View` in `BindingApaters.kt`
      * which sets the visibility of the `View` to visible only while the list is empty (or `null`).
      */
-    val gdgList: LiveData< List<GdgChapter>>
+    val gdgList: LiveData<List<GdgChapter>>
         get() = _gdgList
 
     /**

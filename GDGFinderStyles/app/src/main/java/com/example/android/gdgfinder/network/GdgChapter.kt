@@ -23,6 +23,18 @@ import kotlinx.android.parcel.Parcelize
 /**
  * Moshi parses the JSON objects in the "data" array of our JSON file into a list of these kotlin
  * objects. The @Json annotation supplies the JSON field name when it differs from the kotlin one.
+ *
+ * @param name The name of the GDG Chapter: "GDG Bordj Bou-Arréridj"
+ * @param city The city that the Chapter is in: "Burj Bu Arririj"
+ * @param country Country that the Chapter is in: "Algeria"
+ * @param region Region that the Chapter is in: "Africa"
+ * @param website Website URL for the Chapter: "https://www.meetup.com/GDG-BBA"
+ * @param geo The [LatLong] latitude and longitude of the Chapter:
+ *
+ *     "geo": {
+ *         "lat": 36.06000137,
+ *         "lng": 4.630000114
+ *     }
  */
 @Parcelize
 data class GdgChapter(
@@ -36,6 +48,9 @@ data class GdgChapter(
 
 /**
  * This class is the class Moshi parses the contents of the "geo" field's JSON object into.
+ *
+ * @param lat the latitude of the location
+ * @param long the longitude of the location
  */
 @Parcelize
 data class LatLong(
@@ -47,6 +62,9 @@ data class LatLong(
  * This class holds both the parsed "filters_" JSON array (a [List] of [String]) and the parsed
  * "data" JSON array (a [List] of [GdgChapter] objects) that are parsed from the JSON file when the
  * `getChapters` method of `GdgApiService` is called.
+ *
+ * @param filters the [Filter] list of region strings
+ * @param chapters the [List] of [GdgChapter] objects parsed from the JSON
  */
 @Parcelize
 data class GdgResponse(
@@ -56,6 +74,8 @@ data class GdgResponse(
 
 /**
  * Moshi parses the "region" array of the JSON object "filters_" into this kotlin class.
+ *
+ * @param regions the list of region strings parsed from the JSON
  */
 @Parcelize
 data class Filter(

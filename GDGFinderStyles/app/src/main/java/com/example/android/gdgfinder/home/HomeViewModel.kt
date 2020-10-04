@@ -43,7 +43,7 @@ class HomeViewModel : ViewModel() {
 
     /**
      * Users interested in the state of [_navigateToSearch] should use this to get immutable access
-     * to it. An `Observer` will eventuall be set on it in the `onCreateView` override of
+     * to it. An `Observer` will eventually be added to it in the `onCreateView` override of
      * `HomeFragment` whose lambda will trigger navigation to the `GdgListFragment` fragment when
      * it transitions to `true` when that is added in the next code lab.
      */

@@ -83,6 +83,7 @@ class AddGdgFragment : Fragment() {
 
         binding.viewModel = viewModel
 
+        @Suppress("RedundantSamConstructor")
         viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
