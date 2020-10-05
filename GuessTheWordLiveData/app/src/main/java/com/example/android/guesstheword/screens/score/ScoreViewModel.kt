@@ -49,7 +49,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
      * `GameFragment`. Set to `true` by our [onPlayAgain] method (which is called when the "Play
      * Again" `Button` with resourse ID R.id.play_again_button is clicked), and reset to `false` by
      * our [onPlayAgainComplete] method (which needs to be called to prevent repeating the action
-     * after navigating to the `GameFragment`0.
+     * after navigating to the `GameFragment`).
      */
     private val _eventPlayAgain = MutableLiveData<Boolean>()
 

@@ -53,7 +53,11 @@ class ScoreFragment : Fragment() {
      * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
      * inflate our layout file [R.layout.score_fragment] with our [ViewGroup] parameter [container]
      * supplying the LayoutParams, and initialize our [ScoreFragmentBinding] variable `val binding`
-     * to the binding object it returns. We create the [ViewModelProvider] with `this` as the
+     * to the binding object it returns.
+     *
+     * We initialize our [ScoreViewModelFactory] field [viewModelFactory] to a new instance constructed
+     * to use the `score` safe args property of the [ScoreFragmentArgs] created from the arguments
+     * supplied when the fragment was instantiated. We create a [ViewModelProvider] with `this` as the
      * `ViewModelStoreOwner`, and [viewModelFactory] as the Factory which will be used to instantiate
      * new ViewModels, and call its `get` method to retrieve an existing [ScoreViewModel] ViewModel
      * or create a new one in this fragments scope, and set our [ScoreViewModel] field [viewModel]
@@ -81,6 +85,7 @@ class ScoreFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantSamConstructor")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
