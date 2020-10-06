@@ -106,6 +106,7 @@ class ScoreFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Navigates back to game when button is pressed
+        @Suppress("RedundantSamConstructor")
         viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
             if (playAgain) {
                 findNavController().navigate(ScoreFragmentDirections.actionRestart())

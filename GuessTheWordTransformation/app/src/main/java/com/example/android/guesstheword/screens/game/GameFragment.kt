@@ -77,6 +77,7 @@ class GameFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or `null`.
      */
+    @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
