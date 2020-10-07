@@ -79,18 +79,17 @@ class OverviewViewModel : ViewModel() {
         get() = _properties
 
     /**
-     * The internal MutableLiveData that handles navigation to display the selected property in by
-     * the `DetailFragment`. Set to the [MarsProperty] passed to our [displayPropertyDetails] method,
+     * The internal MutableLiveData that handles navigation to display the selected property in
+     * a `DetailFragment`. Set to the [MarsProperty] passed to our [displayPropertyDetails] method,
      * and to `null` by our [displayPropertyDetailsComplete] method. Public read-only access is
      * provided by our [navigateToSelectedProperty] property.
      */
     private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
 
     /**
-     * The external LiveData interface to the [_navigateToSelectedProperty] property. Immutable, so
-     * only this class can modify. An `Observer` added to it in the `onCreateView` override of
-     * `OverviewFragment` navigates to the `DetailFragement` passing the [MarsProperty] we hold as
-     * a safe arg when it changes value.
+     * The external read-only LiveData interface to the [_navigateToSelectedProperty] property. An
+     * `Observer` added to it in the `onCreateView` override of `OverviewFragment` navigates to the
+     * `DetailFragement` passing the [MarsProperty] we hold as a safe arg when it changes value.
      */
     val navigateToSelectedProperty: LiveData<MarsProperty>
         get() = _navigateToSelectedProperty
@@ -124,7 +123,7 @@ class OverviewViewModel : ViewModel() {
      * of [MarsProperty] variable `var getPropertiesDeferred` to the value returned by the
      * `getProperties` method of [MarsApi.retrofitService] when passed the value of our [MarsApiFilter]
      * parameter [filter]. Then wrapped in a `try` block intended to catch any [Exception] we set
-     * value of our [MutableLiveData] wrapped [MarsApiStatus] property [_status] to
+     * the value of our [MutableLiveData] wrapped [MarsApiStatus] property [_status] to
      * [MarsApiStatus.LOADING] (a binding expression observing [status] for the "app:marsApiStatus"
      * attribute will then have the BindingAdapter `bindStatus` cause the display of the drawable
      * R.drawable.loading_animation in the UI) then we set our [List] of [MarsProperty] variable
