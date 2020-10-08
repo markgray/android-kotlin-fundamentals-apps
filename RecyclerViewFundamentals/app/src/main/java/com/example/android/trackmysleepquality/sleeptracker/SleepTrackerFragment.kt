@@ -122,6 +122,7 @@ class SleepTrackerFragment : Fragment() {
         val adapter = SleepNightAdapter()
         binding.sleepList.adapter = adapter
 
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.nights.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.data = it
@@ -134,6 +135,7 @@ class SleepTrackerFragment : Fragment() {
 
         // Add an Observer on the state variable for showing a Snackbar message
         // when the CLEAR button is pressed.
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
@@ -148,6 +150,7 @@ class SleepTrackerFragment : Fragment() {
         })
 
         // Add an Observer on the state variable for Navigating when STOP button is pressed.
+        @Suppress("RedundantSamConstructor")
         sleepTrackerViewModel.navigateToSleepQuality.observe(viewLifecycleOwner, Observer { night ->
             night?.let {
                 // We need to get the navController from this, because button is not ready, and it

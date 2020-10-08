@@ -107,6 +107,7 @@ class SleepQualityFragment : Fragment() {
         binding.sleepQualityViewModel = sleepQualityViewModel
 
         // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
+        @Suppress("RedundantSamConstructor")
         sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 this.findNavController().navigate(
