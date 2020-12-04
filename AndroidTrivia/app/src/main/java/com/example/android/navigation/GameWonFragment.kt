@@ -16,6 +16,7 @@
 
 package com.example.android.navigation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -56,6 +57,7 @@ class GameWonFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -129,6 +131,7 @@ class GameWonFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
      */
+    @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
