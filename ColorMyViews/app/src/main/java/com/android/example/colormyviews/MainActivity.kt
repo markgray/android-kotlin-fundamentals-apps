@@ -19,9 +19,8 @@ package com.android.example.colormyviews
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_main.*
+import com.android.example.colormyviews.databinding.ActivityMainBinding
 
 /**
  * The ColorMyViews app demonstrates how to use a `ConstraintLayout` using the Layout Editor.
@@ -30,18 +29,28 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
 
     /**
-     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
-     * then we set our content view to our layout file [R.layout.activity_main]. Finally we call our
-     * [setListeners] method to have it set the `OnClickListener` of the [View]'s in our layout file
-     * to a lambda which calls our [makeColored] with the [View] clicked to have it set the
-     * background color of the [View] to different colors depending on the ID of the [View].
+     * Binding to our layout file [R.layout.activity_main], initialized in our [onCreate] override.
+     */
+    private lateinit var binding: ActivityMainBinding
+
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
+     * Then we use the [ActivityMainBinding.inflate] method with the LayoutInflater instance that
+     * this Window retrieved from its Context to inflate our layout file [R.layout.activity_main]
+     * into an [ActivityMainBinding] instance which we use to initialize our field [binding], and
+     * set our content view to the outermost View in the associated layout file associated with
+     * [ActivityMainBinding]. Finally we call our [setListeners] method to have it set the
+     * `OnClickListener` of the [View]'s in our layout file to a lambda which calls our [makeColored]
+     * method with the [View] clicked to have it set the background color of the [View] to different
+     * colors depending on the ID of the [View].
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
      * shut down then this Bundle contains the data it most recently supplied in [onSaveInstanceState]
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         setListeners()
     }
@@ -53,17 +62,17 @@ class MainActivity : AppCompatActivity() {
      */
     private fun setListeners() {
 
-        val boxOneText = findViewById<TextView>(R.id.box_one_text)
-        val boxTwoText = findViewById<TextView>(R.id.box_two_text)
-        val boxThreeText = findViewById<TextView>(R.id.box_three_text)
-        val boxFourText = findViewById<TextView>(R.id.box_four_text)
-        val boxFiveText = findViewById<TextView>(R.id.box_five_text)
+        val boxOneText = binding.boxOneText
+        val boxTwoText = binding.boxTwoText
+        val boxThreeText = binding.boxThreeText
+        val boxFourText = binding.boxFourText
+        val boxFiveText = binding.boxFiveText
 
-        val rootConstraintLayout = findViewById<View>(R.id.constraint_layout)
+        val rootConstraintLayout = binding.constraintLayout
 
-        val redButton = findViewById<TextView>(R.id.red_button)
-        val greenButton = findViewById<TextView>(R.id.green_button)
-        val yellowButton = findViewById<TextView>(R.id.yellow_button)
+        val redButton = binding.redButton
+        val greenButton = binding.greenButton
+        val yellowButton = binding.yellowButton
 
         val clickableViews: List<View> =
             listOf(
@@ -94,9 +103,10 @@ class MainActivity : AppCompatActivity() {
             R.id.box_five_text -> view.setBackgroundColor(Color.BLUE)
 
             // Boxes using custom colors for background
-            R.id.red_button -> box_three_text.setBackgroundResource(R.color.my_red)
-            R.id.yellow_button -> box_four_text.setBackgroundResource(R.color.my_yellow)
-            R.id.green_button -> box_five_text.setBackgroundResource(R.color.my_green)
+            R.id.red_button -> binding.boxThreeText.setBackgroundResource(R.color.my_red)
+
+            R.id.yellow_button -> binding.boxFourText.setBackgroundResource(R.color.my_yellow)
+            R.id.green_button -> binding.boxFiveText.setBackgroundResource(R.color.my_green)
 
             else -> view.setBackgroundColor(Color.LTGRAY)
         }
