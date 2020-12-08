@@ -16,6 +16,7 @@
 
 package com.example.android.devbyteviewer.ui
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -128,6 +129,8 @@ class DevByteFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
+    @SuppressLint("QueryPermissionsNeeded")
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
