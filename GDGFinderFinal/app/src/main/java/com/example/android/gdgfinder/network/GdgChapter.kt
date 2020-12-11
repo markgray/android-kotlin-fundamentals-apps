@@ -18,7 +18,7 @@ package com.example.android.gdgfinder.network
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Moshi parses the JSON objects in the "data" array of our JSON file into a list of these kotlin
