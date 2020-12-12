@@ -47,7 +47,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
      * available by the [eventPlayAgain] property. When `true` an `Observer` of the [eventPlayAgain]
      * public version added in the `onCreateView` override of `ScoreFragment` will navigate to the
      * `GameFragment`. Set to `true` by our [onPlayAgain] method (which is called when the "Play
-     * Again" `Button` with resourse ID R.id.play_again_button is clicked), and reset to `false` by
+     * Again" `Button` with resource ID R.id.play_again_button is clicked), and reset to `false` by
      * our [onPlayAgainComplete] method (which needs to be called to prevent repeating the action
      * after navigating to the `GameFragment`).
      */
@@ -68,7 +68,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
 
     /**
      * Called to set the value of our [_eventPlayAgain] property to `true`. This is called when the
-     * "Play Again" `Button` with resourse ID R.id.play_again_button is clicked.
+     * "Play Again" `Button` with resource ID R.id.play_again_button is clicked.
      */
     fun onPlayAgain() {
         _eventPlayAgain.value = true

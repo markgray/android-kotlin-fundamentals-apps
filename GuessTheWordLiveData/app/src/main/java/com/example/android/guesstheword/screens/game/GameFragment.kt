@@ -57,16 +57,16 @@ class GameFragment : Fragment() {
      * create a new one and initialize our [GameViewModel] field [viewModel] to the view model it
      * returns.
      *
-     * We add an [Observer] to the `LiveData` wrapped `word` property of [viewModel] whose lamdba
+     * We add an [Observer] to the `LiveData` wrapped `word` property of [viewModel] whose lambda
      * sets the text of the `wordText` property of [binding] (the `TextView` in our layout file
      * with resource ID [R.id.word_text]) to the new value of `word` whenever it changes.
      *
-     * We add an [Observer] to the `LiveData` wrapped `score` property of [viewModel] whose lamdba
+     * We add an [Observer] to the `LiveData` wrapped `score` property of [viewModel] whose lambda
      * sets the text of the `scoreText` property of [binding] (the `TextView` in our layout file
      * with resource ID [R.id.score_text]) to the new [String] value of `score` whenever it changes.
      *
      * We add an [Observer] to the `LiveData` wrapped `eventGameFinish` property of [viewModel] whose
-     * lamdba calls our [gameFinished] method whenever the value of `eventGameFinish` toggles to
+     * lambda calls our [gameFinished] method whenever the value of `eventGameFinish` toggles to
      * `true`.
      *
      * We set the `OnClickListener` of the `correctButton` property of [binding] (the button with
@@ -88,7 +88,7 @@ class GameFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or `null`.
      */
-    @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
+    @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments", "RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
