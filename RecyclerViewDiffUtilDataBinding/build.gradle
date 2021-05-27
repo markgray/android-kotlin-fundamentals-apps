@@ -19,10 +19,10 @@
 buildscript {
 
     ext {
-        kotlin_version = '1.5.0'
+        kotlin_version = '1.5.10'
         archLifecycleVersion = '1.1.1'
         room_version = '2.3.0'
-        coroutine_version = '1.5.0-RC-native-mt'
+        coroutine_version = '1.5.0'
         gradleVersion = '4.2.1'
         version_navigation = '2.3.5'
         dataBindingCompilerVersion = gradleVersion // Always need to be the same.
@@ -35,7 +35,6 @@ buildscript {
 
     dependencies {
         classpath "com.android.tools.build:gradle:$gradleVersion"
-        //noinspection DifferentKotlinGradleVersion
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
 
