@@ -68,11 +68,13 @@ class DevByteFragment : Fragment() {
     private var viewModelAdapter: DevByteAdapter? = null
 
     /**
-     * Called when the fragment's activity has been created and this fragment's view hierarchy
-     * instantiated. It can be used to do final initialization once these pieces are in place,
-     * such as retrieving views or restoring state.
+     * Called when all saved state has been restored into the view hierarchy of the fragment. This
+     * can be used to do initialization based on saved state that you are letting the view hierarchy
+     * track itself, such as whether check box widgets are currently checked.  This is called after
+     * [onViewCreated] and before [onStart]. This is my solution to the deprecation of the callback
+     * [onActivityCreated] since it is called after [onActivityCreated].
      *
-     * First we call our super's implementation of `onActivityCreated`. Then we add a lambda as an
+     * First we call our super's implementation of `onViewStateRestored`. Then we add a lambda as an
      * [Observer] to the `playlist` property of our [DevByteViewModel] field `viewModel` using the
      * `LifecycleOwner` that represents this Fragment's View as the `LifecycleOwner` which controls
      * the observer. This lambda calls a function block which sets the `videos` property of our
@@ -81,10 +83,9 @@ class DevByteFragment : Fragment() {
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use
      */
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        @Suppress("RedundantSamConstructor")
-        viewModel.playlist.observe(viewLifecycleOwner, Observer { videos ->
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        viewModel.playlist.observe(viewLifecycleOwner, { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
@@ -251,6 +252,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      * to be invalidated.
      */
     var videos: List<DevByteVideo> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.
