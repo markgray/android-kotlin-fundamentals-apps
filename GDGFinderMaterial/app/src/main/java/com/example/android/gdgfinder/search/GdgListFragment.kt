@@ -21,6 +21,7 @@ import android.content.pm.PackageManager
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -60,7 +61,7 @@ class GdgListFragment : Fragment() {
      * Our handle to our fragment's singleton [GdgListViewModel] view model.
      */
     private val viewModel: GdgListViewModel by lazy {
-        ViewModelProvider(this).get(GdgListViewModel::class.java)
+        ViewModelProvider(this)[GdgListViewModel::class.java]
     }
 
     /**
@@ -97,6 +98,7 @@ class GdgListFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -226,14 +228,14 @@ class GdgListFragment : Fragment() {
         }
 
 
-        val request = LocationRequest().setPriority(LocationRequest.PRIORITY_LOW_POWER)
+        val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult?) {
                 val location = locationResult?.lastLocation ?: return
                 viewModel.onLocationUpdated(location)
             }
         }
-        fusedLocationClient.requestLocationUpdates(request, callback, null)
+        fusedLocationClient.requestLocationUpdates(request, callback, Looper.myLooper()!!)
     }
 
     /**

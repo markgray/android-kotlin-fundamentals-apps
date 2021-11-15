@@ -41,7 +41,7 @@ class AddGdgFragment : Fragment() {
      * then call the `doneShowingSnackbar` method of [AddGdgViewModel] to reset it to `false`.
      */
     private val viewModel: AddGdgViewModel by lazy {
-        ViewModelProvider(this).get(AddGdgViewModel::class.java)
+        ViewModelProvider(this)[AddGdgViewModel::class.java]
     }
 
     /**
@@ -71,6 +71,7 @@ class AddGdgFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +84,7 @@ class AddGdgFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
