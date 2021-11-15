@@ -83,7 +83,7 @@ class HomeFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         val binding = HomeFragmentBinding.inflate(inflater)
-        viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
 
         binding.viewModel = viewModel
 

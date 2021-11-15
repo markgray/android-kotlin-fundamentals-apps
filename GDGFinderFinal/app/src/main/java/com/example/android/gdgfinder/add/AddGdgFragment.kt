@@ -41,7 +41,7 @@ class AddGdgFragment : Fragment() {
      * then call the `doneShowingSnackbar` method of [AddGdgViewModel] to reset it to `false`.
      */
     private val viewModel: AddGdgViewModel by lazy {
-        ViewModelProvider(this).get(AddGdgViewModel::class.java)
+        ViewModelProvider(this)[AddGdgViewModel::class.java]
     }
 
     /**
