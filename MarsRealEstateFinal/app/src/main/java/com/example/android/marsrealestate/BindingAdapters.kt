@@ -18,6 +18,7 @@
 package com.example.android.marsrealestate
 
 import android.net.Uri
+import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.core.net.toUri
@@ -106,5 +107,6 @@ fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
         MarsApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
+        else -> { Log.i("BindingAdapters", "MarsApiStatus is: $status") }
     }
 }
