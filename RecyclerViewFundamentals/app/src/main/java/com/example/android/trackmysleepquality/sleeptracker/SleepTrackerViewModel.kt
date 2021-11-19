@@ -132,7 +132,7 @@ class SleepTrackerViewModel(
      * attribute of the "Stop" button. Set to `null` by our [doneNavigating] method which is called
      * after navigating to the `SleepQualityFragment` to prevent repeated navigating.
      */
-    private val _navigateToSleepQuality = MutableLiveData<SleepNight>()
+    private val _navigateToSleepQuality = MutableLiveData<SleepNight?>()
 
     /**
      * If this is non-null, immediately navigate to `SleepQualityFragment` and call [doneNavigating].
@@ -140,7 +140,7 @@ class SleepTrackerViewModel(
      * navigates to `SleepTrackerFragment` using the `nightId` primary key of the [SleepNight] as
      * the safe args to pass.
      */
-    val navigateToSleepQuality: LiveData<SleepNight>
+    val navigateToSleepQuality: MutableLiveData<SleepNight?>
         get() = _navigateToSleepQuality
 
     /**
