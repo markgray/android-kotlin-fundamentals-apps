@@ -76,6 +76,7 @@ class SleepQualityFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
+    @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
