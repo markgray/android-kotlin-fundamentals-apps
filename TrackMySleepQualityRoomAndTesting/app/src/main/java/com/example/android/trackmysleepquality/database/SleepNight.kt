@@ -41,7 +41,7 @@ data class SleepNight(
          * if not set.
          */
         @ColumnInfo(name = "start_time_milli")
-        val startTimeMilli: Long = System.currentTimeMillis(),
+        var startTimeMilli: Long = System.currentTimeMillis(),
 
         /**
          * The end time in milliseconds of our night's sleep. The `@ColumnInfo` annotation sets
