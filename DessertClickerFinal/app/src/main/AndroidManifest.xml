@@ -26,7 +26,7 @@
         android:roundIcon="@mipmap/ic_dessert_clicker_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup">
+        tools:ignore="AllowBackup,DataExtractionRules">
         <activity
             android:name="com.example.android.dessertclicker.MainActivity"
             android:exported="true">
