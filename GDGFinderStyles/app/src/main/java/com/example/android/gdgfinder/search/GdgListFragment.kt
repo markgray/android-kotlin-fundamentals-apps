@@ -231,8 +231,8 @@ class GdgListFragment : Fragment() {
 
         val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object: LocationCallback() {
-            override fun onLocationResult(locationResult: LocationResult?) {
-                val location = locationResult?.lastLocation ?: return
+            override fun onLocationResult(locationResult: LocationResult) {
+                val location = locationResult.lastLocation
                 viewModel.onLocationUpdated(location)
             }
         }
