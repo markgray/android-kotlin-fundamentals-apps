@@ -14,7 +14,7 @@ You can record a start and stop time, assign a quality rating, and clear the dat
 In this codelab, working from this starter app, you:
 
 * Extended the TrackMySleepQuality app to collect a quality rating, add it to the database and display the result.
-* Usedd LiveData to trigger showing of a snackbar. 
+* Used LiveData to trigger showing of a snackbar.
 * Use LiveData to enable and disable buttons.
 
 
