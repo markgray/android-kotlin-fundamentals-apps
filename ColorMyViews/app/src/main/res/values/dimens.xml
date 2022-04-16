@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
-    <dimen name="margin_wide">16dp</dimen>
-    <dimen name="box_text_size">24sp</dimen>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <dimen name="margin_wide" tools:keep="@dimen/margin_wide">16dp</dimen>
+    <dimen name="box_text_size" tools:keep="@dimen/box_text_size">24sp</dimen>
 </resources>
