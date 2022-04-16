@@ -22,7 +22,9 @@
     android:layout_height="192dp"
     android:background="?attr/colorPrimaryDark"
     android:padding="16dp"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    tools:ignore="Overdraw"
+    tools:keep="@layout/nav_header">
 
     <ImageView
         android:id="@+id/navHeaderImage"
