@@ -14,10 +14,12 @@
   ~ limitations under the License.
   -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="1920dp"
     android:height="1920dp"
     android:viewportWidth="1920"
-    android:viewportHeight="1920">
+    android:viewportHeight="1920"
+    tools:ignore="VectorRaster">
   <path
       android:fillColor="#B0BEC5"
       android:pathData="M0,-16h1920v1920h-1920z" />
