@@ -15,10 +15,12 @@
   -->
 
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:width="500dp"
     android:height="700dp"
     android:viewportWidth="500"
-    android:viewportHeight="700">
+    android:viewportHeight="700"
+    tools:ignore="VectorRaster">
     <path
         android:fillColor="#C2CACC"
         android:pathData="M242.3,425.8c-58.2,7.9 -115.6,20.7 -171.6,38.3c-3.2,0.3 -3.7,4.5 -0.7,5.9c59.5,30 119.9,57 181.5,80.1c7.1,3.3 14.8,5 22.5,5c5.9,0 11.7,-1 17.3,-2.9c47.5,-12.6 93.9,-29.1 138.7,-49.4c2.9,-1 2.6,-5.1 -0.5,-6C370.4,469.8 307.8,446.3 242.3,425.8" />
