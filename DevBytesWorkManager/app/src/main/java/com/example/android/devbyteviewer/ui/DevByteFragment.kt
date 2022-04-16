@@ -251,6 +251,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      * to be invalidated.
      */
     var videos: List<DevByteVideo> = emptyList()
+        @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.
