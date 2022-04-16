@@ -85,11 +85,11 @@ class DevByteFragment : Fragment() {
      */
     override fun onViewStateRestored(savedInstanceState: Bundle?) {
         super.onViewStateRestored(savedInstanceState)
-        viewModel.playlist.observe(viewLifecycleOwner, { videos ->
+        viewModel.playlist.observe(viewLifecycleOwner) { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
-        })
+        }
     }
 
     /**

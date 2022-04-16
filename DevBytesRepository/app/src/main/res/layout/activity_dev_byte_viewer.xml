@@ -20,7 +20,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.DevByteActivity">
+    tools:context=".ui.DevByteActivity"
+    tools:ignore="MergeRootFrame">
 
     <fragment
         android:layout_width="match_parent"
