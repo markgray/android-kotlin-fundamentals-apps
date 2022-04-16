@@ -10,10 +10,10 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License. -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="text_size">20sp</dimen>
     <dimen name="small_padding">8dp</dimen>
-    <dimen name="line_spacing_extra">8sp</dimen>
+    <dimen name="line_spacing_extra" tools:ignore="UnusedResources">8sp</dimen>
     <dimen name="layout_margin">16dp</dimen>
     <dimen name="padding">16dp</dimen>
     <dimen name="line_spacing_multiplier">1.2</dimen>
