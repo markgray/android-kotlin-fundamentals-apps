@@ -47,7 +47,8 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/ic_gdg" />
+            app:srcCompat="@drawable/ic_gdg"
+            tools:ignore="ContentDescription,HardcodedText,RtlHardcoded" />
 
         <TextView
             android:id="@+id/chapter_name"

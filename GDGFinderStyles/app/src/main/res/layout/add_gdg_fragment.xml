@@ -32,7 +32,8 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".add.AddGdgFragment">
+            tools:context=".add.AddGdgFragment"
+            tools:ignore="ScrollViewSize">
 
             <TextView
                 android:id="@+id/textViewIntro"
@@ -59,7 +60,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textViewIntro"
                 app:srcCompat="@drawable/behind"
-                tools:src="@tools:sample/avatars" />
+                tools:src="@tools:sample/avatars"
+                tools:ignore="ContentDescription" />
 
             <EditText
                 android:id="@+id/EditTextName"
@@ -73,7 +75,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextEmail"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView">
+                app:layout_constraintTop_toBottomOf="@+id/imageView"
+                tools:ignore="Autofill,LabelFor,TextFields">
 
             </EditText>
 
@@ -89,7 +92,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextCity"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextName"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/EditTextName"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextCity"
@@ -103,7 +107,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextCountry"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextEmail"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/EditTextEmail"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextCountry"
@@ -117,7 +122,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextRegion"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextCity"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/EditTextCity"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
             <EditText
                 android:id="@+id/EditTextRegion"
@@ -131,7 +137,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/EditTextWhy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextCountry"></EditText>
+                app:layout_constraintTop_toBottomOf="@+id/EditTextCountry"
+                tools:ignore="Autofill,LabelFor,TextFields" />
 
             <TextView
                 android:id="@+id/labelTextWhy"
@@ -158,7 +165,8 @@
                 app:layout_constraintBottom_toTopOf="@+id/button"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextRegion" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextRegion"
+                tools:ignore="Autofill,LabelFor" />
 
             <Button
                 android:id="@+id/button"
@@ -173,7 +181,8 @@
                 android:textSize="8sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/EditTextWhy" />
+                app:layout_constraintTop_toBottomOf="@+id/EditTextWhy"
+                tools:ignore="HardcodedText,SmallSp" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
