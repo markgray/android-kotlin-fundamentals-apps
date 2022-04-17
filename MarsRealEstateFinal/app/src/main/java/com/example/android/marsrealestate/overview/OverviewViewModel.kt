@@ -84,14 +84,14 @@ class OverviewViewModel : ViewModel() {
      * and to `null` by our [displayPropertyDetailsComplete] method. Public read-only access is
      * provided by our [navigateToSelectedProperty] property.
      */
-    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty>()
+    private val _navigateToSelectedProperty = MutableLiveData<MarsProperty?>()
 
     /**
      * The external read-only LiveData interface to the [_navigateToSelectedProperty] property. An
      * `Observer` added to it in the `onCreateView` override of `OverviewFragment` navigates to the
      * `DetailFragement` passing the [MarsProperty] we hold as a safe arg when it changes value.
      */
-    val navigateToSelectedProperty: LiveData<MarsProperty>
+    val navigateToSelectedProperty: LiveData<MarsProperty?>
         get() = _navigateToSelectedProperty
 
     /**
