@@ -84,7 +84,7 @@ class AddGdgFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
@@ -93,7 +93,7 @@ class AddGdgFragment : Fragment() {
                 ).show()
                 viewModel.doneShowingSnackbar()
             }
-        })
+        }
 
         setHasOptionsMenu(true)
         return binding.root
