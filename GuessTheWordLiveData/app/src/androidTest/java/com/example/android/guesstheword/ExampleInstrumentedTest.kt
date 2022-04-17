@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("unused", "RemoveEmptyClassBody")
+
 package com.example.android.guesstheword
 
 
