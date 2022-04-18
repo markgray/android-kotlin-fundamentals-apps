@@ -31,7 +31,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@drawable/ic_sleep_5" />
+        tools:srcCompat="@drawable/ic_sleep_5"
+        tools:ignore="ContentDescription" />
 
     <TextView
         android:id="@+id/sleep_length"
