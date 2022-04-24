@@ -16,7 +16,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:theme="@style/AppTheme"
-        tools:ignore="AllowBackup,DataExtractionRules,GoogleAppIndexingWarning">
+        android:supportsRtl="false"
+        tools:ignore="AllowBackup,DataExtractionRules,GoogleAppIndexingWarning,RtlEnabled">
         <activity
             android:name=".MainActivity"
             android:exported="true">
