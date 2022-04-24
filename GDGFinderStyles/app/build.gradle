@@ -54,9 +54,6 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
-    // Kotlin
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$version_kotlin"
-
     // Constraint Layout
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
 
@@ -94,7 +91,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
 
     // material design components
-    implementation 'com.google.android.material:material:1.6.0-beta01'
+    implementation 'com.google.android.material:material:1.7.0-alpha01'
 
     // Client for retrieving location
     implementation 'com.google.android.gms:play-services-location:19.0.1'
