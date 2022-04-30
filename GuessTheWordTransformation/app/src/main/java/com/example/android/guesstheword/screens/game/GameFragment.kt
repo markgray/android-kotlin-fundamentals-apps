@@ -91,7 +91,7 @@ class GameFragment : Fragment() {
                 container,
                 false
         )
-        Log.i("GameFragment", "Called ViewModelProviders.of")
+        Log.i("GameFragment", "Called ViewModelProvider(this).get")
 
         viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
 
