@@ -59,7 +59,7 @@ class DevByteFragment : Fragment() {
             "You can only access the viewModel after onActivityCreated()"
         }
         ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
-                .get(DevByteViewModel::class.java)
+            .get(DevByteViewModel::class.java)
     }
 
     /**
@@ -68,11 +68,12 @@ class DevByteFragment : Fragment() {
     private var viewModelAdapter: DevByteAdapter? = null
 
     /**
-     * Called when the fragment's activity has been created and this fragment's view hierarchy
-     * instantiated. It can be used to do final initialization once these pieces are in place,
-     * such as retrieving views or restoring state.
+     * Called when all saved state has been restored into the view hierarchy of the fragment. This
+     * can be used to do initialization based on saved state that you are letting the view hierarchy
+     * track itself, such as whether check box widgets are currently checked. This is called after
+     * [onViewCreated] and before [onStart].
      *
-     * First we call our super's implementation of `onActivityCreated`. Then we add a lambda as an
+     * First we call our super's implementation of `onViewStateRestored`. Then we add a lambda as an
      * [Observer] to the `playlist` property of our [DevByteViewModel] field `viewModel` using the
      * `LifecycleOwner` that represents this Fragment's View as the `LifecycleOwner` which controls
      * the observer. This lambda calls a function block which sets the `videos` property of our
@@ -81,14 +82,13 @@ class DevByteFragment : Fragment() {
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use
      */
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        @Suppress("RedundantSamConstructor")
-        viewModel.playlist.observe(viewLifecycleOwner, Observer { videos ->
+    override fun onViewStateRestored(savedInstanceState: Bundle?) {
+        super.onViewStateRestored(savedInstanceState)
+        viewModel.playlist.observe(viewLifecycleOwner) { videos ->
             videos?.apply {
                 viewModelAdapter?.videos = videos
             }
-        })
+        }
     }
 
     /**
@@ -132,15 +132,15 @@ class DevByteFragment : Fragment() {
     @SuppressLint("QueryPermissionsNeeded")
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_dev_byte,
-                container,
-                false
+            inflater,
+            R.layout.fragment_dev_byte,
+            container,
+            false
         )
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
@@ -156,7 +156,7 @@ class DevByteFragment : Fragment() {
 
             // Try to generate a direct intent to the YouTube app
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
+            if (intent.resolveActivity(packageManager) == null) {
                 // YouTube app isn't found, use the web url
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             }
@@ -171,10 +171,9 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        @Suppress("RedundantSamConstructor")
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
 
         return binding.root
     }
@@ -187,7 +186,7 @@ class DevByteFragment : Fragment() {
      * publicly accessible read-only version of `_isNetworkErrorShown`).
      */
     private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
+        if (!viewModel.isNetworkErrorShown.value!!) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -277,10 +276,10 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
         val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                DevByteViewHolder.LAYOUT,
-                parent,
-                false
+            LayoutInflater.from(parent.context),
+            DevByteViewHolder.LAYOUT,
+            parent,
+            false
         )
         return DevByteViewHolder(withDataBinding)
     }
@@ -323,7 +322,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
  * @param viewDataBinding the [DevbyteItemBinding] binding object for the view we are to display in.
  */
 class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+    RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
         @LayoutRes
         val LAYOUT = R.layout.devbyte_item
