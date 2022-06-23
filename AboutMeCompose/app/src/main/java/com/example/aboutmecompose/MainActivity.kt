@@ -41,6 +41,6 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) { 
-        Text(text = stringResource(id = R.string.fishtail))
+        Text(text = stringResource(id = R.string.bio))
     }
 }
