@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- package com.example.android.navigation
+package com.example.android.navigation
 
 
 import android.os.Bundle
@@ -30,6 +30,7 @@ import com.example.android.navigation.databinding.FragmentTitleBinding
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 @Suppress("unused")
 private const val ARG_PARAM1 = "param1"
+
 @Suppress("unused")
 private const val ARG_PARAM2 = "param2"
 
@@ -64,18 +65,18 @@ class TitleFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
-                inflater,
-                R.layout.fragment_title,
-                container,
-                false
+            inflater,
+            R.layout.fragment_title,
+            container,
+            false
         )
 
-        binding.playButton.setOnClickListener { view : View ->
+        binding.playButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
         }
         setHasOptionsMenu(true)
@@ -93,7 +94,7 @@ class TitleFragment : Fragment() {
      */
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.options_menu,menu)
+        inflater.inflate(R.menu.options_menu, menu)
     }
 
     /**
@@ -112,7 +113,7 @@ class TitleFragment : Fragment() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                ||super.onOptionsItemSelected(item)
+            || super.onOptionsItemSelected(item)
     }
 
 }
