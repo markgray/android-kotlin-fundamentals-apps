@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- package com.example.android.navigation
+package com.example.android.navigation
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -28,6 +28,7 @@ import com.example.android.navigation.databinding.FragmentTitleBinding
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
 @Suppress("unused")
 private const val ARG_PARAM1 = "param1"
+
 @Suppress("unused")
 private const val ARG_PARAM2 = "param2"
 
@@ -56,15 +57,15 @@ class TitleFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
-                inflater,
-                R.layout.fragment_title,
-                container,
-                false
+            inflater,
+            R.layout.fragment_title,
+            container,
+            false
         )
         return binding.root
     }

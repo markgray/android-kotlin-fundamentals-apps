@@ -51,16 +51,16 @@ class GameWonFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_game_won,
-                container,
-                false
+            inflater,
+            R.layout.fragment_game_won,
+            container,
+            false
         )
         return binding.root
     }
