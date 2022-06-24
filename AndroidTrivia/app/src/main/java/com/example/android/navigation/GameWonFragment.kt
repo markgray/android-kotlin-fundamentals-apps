@@ -59,27 +59,27 @@ class GameWonFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
         val binding: FragmentGameWonBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_game_won,
-                container,
-                false
+            inflater,
+            R.layout.fragment_game_won,
+            container,
+            false
         )
 
         binding.nextMatchButton.setOnClickListener { view: View ->
             view.findNavController()
-                    .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
+                .navigate(GameWonFragmentDirections.actionGameWonFragmentToGameFragment())
         }
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
         Toast.makeText(
-                context,
-                "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
-                Toast.LENGTH_LONG
+            context,
+            "NumCorrect: ${args.numCorrect}, NumQuestions: ${args.numQuestions}",
+            Toast.LENGTH_LONG
         ).show()
 
         setHasOptionsMenu(true)
@@ -100,14 +100,14 @@ class GameWonFragment : Fragment() {
      * @return an [Intent] whose action is [Intent.ACTION_SEND] and whose extra is a formatted
      * string reporting the results of playing the game.
      */
-    private fun getShareIntent() : Intent {
+    private fun getShareIntent(): Intent {
         val args = GameWonFragmentArgs.fromBundle(requireArguments())
         val shareIntent = Intent(Intent.ACTION_SEND)
         shareIntent.setType("text/plain")
-                .putExtra(
-                        Intent.EXTRA_TEXT,
-                        getString(R.string.share_success_text, args.numCorrect, args.numQuestions)
-                )
+            .putExtra(
+                Intent.EXTRA_TEXT,
+                getString(R.string.share_success_text, args.numCorrect, args.numQuestions)
+            )
         return shareIntent
     }
 

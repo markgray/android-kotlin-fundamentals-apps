@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
- package com.example.android.navigation
+package com.example.android.navigation
 
 import android.os.Bundle
 import android.view.*
@@ -55,9 +55,9 @@ class TitleFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         /**
@@ -65,13 +65,13 @@ class TitleFragment : Fragment() {
          * [R.layout.fragment_title].
          */
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
-                inflater,
-                R.layout.fragment_title,
-                container,
-                false
+            inflater,
+            R.layout.fragment_title,
+            container,
+            false
         )
 
-        binding.playButton.setOnClickListener { view : View ->
+        binding.playButton.setOnClickListener { view: View ->
             view.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
         setHasOptionsMenu(true)
@@ -108,7 +108,7 @@ class TitleFragment : Fragment() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-                ||super.onOptionsItemSelected(item)
+            || super.onOptionsItemSelected(item)
     }
 
 }
