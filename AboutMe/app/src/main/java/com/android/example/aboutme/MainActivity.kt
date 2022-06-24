@@ -18,6 +18,7 @@ package com.android.example.aboutme
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
  *  * LinearLayout with TextViews, ImageView, and ScrollView
