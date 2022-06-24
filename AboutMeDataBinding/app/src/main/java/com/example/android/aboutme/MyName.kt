@@ -19,5 +19,13 @@ package com.example.android.aboutme
 /**
  * Data class which holds our name and nickname
  */
-data class MyName(var name: String = "", var nickname: String = "")
+data class MyName(
+    /**
+     * This is the name that will be displayed in the [R.id.name_text] `TextView`
+     */
+    var name: String = "",
+    /**
+     * This is the nickname that will be displayed in the [R.id.nickname_text] `TextView`
+     */
+    var nickname: String = "")
 

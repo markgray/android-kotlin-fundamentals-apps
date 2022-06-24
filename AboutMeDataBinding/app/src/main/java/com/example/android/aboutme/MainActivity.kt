@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity() {
      * @param view [View] that was clicked (always the `doneButton` `Button` in our case).
      */
     private fun addNickname(view: View) {
-        binding. apply {
+        binding.apply {
             myName?.nickname = nicknameEdit.text.toString()
             invalidateAll()
             nicknameEdit.visibility = View.GONE
