@@ -39,8 +39,7 @@ class VideosRepository(private val database: VideosDatabase) {
      * of `DatabaseVideo` database objects returned by the `getVideos` method of the `videoDao`
      * Room DAO when it reads all the entries in the database.
      */
-    val videos: LiveData<List<DevByteVideo>>
-            = Transformations.map(database.videoDao.getVideos()) {
+    val videos: LiveData<List<DevByteVideo>> = Transformations.map(database.videoDao.getVideos()) {
         it.asDomainModel()
     }
 
@@ -62,7 +61,7 @@ class VideosRepository(private val database: VideosDatabase) {
     suspend fun refreshVideos() {
         withContext(Dispatchers.IO) {
             Timber.d("refresh videos is called")
-            val playlist = DevByteNetwork.devbytes.getPlaylist().await()
+            val playlist = (DevByteNetwork.devbytes ?: return@withContext).getPlaylist().await()
             database.videoDao.insertAll(playlist.asDatabaseModel())
         }
     }

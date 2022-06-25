@@ -59,7 +59,7 @@ class DevByteFragment : Fragment() {
             "You can only access the viewModel after onActivityCreated"
         }
         ViewModelProvider(this, DevByteViewModel.Factory(activity.application))
-                .get(DevByteViewModel::class.java)
+            .get(DevByteViewModel::class.java)
     }
 
     /**
@@ -133,15 +133,15 @@ class DevByteFragment : Fragment() {
     @SuppressLint("QueryPermissionsNeeded")
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding: FragmentDevByteBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_dev_byte,
-                container,
-                false
+            inflater,
+            R.layout.fragment_dev_byte,
+            container,
+            false
         )
         // Set the lifecycleOwner so DataBinding can observe LiveData
         binding.lifecycleOwner = viewLifecycleOwner
@@ -157,7 +157,7 @@ class DevByteFragment : Fragment() {
 
             // Try to generate a direct intent to the YouTube app
             var intent = Intent(Intent.ACTION_VIEW, it.launchUri)
-            if(intent.resolveActivity(packageManager) == null) {
+            if (intent.resolveActivity(packageManager) == null) {
                 // YouTube app isn't found, use the web url
                 intent = Intent(Intent.ACTION_VIEW, Uri.parse(it.url))
             }
@@ -188,7 +188,7 @@ class DevByteFragment : Fragment() {
      * publicly accessible read-only version of `_isNetworkErrorShown`).
      */
     private fun onNetworkError() {
-        if(!viewModel.isNetworkErrorShown.value!!) {
+        if (!(viewModel.isNetworkErrorShown.value ?: return)) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -227,7 +227,7 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
      *
      * @param video the [DevByteVideo] held by the view that was clicked
      */
-    fun onClick(video: DevByteVideo) = block(video)
+    fun onClick(video: DevByteVideo): Unit = block(video)
 }
 
 /**
@@ -278,10 +278,10 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DevByteViewHolder {
         val withDataBinding: DevbyteItemBinding = DataBindingUtil.inflate(
-                LayoutInflater.from(parent.context),
-                DevByteViewHolder.LAYOUT,
-                parent,
-                false
+            LayoutInflater.from(parent.context),
+            DevByteViewHolder.LAYOUT,
+            parent,
+            false
         )
         return DevByteViewHolder(withDataBinding)
     }
@@ -292,7 +292,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      *
      * @return The total number of items in this adapter.
      */
-    override fun getItemCount() = videos.size
+    override fun getItemCount(): Int = videos.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -324,9 +324,12 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
  * @param viewDataBinding the [DevbyteItemBinding] binding object for the view we are to display in.
  */
 class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
-        RecyclerView.ViewHolder(viewDataBinding.root) {
+    RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
+        /**
+         *
+         */
         @LayoutRes
-        val LAYOUT = R.layout.devbyte_item
+        val LAYOUT: Int = R.layout.devbyte_item
     }
 }

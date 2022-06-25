@@ -150,7 +150,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
 
             } catch (networkError: IOException) {
                 // Show a Toast error message and hide the progress bar.
-                if(playlist.value.isNullOrEmpty())
+                if (playlist.value.isNullOrEmpty())
                     _eventNetworkError.value = true
             }
         }
@@ -195,7 +195,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
          * @param T          The type parameter for the ViewModel.
          * @return a newly created [DevByteViewModel] view model.
          */
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
                 return DevByteViewModel(app) as T
