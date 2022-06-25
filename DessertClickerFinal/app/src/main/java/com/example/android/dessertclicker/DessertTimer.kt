@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+@file:Suppress("DEPRECATION")
+
 package com.example.android.dessertclicker
 
 import android.os.Handler
@@ -43,7 +45,7 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
     /**
      * The number of seconds counted since the timer started
      */
-    var secondsCount = 0
+    var secondsCount: Int = 0
 
     /**
      * [Handler] is a class meant to process a queue of messages (known as [android.os.Message]s)
@@ -75,7 +77,7 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
      * [runnable] to the queue of our [Handler] field [handler] with a delay of 1000 milliseconds
      * to start the timer running.
      */
-    @Suppress("unused")
+    @Suppress("unused", "DEPRECATION")
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     fun startTimer() {
         // Create the runnable action, which prints out a log and increments the seconds counter
@@ -102,7 +104,7 @@ class DessertTimer(lifecycle: Lifecycle) : LifecycleObserver {
      * the timer until the next time we receive a [Lifecycle.Event.ON_START] event and our
      * [startTimer] method is run.
      */
-    @Suppress("unused")
+    @Suppress("unused", "DEPRECATION")
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     fun stopTimer() {
         // Removes all pending posts of runnable from the handler's queue, effectively stopping the
