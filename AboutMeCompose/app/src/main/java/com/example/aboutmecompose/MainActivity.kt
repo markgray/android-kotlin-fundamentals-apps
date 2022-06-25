@@ -58,7 +58,10 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = stringResource(id = R.string.name), fontSize = 20.sp)
+        Text(
+            text = stringResource(id = R.string.name),
+            fontSize = 20.sp
+        )
         OutlinedTextField(
             value = nickNameEntry,
             onValueChange = {
@@ -68,8 +71,7 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
         DoneButton(onClick = { nickNameSaved = nickNameEntry })
         Text(
             text = nickNameSaved,
-            fontSize = 20.sp,
-            modifier = modifier.padding(all = 8.dp)
+            fontSize = 20.sp
         )
         Image(
             painter = painterResource(id = android.R.drawable.btn_star_big_on),
