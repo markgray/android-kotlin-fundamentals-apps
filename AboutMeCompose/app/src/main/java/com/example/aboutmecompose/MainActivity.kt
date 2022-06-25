@@ -8,9 +8,14 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Button
+import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
-import androidx.compose.material.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -43,11 +48,29 @@ fun AboutMeApp() {
 
 @Composable
 fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
+    var nickNameEntry by remember {
+        mutableStateOf("")
+    }
+    var nickNameSaved by remember {
+        mutableStateOf("")
+    }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(text = stringResource(id = R.string.name), fontSize = 20.sp)
+        OutlinedTextField(
+            value = nickNameEntry,
+            onValueChange = {
+                nickNameEntry = it
+            }
+        )
+        DoneButton(onClick = { nickNameSaved = nickNameEntry })
+        Text(
+            text = nickNameSaved,
+            fontSize = 20.sp,
+            modifier = modifier.padding(all = 8.dp)
+        )
         Image(
             painter = painterResource(id = android.R.drawable.btn_star_big_on),
             contentDescription = stringResource(id = R.string.yellow_star)
@@ -57,5 +80,12 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
             fontSize = 20.sp,
             modifier = modifier.padding(all = 8.dp)
         )
+    }
+}
+
+@Composable
+private fun DoneButton(onClick: () -> Unit) {
+    Button(onClick = onClick) {
+        Text(text = stringResource(id = R.string.done))
     }
 }
