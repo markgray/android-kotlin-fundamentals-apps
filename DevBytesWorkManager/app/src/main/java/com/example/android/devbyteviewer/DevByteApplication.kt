@@ -18,7 +18,12 @@ package com.example.android.devbyteviewer
 
 import android.app.Application
 import android.os.Build
-import androidx.work.*
+import androidx.work.Constraints
+import androidx.work.CoroutineWorker
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.PeriodicWorkRequestBuilder
+import androidx.work.WorkManager
 
 import com.example.android.devbyteviewer.work.RefreshDataWorker
 import kotlinx.coroutines.CoroutineScope
@@ -34,7 +39,7 @@ import java.util.concurrent.TimeUnit
 class DevByteApplication : Application() {
 
     /**
-     * [CoroutineScope] we use to set up our [WorkManager] periodic refresh of our database using a
+     * [CoroutineScope] we use to set up our `WorkManager` periodic refresh of our database using a
      * background thread from the shared pool of threads of [Dispatchers.Default]
      */
     private val applicationScope = CoroutineScope(Dispatchers.Default)
@@ -73,17 +78,17 @@ class DevByteApplication : Application() {
      * to be charging, require that the battery not be low, if the build version is greater than
      * "M" require that the device is idle, and then building that [Constraints.Builder].
      *
-     * We initialize our [PeriodicWorkRequest] variable `val repeatingRequest` by using a
+     * We initialize our `PeriodicWorkRequest` variable `val repeatingRequest` by using a
      * [PeriodicWorkRequestBuilder] for our [CoroutineWorker] class [RefreshDataWorker] with a
      * repeat interval of 1 days, adding `constraints` as the constraints for the work then
-     * building that [PeriodicWorkRequest.Builder].
+     * building that `PeriodicWorkRequest.Builder`.
      *
      * We then log that "WorkManager: Periodic Work request for sync is scheduled". We then retrieve
      * the default singleton instance of [WorkManager], and use its `enqueueUniquePeriodicWork`
-     * method to enqueue a [PeriodicWorkRequest] with the unique name [RefreshDataWorker.WORK_NAME],
+     * method to enqueue a `PeriodicWorkRequest` with the unique name [RefreshDataWorker.WORK_NAME],
      * an existing periodic work policy of [ExistingPeriodicWorkPolicy.KEEP] (if there is existing
      * pending (uncompleted) work with the same unique name, do nothing. Otherwise, insert the new
-     * work), and `repeatingRequest` as the [PeriodicWorkRequest] to enqueue.
+     * work), and `repeatingRequest` as the `PeriodicWorkRequest` to enqueue.
      *
      */
     private fun setupRecurringWork() {

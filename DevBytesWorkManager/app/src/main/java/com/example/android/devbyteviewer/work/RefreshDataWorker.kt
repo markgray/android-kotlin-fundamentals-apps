@@ -36,14 +36,14 @@ import timber.log.Timber
  * @param params this instance of [WorkerParameters] comes from the `WorkManager` when we are run.
  */
 class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
-        CoroutineWorker(appContext, params) {
+    CoroutineWorker(appContext, params) {
 
     companion object {
         /**
          * The unique name for this operation, used in the call to `enqueueUniquePeriodicWork`
          * in the `setupRecurringWork` method of `DevByteApplication`
          */
-        const val WORK_NAME = "com.example.android.devbyteviewer.work.RefreshDataWorker"
+        const val WORK_NAME: String = "com.example.android.devbyteviewer.work.RefreshDataWorker"
     }
 
     /**
@@ -72,7 +72,7 @@ class RefreshDataWorker(appContext: Context, params: WorkerParameters) :
         val repository = VideosRepository(database)
 
         try {
-            repository.refreshVideos( )
+            repository.refreshVideos()
             Timber.d("WorkManager: Work request for sync is run")
         } catch (e: HttpException) {
             return Result.retry()

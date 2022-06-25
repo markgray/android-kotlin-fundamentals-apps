@@ -47,7 +47,7 @@ interface VideoDao {
      * @param videos the `List` of [DatabaseVideo] objects we are to write to our database.
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertAll( videos: List<DatabaseVideo>)
+    fun insertAll(videos: List<DatabaseVideo>)
 }
 
 /**
@@ -56,7 +56,7 @@ interface VideoDao {
  * the `@Entity` annotation lacks a "tableName" parameter).
  */
 @Database(entities = [DatabaseVideo::class], version = 1)
-abstract class VideosDatabase: RoomDatabase() {
+abstract class VideosDatabase : RoomDatabase() {
     /**
      * The [VideoDao] to use to run "Room" queries.
      */
@@ -84,8 +84,8 @@ fun getDatabase(context: Context): VideosDatabase {
     synchronized(VideosDatabase::class.java) {
         if (!::INSTANCE.isInitialized) {
             INSTANCE = Room.databaseBuilder(context.applicationContext,
-                    VideosDatabase::class.java,
-                    "videos").build()
+                VideosDatabase::class.java,
+                "videos").build()
         }
     }
     return INSTANCE

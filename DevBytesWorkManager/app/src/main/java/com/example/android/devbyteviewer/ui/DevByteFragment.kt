@@ -186,7 +186,7 @@ class DevByteFragment : Fragment() {
      * publicly accessible read-only version of `_isNetworkErrorShown`).
      */
     private fun onNetworkError() {
-        if (!viewModel.isNetworkErrorShown.value!!) {
+        if (!(viewModel.isNetworkErrorShown.value ?: return)) {
             Toast.makeText(activity, "Network Error", Toast.LENGTH_LONG).show()
             viewModel.onNetworkErrorShown()
         }
@@ -225,7 +225,7 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
      *
      * @param video the [DevByteVideo] held by the view that was clicked
      */
-    fun onClick(video: DevByteVideo) = block(video)
+    fun onClick(video: DevByteVideo): Unit = block(video)
 }
 
 /**
@@ -290,7 +290,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      *
      * @return The total number of items in this adapter.
      */
-    override fun getItemCount() = videos.size
+    override fun getItemCount(): Int = videos.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -324,7 +324,10 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
 class DevByteViewHolder(val viewDataBinding: DevbyteItemBinding) :
     RecyclerView.ViewHolder(viewDataBinding.root) {
     companion object {
+        /**
+         *
+         */
         @LayoutRes
-        val LAYOUT = R.layout.devbyte_item
+        val LAYOUT: Int = R.layout.devbyte_item
     }
 }

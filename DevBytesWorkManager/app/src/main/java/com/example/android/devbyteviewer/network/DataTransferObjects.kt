@@ -57,30 +57,30 @@ data class NetworkVideoContainer(val videos: List<NetworkVideo>)
  */
 @JsonClass(generateAdapter = true)
 data class NetworkVideo(
-        /**
-         * the title of the video
-         */
-        val title: String,
-        /**
-         * the description of the video
-         */
-        val description: String,
-        /**
-         * the YouTube Url for the video.
-         */
-        val url: String,
-        /**
-         * the date that the video was last updated
-         */
-        val updated: String,
-        /**
-         * the Url for the thumbnail image
-         */
-        val thumbnail: String,
-        /**
-         * always `null` in our case (could be Url for closed captions?)
-         */
-        val closedCaptions: String?
+    /**
+     * the title of the video
+     */
+    val title: String,
+    /**
+     * the description of the video
+     */
+    val description: String,
+    /**
+     * the YouTube Url for the video.
+     */
+    val url: String,
+    /**
+     * the date that the video was last updated
+     */
+    val updated: String,
+    /**
+     * the Url for the thumbnail image
+     */
+    val thumbnail: String,
+    /**
+     * always `null` in our case (could be Url for closed captions?)
+     */
+    val closedCaptions: String?
 )
 
 /**
@@ -97,11 +97,11 @@ data class NetworkVideo(
 fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
     return videos.map {
         DevByteVideo(
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail)
     }
 }
 
@@ -119,10 +119,10 @@ fun NetworkVideoContainer.asDomainModel(): List<DevByteVideo> {
 fun NetworkVideoContainer.asDatabaseModel(): List<DatabaseVideo> {
     return videos.map {
         DatabaseVideo(
-                title = it.title,
-                description = it.description,
-                url = it.url,
-                updated = it.updated,
-                thumbnail = it.thumbnail)
+            title = it.title,
+            description = it.description,
+            url = it.url,
+            updated = it.updated,
+            thumbnail = it.thumbnail)
     }
 }

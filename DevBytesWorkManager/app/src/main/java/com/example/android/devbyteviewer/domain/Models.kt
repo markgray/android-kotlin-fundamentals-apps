@@ -38,26 +38,26 @@ import com.example.android.devbyteviewer.util.smartTruncate
  * layout file devbyte_item.xml, the adapter is used to display images from URL using Glide.
  */
 data class DevByteVideo(
-        /**
-         * the title of the video
-         */
-        val title: String,
-        /**
-         * the description of the video
-         */
-        val description: String,
-        /**
-         * the YouTube Url for the video.
-         */
-        val url: String,
-        /**
-         * the date that the video was last updated
-         */
-        val updated: String,
-        /**
-         * the Url for the thumbnail image
-         */
-        val thumbnail: String
+    /**
+     * the title of the video
+     */
+    val title: String,
+    /**
+     * the description of the video
+     */
+    val description: String,
+    /**
+     * the YouTube Url for the video.
+     */
+    val url: String,
+    /**
+     * the date that the video was last updated
+     */
+    val updated: String,
+    /**
+     * the Url for the thumbnail image
+     */
+    val thumbnail: String
 ) {
 
     /**

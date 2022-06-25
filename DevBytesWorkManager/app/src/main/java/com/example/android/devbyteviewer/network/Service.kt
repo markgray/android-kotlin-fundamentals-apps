@@ -57,16 +57,16 @@ object DevByteNetwork {
      * return types other than `Call`).
      */
     private val retrofit = Retrofit.Builder()
-            .baseUrl("https://android-kotlin-fun-mars-server.appspot.com/")
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(CoroutineCallAdapterFactory())
-            .build()
+        .baseUrl("https://android-kotlin-fun-mars-server.appspot.com/")
+        .addConverterFactory(MoshiConverterFactory.create())
+        .addCallAdapterFactory(CoroutineCallAdapterFactory())
+        .build()
 
     /**
      * This is the [DevbyteService] implementation created by retrofit.
      */
     @Suppress("HasPlatformType")
-    val devbytes = retrofit.create(DevbyteService::class.java)
+    val devbytes: DevbyteService? = retrofit.create(DevbyteService::class.java)
 
 }
 
