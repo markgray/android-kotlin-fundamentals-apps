@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * The [ImageView] in our layout file with ID [R.id.dice_image]
      */
-    lateinit var diceImage : ImageView
+    lateinit var diceImage: ImageView
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
