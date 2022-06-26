@@ -75,6 +75,9 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
                 value = nickNameEntry,
                 onValueChange = {
                     nickNameEntry = it
+                },
+                label = {
+                    Text(stringResource(id = R.string.what_is_your_nickname))
                 }
             )
         }
