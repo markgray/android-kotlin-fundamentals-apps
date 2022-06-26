@@ -33,11 +33,12 @@ class MainActivity : AppCompatActivity() {
     /**
      * The [ImageView] in our layout file with ID [R.id.dice_image]
      */
-    lateinit var diceImage : ImageView
+    lateinit var diceImage: ImageView
+
     /**
      * The [ImageView] in our layout file with ID [R.id.dice_image2]
      */
-    lateinit var diceImage2 : ImageView
+    lateinit var diceImage2: ImageView
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
@@ -89,7 +90,7 @@ class MainActivity : AppCompatActivity() {
      *
      * @return a randomly chosen drawable resourse ID from our 6 dice images.
      */
-    private fun getRandomDiceImage() : Int {
+    private fun getRandomDiceImage(): Int {
         @Suppress("MoveVariableDeclarationIntoWhen")
         val randomInt = (1..6).random()
 
