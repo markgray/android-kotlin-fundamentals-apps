@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -54,21 +56,35 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
     var nickNameSaved by remember {
         mutableStateOf("")
     }
+    var showDoneButton by remember {
+        mutableStateOf(true)
+    }
+    var showEnterNickNameTextField by remember {
+        mutableStateOf(true)
+    }
     Column(
-        modifier = modifier,
+        modifier = modifier.verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
             text = stringResource(id = R.string.name),
             fontSize = 20.sp
         )
-        OutlinedTextField(
-            value = nickNameEntry,
-            onValueChange = {
-                nickNameEntry = it
+        HideOrShow(showEnterNickNameTextField) {
+            OutlinedTextField(
+                value = nickNameEntry,
+                onValueChange = {
+                    nickNameEntry = it
+                }
+            )
+        }
+        HideOrShow(showDoneButton) {
+            DoneButton(onClick = { nickNameSaved = nickNameEntry })
+            if (nickNameSaved != "") {
+                showDoneButton = false
+                showEnterNickNameTextField = false
             }
-        )
-        DoneButton(onClick = { nickNameSaved = nickNameEntry })
+        }
         Text(
             text = nickNameSaved,
             fontSize = 20.sp
@@ -80,7 +96,17 @@ fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
         Text(
             text = stringResource(id = R.string.bio),
             fontSize = 20.sp,
-            modifier = modifier.padding(all = 8.dp)
+            modifier = modifier.padding(start = 8.dp, end = 8.dp)
+        )
+        Text(
+            text = stringResource(id = R.string.more_bio1),
+            fontSize = 20.sp,
+            modifier = modifier.padding(start = 8.dp, end = 8.dp)
+        )
+        Text(
+            text = stringResource(id = R.string.more_bio2),
+            fontSize = 20.sp,
+            modifier = modifier.padding(start = 8.dp, end = 8.dp)
         )
     }
 }
@@ -90,4 +116,15 @@ private fun DoneButton(onClick: () -> Unit) {
     Button(onClick = onClick) {
         Text(text = stringResource(id = R.string.done))
     }
+}
+
+@Composable
+private fun HideOrShow(
+    show: Boolean = true,
+    content: @Composable () -> Unit
+) {
+    if (show) {
+        content()
+    }
+
 }
