@@ -24,7 +24,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.diceroller.ui.theme.DiceRollerTheme
 
+/**
+ * This is the main activity of our diceroller app.
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * then we call [setContent] to Compose the given composable into our activity. The content will
+     * become the root view of the given activity. This composable conists of our our [DiceRollerTheme]
+     * app theme wrapping our [DiceRollerApp] composable.
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so we ignore it.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,6 +46,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * The main screen of our app, it contains a [DiceWithButtonAndImage] composable called with a
+ * [Modifier] configured with `fillMaxSize   to have the content fill the `Constraints.maxWidth`
+ * and `Constraints.maxHeight` of its incoming measurement constraints. and configured with
+ * `wrapContentSize` to center its contents.
+ */
 @Preview
 @Composable
 fun DiceRollerApp() {
@@ -45,10 +62,16 @@ fun DiceRollerApp() {
     )
 }
 
+/**
+ * The `Composable` holding our entire UI, it consists of a [Column] holding the [Image] corresponding
+ * to the most recent rolling of the dice, and a [Button] which when clicked rolls the dice again.
+ *
+ * @param modifier the [Modifier] to be used by our [Column].
+ */
 @Composable
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
     var result by remember { mutableStateOf(1) }
-    val imageResource = when(result) {
+    val imageResource = when (result) {
         1 -> R.drawable.dice_1
         2 -> R.drawable.dice_2
         3 -> R.drawable.dice_3

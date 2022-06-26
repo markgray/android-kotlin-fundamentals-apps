@@ -27,6 +27,9 @@ private val LightColorPalette = lightColors(
     */
 )
 
+/**
+ * The Theme used by the composables in our `DiceRollerCompose` app.
+ */
 @Composable
 fun DiceRollerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
