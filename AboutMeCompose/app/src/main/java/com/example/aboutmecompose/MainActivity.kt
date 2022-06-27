@@ -18,7 +18,7 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -53,16 +53,16 @@ fun AboutMeApp() {
 
 @Composable
 fun NameNicknameButtonAndFishtail(modifier: Modifier = Modifier) {
-    var nickNameEntry by remember {
+    var nickNameEntry by rememberSaveable {
         mutableStateOf("")
     }
-    var nickNameSaved by remember {
+    var nickNameSaved by rememberSaveable {
         mutableStateOf("")
     }
-    var showDoneButton by remember {
+    var showDoneButton by rememberSaveable {
         mutableStateOf(true)
     }
-    var showEnterNickNameTextField by remember {
+    var showEnterNickNameTextField by rememberSaveable {
         mutableStateOf(true)
     }
     Column(
