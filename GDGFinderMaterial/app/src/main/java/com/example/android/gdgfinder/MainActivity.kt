@@ -61,7 +61,7 @@ class MainActivity : AppCompatActivity() {
      * navigation drawer layout in our layout file with resource ID [R.id.drawer_layout] (the
      * `drawerLayout` property of [binding]).
      */
-    override fun onSupportNavigateUp() = navigateUp(
+    override fun onSupportNavigateUp(): Boolean = navigateUp(
         findNavController(R.id.nav_host_fragment),
         binding.drawerLayout
     )
@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
         navController.addOnDestinationChangedListener { _, destination: NavDestination, _ ->
             val toolBar = supportActionBar ?: return@addOnDestinationChangedListener
-            when(destination.id) {
+            when (destination.id) {
                 R.id.home -> {
                     toolBar.setDisplayShowTitleEnabled(false)
                     binding.heroImage.visibility = View.VISIBLE

@@ -56,10 +56,10 @@ interface GdgApiService {
      */
     @GET("gdg-directory.json")
     fun getChapters():
-            /**
-             * The Coroutine Call Adapter allows us to return a [Deferred], a Job with a result
-             */
-            Deferred<GdgResponse>
+        /**
+         * The Coroutine Call Adapter allows us to return a [Deferred], a Job with a result
+         */
+        Deferred<GdgResponse>
 }
 
 /**
@@ -69,8 +69,8 @@ interface GdgApiService {
  * instance to initialize our variable `val moshi`.
  */
 private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    .add(KotlinJsonAdapterFactory())
+    .build()
 
 /**
  * The [Retrofit] instance we use to access the network. We construct an instance of [Retrofit.Builder],
@@ -81,10 +81,10 @@ private val moshi = Moshi.Builder()
  * in order to create a [Retrofit] instance to initialize our variable `val retrofit`.
  */
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .baseUrl(BASE_URL)
-        .build()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    .baseUrl(BASE_URL)
+    .build()
 
 /**
  * Main entry point for network access. Call like `GdgApi.retrofitService.getChapters()`. It is
