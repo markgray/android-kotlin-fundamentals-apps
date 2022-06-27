@@ -90,13 +90,13 @@ class AddGdgFragment : Fragment() {
         viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
-                        requireActivity().findViewById(android.R.id.content),
-                        getString(R.string.application_submitted),
-                        Snackbar.LENGTH_SHORT // How long to display the message.
+                    requireActivity().findViewById(android.R.id.content),
+                    getString(R.string.application_submitted),
+                    Snackbar.LENGTH_SHORT // How long to display the message.
                 ).show()
                 viewModel.doneShowingSnackbar()
-                binding.button.contentDescription=getString(R.string.submitted)
-                binding.button.text=getString(R.string.done)
+                binding.button.contentDescription = getString(R.string.submitted)
+                binding.button.text = getString(R.string.done)
             }
         })
 

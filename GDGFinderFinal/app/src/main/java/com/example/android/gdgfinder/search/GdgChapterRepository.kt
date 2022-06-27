@@ -54,7 +54,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      * in the `onCreateView` override of `GdgListFragment` to pop up a `Snackbar` to tell the user
      * to enable location for the app if it is `true` (ie. [isFullyInitialized] is `false`).
      */
-    var isFullyInitialized = false
+    var isFullyInitialized: Boolean = false
         private set
 
     /**
@@ -75,7 +75,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
      */
     suspend fun getChaptersForFilter(filter: String?): List<GdgChapter> {
         val data = sortedData()
-        return when(filter) {
+        return when (filter) {
             null -> data.chapters
             else -> data.chaptersByRegion.getOrElse(filter) { emptyList() }
         }
@@ -222,9 +222,10 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
                     val chapters: List<GdgChapter> = response.chapters.sortByDistanceFrom(location)
                     // use distinctBy which will maintain the input order - this will have the effect of making
                     // a filter list sorted by the distance from the current location
-                    val filters: List<String> = chapters.map { it.region } .distinctBy { it }
+                    val filters: List<String> = chapters.map { it.region }.distinctBy { it }
                     // group the chapters by region so that filter queries don't require any work
-                    val chaptersByRegion: Map<String, List<GdgChapter>> = chapters.groupBy { it.region }
+                    val chaptersByRegion: Map<String, List<GdgChapter>> =
+                        chapters.groupBy { it.region }
                     // return the sorted result
                     SortedData(chapters, filters, chaptersByRegion)
                 }
@@ -248,7 +249,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
             private fun List<GdgChapter>.sortByDistanceFrom(currentLocation: Location?): List<GdgChapter> {
                 currentLocation ?: return this
 
-                return sortedBy { distanceBetween(it.geo, currentLocation)}
+                return sortedBy { distanceBetween(it.geo, currentLocation) }
             }
 
             /**

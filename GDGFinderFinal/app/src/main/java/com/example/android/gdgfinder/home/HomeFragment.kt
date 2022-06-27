@@ -38,8 +38,11 @@ import com.example.android.gdgfinder.databinding.HomeFragmentBinding
 class HomeFragment : Fragment() {
 
     companion object {
+        /**
+         * Called to create a new instance of [HomeFragment] which it returns.
+         */
         @Suppress("unused")
-        fun newInstance() = HomeFragment()
+        fun newInstance(): HomeFragment = HomeFragment()
     }
 
     /**
@@ -78,9 +81,9 @@ class HomeFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = HomeFragmentBinding.inflate(inflater)
         viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
@@ -89,13 +92,13 @@ class HomeFragment : Fragment() {
 
         @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
         viewModel.navigateToSearch.observe(viewLifecycleOwner,
-                Observer<Boolean> { navigate ->
-                    if(navigate) {
-                        val navController = findNavController()
-                        navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
-                        viewModel.onNavigatedToSearch()
-                    }
-                })
+            Observer<Boolean> { navigate ->
+                if (navigate) {
+                    val navController = findNavController()
+                    navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
+                    viewModel.onNavigatedToSearch()
+                }
+            })
 
         return binding.root
     }
