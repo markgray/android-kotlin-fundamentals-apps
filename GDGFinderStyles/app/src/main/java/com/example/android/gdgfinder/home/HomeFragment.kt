@@ -31,8 +31,11 @@ import com.example.android.gdgfinder.databinding.HomeFragmentBinding
 class HomeFragment : Fragment() {
 
     companion object {
+        /**
+         * Called to create a new instance of [HomeFragment] which it returns.
+         */
         @Suppress("unused")
-        fun newInstance() = HomeFragment()
+        fun newInstance(): HomeFragment = HomeFragment()
     }
 
     /**

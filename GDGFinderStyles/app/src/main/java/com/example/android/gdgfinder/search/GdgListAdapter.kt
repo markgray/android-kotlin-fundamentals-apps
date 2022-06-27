@@ -16,6 +16,7 @@
 
 package com.example.android.gdgfinder.search
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -36,7 +37,7 @@ import com.example.android.gdgfinder.databinding.ListItemBinding
 @Suppress("MemberVisibilityCanBePrivate")
 class GdgListAdapter(
     val clickListener: GdgClickListener
-): ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback){
+) : ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback) {
 
     /**
      * The [DiffUtil.ItemCallback] that is used by the framework to calculate the diff between two
@@ -86,7 +87,7 @@ class GdgListAdapter(
      */
     class GdgListViewHolder(
         private var binding: ListItemBinding
-    ): RecyclerView.ViewHolder(binding.root){
+    ) : RecyclerView.ViewHolder(binding.root) {
         /**
          * This is called by the [onBindViewHolder] override of this [GdgListAdapter] in order to
          * have us update the contents of our [GdgListViewHolder] to reflect the [GdgChapter] item
@@ -180,5 +181,13 @@ class GdgListAdapter(
  * returns nothing.
  */
 class GdgClickListener(val clickListener: (chapter: GdgChapter) -> Unit) {
-    fun onClick(chapter: GdgChapter) = clickListener(chapter)
+    /**
+     * This method is invoked by a binding expression for the "android:onClick" attribute of the
+     * `ConstraintLayout` widget in the layout/list_item.xml layout file. The instance created in
+     * the `onCreateView` override of `GdgListFragment` creates a Uri from the [GdgChapter] passed
+     * it and launches an [Intent] to view that Uri.
+     *
+     * @param chapter the [GdgChapter] of the item that was clicked.
+     */
+    fun onClick(chapter: GdgChapter): Unit = clickListener(chapter)
 }

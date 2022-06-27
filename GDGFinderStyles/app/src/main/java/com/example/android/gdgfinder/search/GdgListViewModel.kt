@@ -28,7 +28,7 @@ import java.io.IOException
 /**
  * The [ViewModel] which controls our `GdgListFragment`.
  */
-class GdgListViewModel: ViewModel() {
+class GdgListViewModel : ViewModel() {
 
     /**
      * Handle to the Repository for our app.
