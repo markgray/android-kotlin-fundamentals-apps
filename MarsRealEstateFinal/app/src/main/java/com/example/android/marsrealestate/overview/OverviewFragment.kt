@@ -83,9 +83,9 @@ class OverviewFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentOverviewBinding.inflate(inflater)
         //val binding = GridViewItemBinding.inflate(inflater)
@@ -148,11 +148,11 @@ class OverviewFragment : Fragment() {
      */
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         viewModel.updateFilter(
-                when (item.itemId) {
-                    R.id.show_rent_menu -> MarsApiFilter.SHOW_RENT
-                    R.id.show_buy_menu -> MarsApiFilter.SHOW_BUY
-                    else -> MarsApiFilter.SHOW_ALL
-                }
+            when (item.itemId) {
+                R.id.show_rent_menu -> MarsApiFilter.SHOW_RENT
+                R.id.show_buy_menu -> MarsApiFilter.SHOW_BUY
+                else -> MarsApiFilter.SHOW_ALL
+            }
         )
         return true
     }

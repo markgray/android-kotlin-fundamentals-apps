@@ -34,7 +34,7 @@ import com.example.android.marsrealestate.network.MarsProperty
  * with the [MarsProperty] it is holding when its view is clicked.
  */
 class PhotoGridAdapter(
-        private val onClickListener: OnClickListener
+    private val onClickListener: OnClickListener
 ) : ListAdapter<MarsProperty, PhotoGridAdapter.MarsPropertyViewHolder>(DiffCallback) {
 
     /**
@@ -44,7 +44,7 @@ class PhotoGridAdapter(
      * @param binding the [GridViewItemBinding] for the view we are to display our item in
      */
     class MarsPropertyViewHolder(
-            private var binding: GridViewItemBinding
+        private var binding: GridViewItemBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         /**
          * Binds a [MarsProperty] to this [MarsPropertyViewHolder]. Called from the `onBindViewHolder`
@@ -111,8 +111,8 @@ class PhotoGridAdapter(
      * @return A new ViewHolder that holds a View of the given view type.
      */
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): MarsPropertyViewHolder {
         return MarsPropertyViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }
@@ -145,8 +145,13 @@ class PhotoGridAdapter(
      *
      * @param clickListener lambda that will be called with the current [MarsProperty]
      */
-    class OnClickListener(val clickListener: (marsProperty:MarsProperty) -> Unit) {
-        fun onClick(marsProperty:MarsProperty) = clickListener(marsProperty)
+    class OnClickListener(val clickListener: (marsProperty: MarsProperty) -> Unit) {
+        /**
+         * This method will be called with the [MarsProperty] object corresponding to the item that
+         * was clicked in the [RecyclerView]. It just calls the [clickListener] method that was
+         * passed to its constructor with that [MarsProperty] object.
+         */
+        fun onClick(marsProperty: MarsProperty): Unit = clickListener(marsProperty)
     }
 }
 

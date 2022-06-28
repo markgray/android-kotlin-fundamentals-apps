@@ -33,12 +33,15 @@ import kotlinx.parcelize.Parcelize
  * @param price the "price" of the property in dollars.
  */
 @Parcelize
-data class MarsProperty (
-        val id: String,
-        // used to map img_src from the JSON to imgSrcUrl in our class
-        @Json(name = "img_src") val imgSrcUrl: String,
-        val type: String,
-        val price: Double) : Parcelable {
-    val isRental
+data class MarsProperty(
+    val id: String,
+    // used to map img_src from the JSON to imgSrcUrl in our class
+    @Json(name = "img_src") val imgSrcUrl: String,
+    val type: String,
+    val price: Double) : Parcelable {
+    /**
+     * Returns `true` if the [type] of this property is "rent".
+     */
+    val isRental: Boolean
         get() = type == "rent"
 }

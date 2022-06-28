@@ -29,8 +29,8 @@ import com.example.android.marsrealestate.R
  *  @param app the [Application] this activity is running in
  */
 class DetailViewModel(
-        marsProperty: MarsProperty,
-        app: Application
+    marsProperty: MarsProperty,
+    app: Application
 ) : AndroidViewModel(app) {
 
     /**
@@ -67,12 +67,12 @@ class DetailViewModel(
      * layout file layout/fragment_detail.xml and sets the text of that `TextView` whenever
      * [displayPropertyPrice] changes value.
      */
-    val displayPropertyPrice = Transformations.map(selectedProperty) {
+    val displayPropertyPrice: LiveData<String> = Transformations.map(selectedProperty) {
         app.applicationContext.getString(
-                when (it.isRental) {
-                    true -> R.string.display_price_monthly_rental
-                    false -> R.string.display_price
-                }, it.price)
+            when (it.isRental) {
+                true -> R.string.display_price_monthly_rental
+                false -> R.string.display_price
+            }, it.price)
     }
 
     /**
@@ -84,13 +84,13 @@ class DetailViewModel(
      * with ID R.id.property_type_text in the layout file layout/fragment_detail.xml and sets the
      * text of that `TextView` whenever [displayPropertyType] changes value.
      */
-    val displayPropertyType = Transformations.map(selectedProperty) {
+    val displayPropertyType: LiveData<String> = Transformations.map(selectedProperty) {
         app.applicationContext.getString(R.string.display_type,
-                app.applicationContext.getString(
-                        when(it.isRental) {
-                            true -> R.string.type_rent
-                            false -> R.string.type_sale
-                        }))
+            app.applicationContext.getString(
+                when (it.isRental) {
+                    true -> R.string.type_rent
+                    false -> R.string.type_sale
+                }))
     }
 }
 

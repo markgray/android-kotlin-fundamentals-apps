@@ -71,11 +71,11 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     imgUrl?.let {
         val imgUri: Uri = imgUrl.toUri().buildUpon().scheme("https").build()
         Glide.with(imgView.context)
-                .load(imgUri)
-                .apply(RequestOptions()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image))
-                .into(imgView)
+            .load(imgUri)
+            .apply(RequestOptions()
+                .placeholder(R.drawable.loading_animation)
+                .error(R.drawable.ic_broken_image))
+            .into(imgView)
     }
 }
 
@@ -107,6 +107,8 @@ fun bindStatus(statusImageView: ImageView, status: MarsApiStatus?) {
         MarsApiStatus.DONE -> {
             statusImageView.visibility = View.GONE
         }
-        else -> { Log.i("BindingAdapters", "MarsApiStatus is: $status") }
+        else -> {
+            Log.i("BindingAdapters", "MarsApiStatus is: $status")
+        }
     }
 }

@@ -28,8 +28,8 @@ import com.example.android.marsrealestate.network.MarsProperty
  * @param application the [Application] that owns this activity.
  */
 class DetailViewModelFactory(
-        private val marsProperty: MarsProperty,
-        private val application: Application
+    private val marsProperty: MarsProperty,
+    private val application: Application
 ) : ViewModelProvider.Factory {
     /**
      * Creates a new instance of the given [Class]. After a sanity check to make sure we are only
@@ -42,7 +42,7 @@ class DetailViewModelFactory(
      * @return a newly [DetailViewModel] ViewModel
      */
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(marsProperty, application) as T
         }

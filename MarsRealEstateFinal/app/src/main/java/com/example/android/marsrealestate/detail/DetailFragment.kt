@@ -64,21 +64,21 @@ class DetailFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
-        val application : Application = requireNotNull(activity).application
+        val application: Application = requireNotNull(activity).application
         val binding = FragmentDetailBinding.inflate(inflater)
         binding.lifecycleOwner = this
 
-        val marsProperty : MarsProperty = DetailFragmentArgs
-                .fromBundle(requireArguments())
-                .selectedProperty
+        val marsProperty: MarsProperty = DetailFragmentArgs
+            .fromBundle(requireArguments())
+            .selectedProperty
         val viewModelFactory = DetailViewModelFactory(marsProperty, application)
         binding.viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(DetailViewModel::class.java)
+            .get(DetailViewModel::class.java)
 
         return binding.root
     }
