@@ -24,7 +24,7 @@ import androidx.lifecycle.ViewModelProvider
  *
  * @param finalScore the safe args `score` passed when the `GameFragment` navigates to `ScoreFragment`
  */
-class ScoreViewModelFactory (private val finalScore: Int) : ViewModelProvider.Factory {
+class ScoreViewModelFactory(private val finalScore: Int) : ViewModelProvider.Factory {
 
     /**
      * Creates a new instance of the given [Class]. After a sanity check to make sure we are only
@@ -35,7 +35,7 @@ class ScoreViewModelFactory (private val finalScore: Int) : ViewModelProvider.Fa
      * @param T        The type parameter for the ViewModel.
      * @return a newly created [ScoreViewModel] view model.
      */
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
             return ScoreViewModel(finalScore) as T

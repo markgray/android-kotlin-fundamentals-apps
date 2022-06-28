@@ -60,6 +60,7 @@ class GameViewModel : ViewModel() {
      * available by the [word] property. Set by our [nextWord] method.
      */
     private val _word = MutableLiveData<String>()
+
     /**
      * Public read-only access to our [_word] property. A binding expression in the `GameFragment`
      * layout file layout/game_fragment.xml accesses it when it changes to set the text of the
@@ -74,6 +75,7 @@ class GameViewModel : ViewModel() {
      * by our [onSkip] method.
      */
     private val _score = MutableLiveData<Int>()
+
     /**
      * Public read-only access to our [_score] property. Read by the `gameFinished` method of
      * `GameFragment` to supply the final score when navigating to the `ScoreFragment`, and a
@@ -90,6 +92,7 @@ class GameViewModel : ViewModel() {
      * finished, and set to [DONE] by its `onFinish` override.
      */
     private val _currentTime = MutableLiveData<Long>()
+
     /**
      * Public read-only access to our [_currentTime] property. Our property [currentTimeString] uses
      * the [Transformations.map] method to format this as a [LiveData] wrapped [String] for display
@@ -104,7 +107,7 @@ class GameViewModel : ViewModel() {
      * "android:text" attribute of the `TextView` with ID R.id.timer_text updates the text displayed
      * whenever this changes value (which it does when our [currentTime] changes value.
      */
-    val currentTimeString = Transformations.map(currentTime) { time ->
+    val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
         DateUtils.formatElapsedTime(time)
     }
 
@@ -114,6 +117,7 @@ class GameViewModel : ViewModel() {
      * `true` by our [onGameFinish] method, reset to `false` by our [onGameFinishComplete] method.
      */
     private val _eventGameFinish = MutableLiveData<Boolean>()
+
     /**
      * Public read-only access to our [_eventGameFinish] property. An `Observer` with a lambda which
      * calls the `GameFragment.gameFinished` method when it transitions to `true` is added to it in
@@ -132,27 +136,27 @@ class GameViewModel : ViewModel() {
      */
     private fun resetList() {
         wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
+            "queen",
+            "hospital",
+            "basketball",
+            "cat",
+            "change",
+            "snail",
+            "soup",
+            "calendar",
+            "sad",
+            "desk",
+            "guitar",
+            "home",
+            "railway",
+            "zebra",
+            "jelly",
+            "car",
+            "crow",
+            "trade",
+            "bag",
+            "roll",
+            "bubble"
         )
         wordList.shuffle()
     }
@@ -175,8 +179,9 @@ class GameViewModel : ViewModel() {
              * @param millisUntilFinished The amount of time until finished.
              */
             override fun onTick(millisUntilFinished: Long) {
-                _currentTime.value = millisUntilFinished/ONE_SECOND
+                _currentTime.value = millisUntilFinished / ONE_SECOND
             }
+
             /**
              * Callback fired when the time is up. We set the value of our [_currentTime] property
              * to [DONE] then call our [onGameFinish] method to end the game.
