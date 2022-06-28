@@ -31,8 +31,8 @@ import com.squareup.moshi.Json
  * @param price the "price" of the property in dollars.
  */
 data class MarsProperty(
-        val id: String,
-        // used to map img_src from the JSON to imgSrcUrl in our class
-        @Json(name = "img_src") val imgSrcUrl: String,
-        val type: String,
-        val price: Double)
+    val id: String,
+    // used to map img_src from the JSON to imgSrcUrl in our class
+    @Json(name = "img_src") val imgSrcUrl: String,
+    val type: String,
+    val price: Double)

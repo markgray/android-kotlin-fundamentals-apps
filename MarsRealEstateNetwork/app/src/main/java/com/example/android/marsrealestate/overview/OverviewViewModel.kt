@@ -58,7 +58,7 @@ class OverviewViewModel : ViewModel() {
      * we launch there runs using the Main (UI) dispatcher, then suspends while calling the suspend
      * method `await` on the `Deferred` return value.
      */
-    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main )
+    private val coroutineScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     /**
      * Call getMarsRealEstateProperties() on init so we can display status immediately.

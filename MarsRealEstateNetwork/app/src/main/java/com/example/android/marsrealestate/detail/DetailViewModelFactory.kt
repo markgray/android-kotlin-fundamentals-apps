@@ -27,10 +27,20 @@ import com.example.android.marsrealestate.network.MarsProperty
  */
 @Suppress("unused")
 class DetailViewModelFactory(
-        private val marsProperty: MarsProperty,
-        private val application: Application) : ViewModelProvider.Factory {
+    private val marsProperty: MarsProperty,
+    private val application: Application) : ViewModelProvider.Factory {
+    /**
+     * Creates a new instance of the given [Class]. After a sanity check to make sure we are only
+     * being asked to create a [DetailViewModel] we return a new instance of [DetailViewModel]
+     * constructed to use our field [marsProperty] as the [MarsProperty] it is to display, and
+     * our field [application] as the [Application] to use for context when needed.
+     *
+     * @param modelClass a [Class] whose instance is requested
+     * @param T          The type parameter for the ViewModel.
+     * @return a newly [DetailViewModel] ViewModel
+     */
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailViewModel::class.java)) {
             return DetailViewModel(marsProperty, application) as T
         }
