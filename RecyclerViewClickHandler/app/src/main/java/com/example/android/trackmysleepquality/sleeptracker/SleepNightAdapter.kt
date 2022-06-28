@@ -42,7 +42,7 @@ import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBin
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class SleepNightAdapter(
-        val clickListener: SleepNightListener
+    val clickListener: SleepNightListener
 ) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
     /**
@@ -62,7 +62,7 @@ class SleepNightAdapter(
      * @param position The position of the item within the adapter's data set.
      */
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position)!!, clickListener)
+        holder.bind(getItem(position) ?: return, clickListener)
     }
 
     /**
@@ -76,8 +76,8 @@ class SleepNightAdapter(
      * @return A new [ViewHolder] that holds a View of the given view type.
      */
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -90,9 +90,8 @@ class SleepNightAdapter(
      * @param binding the [ListItemSleepNightBinding] for the view we are to display our item in
      */
     class ViewHolder private constructor(
-            val binding: ListItemSleepNightBinding
-    ) : RecyclerView.ViewHolder(binding.root)
-    {
+        val binding: ListItemSleepNightBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Binds this [ViewHolder] instance to its [SleepNight] parameter [item] by setting the
@@ -127,9 +126,9 @@ class SleepNightAdapter(
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val binding = ListItemSleepNightBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
+                    layoutInflater,
+                    parent,
+                    false
                 )
                 return ViewHolder(binding)
             }
@@ -193,5 +192,5 @@ class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
      * @param night the [SleepNight] whose `nightId` primary key we are to pass as an argument to our
      * [clickListener] function type field (a lambda in our case).
      */
-    fun onClick(night: SleepNight) = clickListener(night.nightId)
+    fun onClick(night: SleepNight): Unit = clickListener(night.nightId)
 }

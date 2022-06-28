@@ -34,14 +34,14 @@ import kotlinx.coroutines.withContext
  * @param dataSource Handle to the [SleepDatabaseDao] to use to call its Room SQLite methods.
  */
 class SleepQualityViewModel(
-        private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao
+    private val sleepNightKey: Long = 0L,
+    dataSource: SleepDatabaseDao
 ) : ViewModel() {
 
     /**
      * Hold a reference to `SleepDatabase` access via its [SleepDatabaseDao].
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine setup variables */
 

@@ -30,14 +30,14 @@ import kotlinx.coroutines.Job
  * @param dataSource Handle to the [SleepDatabaseDao] to use to call its Room SQLite methods.
  */
 class SleepDetailViewModel(
-        private val sleepNightKey: Long = 0L,
-        dataSource: SleepDatabaseDao
+    private val sleepNightKey: Long = 0L,
+    dataSource: SleepDatabaseDao
 ) : ViewModel() {
 
     /**
      * Hold a reference to `SleepDatabase` via its [SleepDatabaseDao].
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine setup variables */
 
@@ -71,14 +71,14 @@ class SleepDetailViewModel(
      * Getter for our [night] field, it is used by binding expressions in the layout file
      * layout/fragment_sleep_detail.xml
      */
-    fun getNight() = night
+    fun getNight(): LiveData<SleepNight> = night
 
 
     init {
         /**
          * Initialize our `SleepNight` field `night` from the Room database.
          */
-        night=database.getNightWithId(sleepNightKey)
+        night = database.getNightWithId(sleepNightKey)
     }
 
     /**
