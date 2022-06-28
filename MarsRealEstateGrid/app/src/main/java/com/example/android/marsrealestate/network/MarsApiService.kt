@@ -36,8 +36,8 @@ private const val BASE_URL = " https://android-kotlin-fun-mars-server.appspot.co
  * Kotlin’s reflection library to convert your Kotlin classes to and from JSON.
  */
 private val moshi = Moshi.Builder()
-        .add(KotlinJsonAdapterFactory())
-        .build()
+    .add(KotlinJsonAdapterFactory())
+    .build()
 
 /**
  * Use the [Retrofit] builder to build a retrofit object using our [Moshi] converter [moshi]. We
@@ -48,10 +48,10 @@ private val moshi = Moshi.Builder()
  * [Retrofit] instance.
  */
 private val retrofit = Retrofit.Builder()
-        .addConverterFactory(MoshiConverterFactory.create(moshi))
-        .addCallAdapterFactory(CoroutineCallAdapterFactory())
-        .baseUrl(BASE_URL)
-        .build()
+    .addConverterFactory(MoshiConverterFactory.create(moshi))
+    .addCallAdapterFactory(CoroutineCallAdapterFactory())
+    .baseUrl(BASE_URL)
+    .build()
 
 /**
  * A public interface that exposes the [getProperties] method
@@ -68,12 +68,16 @@ interface MarsApiService {
     @GET("realestate")
     fun getProperties():
     // The Coroutine Call Adapter allows us to return a Deferred, a Job with a result
-            Deferred<List<MarsProperty>>
+        Deferred<List<MarsProperty>>
 }
 
 /**
  * A public Api object that exposes the lazy-initialized Retrofit service
  */
 object MarsApi {
-    val retrofitService : MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
+    /**
+     * The lazy-initialized [MarsApiService] Retrofit service that is an implementation of the API
+     * endpoints defined by the service interface in this [MarsApiService]
+     */
+    val retrofitService: MarsApiService by lazy { retrofit.create(MarsApiService::class.java) }
 }

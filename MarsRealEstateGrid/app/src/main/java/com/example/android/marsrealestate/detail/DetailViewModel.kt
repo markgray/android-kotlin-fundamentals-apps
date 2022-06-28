@@ -26,7 +26,7 @@ import com.example.android.marsrealestate.network.MarsProperty
  */
 @Suppress("UNUSED_PARAMETER", "RemoveEmptyClassBody")
 class DetailViewModel(
-        marsProperty: MarsProperty,
-        app: Application
+    marsProperty: MarsProperty,
+    app: Application
 ) : AndroidViewModel(app) {
 }

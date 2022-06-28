@@ -38,9 +38,8 @@ class PhotoGridAdapter : ListAdapter<MarsProperty, PhotoGridAdapter.MarsProperty
      * @param binding the [GridViewItemBinding] for the view we are to display our item in
      */
     class MarsPropertyViewHolder(
-            private var binding: GridViewItemBinding
-    ): RecyclerView.ViewHolder(binding.root)
-    {
+        private var binding: GridViewItemBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
         /**
          * Binds a [MarsProperty] to this [MarsPropertyViewHolder]. Called from the `onBindViewHolder`
          * override of [PhotoGridAdapter]. We set the `property` variable of our [GridViewItemBinding]
@@ -106,8 +105,8 @@ class PhotoGridAdapter : ListAdapter<MarsProperty, PhotoGridAdapter.MarsProperty
      * @return A new ViewHolder that holds a View of the given view type.
      */
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): MarsPropertyViewHolder {
         return MarsPropertyViewHolder(GridViewItemBinding.inflate(LayoutInflater.from(parent.context)))
     }

@@ -34,7 +34,23 @@ import kotlinx.coroutines.launch
  * an error occurs while waiting for the result, and [DONE] is used if the download completes
  * successfully.
  */
-enum class MarsApiStatus { LOADING, ERROR, DONE }
+enum class MarsApiStatus {
+    /**
+     * The state [LOADING] is used after our method `getMarsRealEstateProperties` calls `Retrofit`
+     * method `getProperties` and implies the app is downloading data from the internet
+     */
+    LOADING,
+
+    /**
+     * The state [ERROR] is used if an error occurs while waiting for the result
+     */
+    ERROR,
+
+    /**
+     * The state [DONE] is used if the download completes successfully.
+     */
+    DONE
+}
 
 /**
  * The [ViewModel] that is attached to the [OverviewFragment].
