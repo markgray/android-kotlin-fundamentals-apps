@@ -87,24 +87,24 @@ class ScoreFragment : Fragment() {
      */
     @Suppress("RedundantSamConstructor", "RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         // Inflate view and obtain an instance of the binding class.
         val binding: ScoreFragmentBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.score_fragment,
-                container,
-                false
+            inflater,
+            R.layout.score_fragment,
+            container,
+            false
         )
 
         viewModelFactory = ScoreViewModelFactory(
-                ScoreFragmentArgs.fromBundle(requireArguments()).score
+            ScoreFragmentArgs.fromBundle(requireArguments()).score
         )
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(ScoreViewModel::class.java)
+            .get(ScoreViewModel::class.java)
 
         // Add observer for score
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->

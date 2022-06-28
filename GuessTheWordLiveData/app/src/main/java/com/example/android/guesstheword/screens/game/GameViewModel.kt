@@ -29,7 +29,7 @@ class GameViewModel : ViewModel() {
     /**
      * The current word to guess, private so only this class can modify, public read-only access is
      * available by the [word] property. Set by our [nextWord] method.
-      */
+     */
     private val _word = MutableLiveData<String>()
 
     /**
@@ -81,27 +81,27 @@ class GameViewModel : ViewModel() {
      */
     private fun resetList() {
         wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
+            "queen",
+            "hospital",
+            "basketball",
+            "cat",
+            "change",
+            "snail",
+            "soup",
+            "calendar",
+            "sad",
+            "desk",
+            "guitar",
+            "home",
+            "railway",
+            "zebra",
+            "jelly",
+            "car",
+            "crow",
+            "trade",
+            "bag",
+            "roll",
+            "bubble"
         )
         wordList.shuffle()
     }

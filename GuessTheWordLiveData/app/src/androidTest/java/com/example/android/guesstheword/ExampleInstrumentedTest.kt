@@ -19,7 +19,6 @@
 package com.example.android.guesstheword
 
 
-
 /**
  * Instrumented test, which will execute on an Android device.
  *
