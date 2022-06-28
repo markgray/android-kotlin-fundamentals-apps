@@ -27,7 +27,7 @@ class ScoreViewModel(finalScore: Int) : ViewModel() {
     /**
      * The final score
      */
-    var score = finalScore
+    var score: Int = finalScore
 
     init {
         Log.i("ScoreViewModel", "Final score is $finalScore")

@@ -27,12 +27,12 @@ class GameViewModel : ViewModel() {
     /**
      * The current word
      */
-    var word = ""
+    var word: String = ""
 
     /**
      * The current score
      */
-    var score = 0
+    var score: Int = 0
 
     /**
      * The list of words - the front of the list is the next word to guess
@@ -45,27 +45,27 @@ class GameViewModel : ViewModel() {
      */
     private fun resetList() {
         wordList = mutableListOf(
-                "queen",
-                "hospital",
-                "basketball",
-                "cat",
-                "change",
-                "snail",
-                "soup",
-                "calendar",
-                "sad",
-                "desk",
-                "guitar",
-                "home",
-                "railway",
-                "zebra",
-                "jelly",
-                "car",
-                "crow",
-                "trade",
-                "bag",
-                "roll",
-                "bubble"
+            "queen",
+            "hospital",
+            "basketball",
+            "cat",
+            "change",
+            "snail",
+            "soup",
+            "calendar",
+            "sad",
+            "desk",
+            "guitar",
+            "home",
+            "railway",
+            "zebra",
+            "jelly",
+            "car",
+            "crow",
+            "trade",
+            "bag",
+            "roll",
+            "bubble"
         )
         wordList.shuffle()
     }
