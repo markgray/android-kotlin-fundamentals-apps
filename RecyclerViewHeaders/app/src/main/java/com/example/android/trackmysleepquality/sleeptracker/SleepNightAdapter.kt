@@ -63,8 +63,8 @@ private const val ITEM_VIEW_TYPE_ITEM = 1
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class SleepNightAdapter(
-        val clickListener: SleepNightListener
-): ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
+    val clickListener: SleepNightListener
+) : ListAdapter<DataItem, RecyclerView.ViewHolder>(SleepNightDiffCallback()) {
 
     /**
      * The [CoroutineScope] we use to launch a new coroutine in our [addHeaderAndSubmitList] method
@@ -122,10 +122,10 @@ class SleepNightAdapter(
      * @param holder The [RecyclerView.ViewHolder] which should be updated to represent the contents
      * of the item at the given position in the data set.
      * @param position The position of the item within the adapter's data set.
-    */
+     */
     override fun onBindViewHolder(
-            holder: RecyclerView.ViewHolder,
-            position: Int
+        holder: RecyclerView.ViewHolder,
+        position: Int
     ) {
         when (holder) {
             is ViewHolder -> {
@@ -150,8 +150,8 @@ class SleepNightAdapter(
      * @return A new [ViewHolder] that holds a View of the given view type.
      */
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): RecyclerView.ViewHolder {
         return when (viewType) {
             ITEM_VIEW_TYPE_HEADER -> TextViewHolder.from(parent)
@@ -184,7 +184,7 @@ class SleepNightAdapter(
      *
      * @param view the [View] "itemView" that we display in, a `TextView` in our case.
      */
-    class TextViewHolder(view: View): RecyclerView.ViewHolder(view) {
+    class TextViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         companion object {
             /**
              * Factory method for creating a [TextViewHolder]. We initialize our [LayoutInflater]
@@ -212,8 +212,8 @@ class SleepNightAdapter(
      * associated with the Binding and is our item view.
      */
     class ViewHolder private constructor(
-            val binding: ListItemSleepNightBinding
-    ) : RecyclerView.ViewHolder(binding.root){
+        val binding: ListItemSleepNightBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Binds this [ViewHolder] to the [SleepNight] it is to display. We set the `sleep` variable
@@ -246,10 +246,10 @@ class SleepNightAdapter(
              */
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding= ListItemSleepNightBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
+                val binding = ListItemSleepNightBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
                 )
                 return ViewHolder(binding)
             }
@@ -289,6 +289,7 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
         return oldItem == newItem
     }
 }
+
 /**
  * This class is intended to be constructed with a lambda which will be called with the `nightId`
  * primary key of the [SleepNight] argument of its [SleepNightListener.onClick] method when the
@@ -304,7 +305,10 @@ class SleepNightDiffCallback : DiffUtil.ItemCallback<DataItem>() {
  * to the `SleepDetailFragment` to display the [SleepNight] details.
  */
 class SleepNightListener(val clickListener: (sleepId: Long) -> Unit) {
-    fun onClick(night: SleepNight) = clickListener(night.nightId)
+    /**
+     *
+     */
+    fun onClick(night: SleepNight): Unit = clickListener(night.nightId)
 }
 
 /**
@@ -318,16 +322,16 @@ sealed class DataItem {
      *
      * @param sleepNight the [SleepNight] we are intended to represent.
      */
-    data class SleepNightItem(val sleepNight: SleepNight): DataItem() {
-        override val id = sleepNight.nightId
+    data class SleepNightItem(val sleepNight: SleepNight) : DataItem() {
+        override val id: Long = sleepNight.nightId
     }
 
     /**
      * The [DataItem] subclass which holds our "Header" pseudo object, it overides its super's [id]
      * field and sets it to [Long.MIN_VALUE] (the minimum value an instance of [Long] can have).
      */
-    object Header: DataItem() {
-        override val id = Long.MIN_VALUE
+    object Header : DataItem() {
+        override val id: Long = Long.MIN_VALUE
     }
 
     /**
