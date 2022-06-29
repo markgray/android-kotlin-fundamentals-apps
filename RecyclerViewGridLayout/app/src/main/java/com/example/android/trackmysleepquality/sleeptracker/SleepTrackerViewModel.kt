@@ -17,6 +17,7 @@
 package com.example.android.trackmysleepquality.sleeptracker
 
 import android.app.Application
+import android.text.Spanned
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -37,14 +38,14 @@ import kotlinx.coroutines.withContext
  * @param application the Application to use to access resources
  */
 class SleepTrackerViewModel(
-        dataSource: SleepDatabaseDao,
-        application: Application
+    dataSource: SleepDatabaseDao,
+    application: Application
 ) : ViewModel() {
 
     /**
      * Hold a reference to SleepDatabase via SleepDatabaseDao.
      */
-    val database = dataSource
+    val database: SleepDatabaseDao = dataSource
 
     /** Coroutine variables */
 
@@ -74,34 +75,34 @@ class SleepTrackerViewModel(
     /**
      * The [LiveData] wrapped list of all of the [SleepNight] entries read from the database.
      */
-    val nights = database.getAllNights()
+    val nights: LiveData<List<SleepNight>> = database.getAllNights()
 
     /**
      * Converted nights to Spanned for displaying (used before the RecyclerView was added).
      */
     @Suppress("unused")
-    val nightsString = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
 
     /**
      * If tonight has not been set, then the START button should be visible.
      */
-    val startButtonVisible = Transformations.map(tonight) {
+    val startButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
         null == it
     }
 
     /**
      * If tonight has been set, then the STOP button should be visible.
      */
-    val stopButtonVisible = Transformations.map(tonight) {
+    val stopButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
         null != it
     }
 
     /**
      * If there are any nights in the database, show the CLEAR button.
      */
-    val clearButtonVisible = Transformations.map(nights) {
+    val clearButtonVisible: LiveData<Boolean?> = Transformations.map(nights) {
         it?.isNotEmpty()
     }
 

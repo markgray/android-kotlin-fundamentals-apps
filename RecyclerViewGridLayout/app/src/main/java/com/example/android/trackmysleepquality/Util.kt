@@ -134,7 +134,7 @@ fun convertNumericQualityToString(quality: Int, resources: Resources): String {
 @SuppressLint("SimpleDateFormat")
 fun convertLongToDateString(systemTime: Long): String {
     return SimpleDateFormat("EEEE MMM-dd-yyyy' Time: 'HH:mm")
-            .format(systemTime).toString()
+        .format(systemTime).toString()
 }
 
 /**
@@ -204,4 +204,4 @@ fun formatNights(nights: List<SleepNight>, resources: Resources): Spanned {
  * @param textView the [TextView] to use as our view.
  */
 @Suppress("unused", "CanBeParameter", "MemberVisibilityCanBePrivate")
-class TextItemViewHolder(val textView: TextView): RecyclerView.ViewHolder(textView)
+class TextItemViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)

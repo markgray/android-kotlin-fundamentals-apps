@@ -34,8 +34,7 @@ import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBin
  * the `submitList` method of [ListAdapter] with `nights` to have it diffed and displayed whenever
  * the `LiveData` list of [SleepNight] changes.
  */
-class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback())
-{
+class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -67,8 +66,8 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
      * @return A new [ViewHolder] that holds a View of the given view type.
      */
     override fun onCreateViewHolder(
-            parent: ViewGroup,
-            viewType: Int
+        parent: ViewGroup,
+        viewType: Int
     ): ViewHolder {
         return ViewHolder.from(parent)
     }
@@ -81,9 +80,8 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
      * @param binding the [ListItemSleepNightBinding] for the view we are to display our item in
      */
     class ViewHolder private constructor(
-            val binding: ListItemSleepNightBinding
-    ) : RecyclerView.ViewHolder(binding.root)
-    {
+        val binding: ListItemSleepNightBinding
+    ) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Binds this [ViewHolder] instance to its [SleepNight] parameter [item] by setting the
@@ -113,11 +111,10 @@ class SleepNightAdapter : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(
              */
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding
-                        = ListItemSleepNightBinding.inflate(
-                        layoutInflater,
-                        parent,
-                        false
+                val binding = ListItemSleepNightBinding.inflate(
+                    layoutInflater,
+                    parent,
+                    false
                 )
                 return ViewHolder(binding)
             }
