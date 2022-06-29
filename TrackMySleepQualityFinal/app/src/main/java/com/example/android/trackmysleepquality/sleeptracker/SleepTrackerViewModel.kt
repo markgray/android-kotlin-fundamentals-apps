@@ -38,8 +38,8 @@ import kotlinx.coroutines.withContext
  * @param application the [Application] to use to access resources
  */
 class SleepTrackerViewModel(
-        val database: SleepDatabaseDao,
-        application: Application
+    val database: SleepDatabaseDao,
+    application: Application
 ) : AndroidViewModel(application) {
 
     /** Coroutine variables */
@@ -77,7 +77,7 @@ class SleepTrackerViewModel(
      * convert our [LiveData] wrapped list of [SleepNight]'s field [nights] into a [LiveData]
      * wrapped [Spanned] by applying our [formatNights] method to the value in [nights].
      */
-    val nightsString = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
 
@@ -89,7 +89,7 @@ class SleepTrackerViewModel(
      * ID R.id.start_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val startButtonVisible = Transformations.map(tonight) {
+    val startButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
         null == it
     }
 
@@ -101,7 +101,7 @@ class SleepTrackerViewModel(
      * ID R.id.stop_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val stopButtonVisible = Transformations.map(tonight) {
+    val stopButtonVisible: LiveData<Boolean> = Transformations.map(tonight) {
         null != it
     }
 
@@ -113,7 +113,7 @@ class SleepTrackerViewModel(
      * ID R.id.clear_button in the file layout/fragment_sleep_tracker.xml (the layout file for
      * `SleepTrackerFragment`).
      */
-    val clearButtonVisible = Transformations.map(nights) {
+    val clearButtonVisible: LiveData<Boolean?> = Transformations.map(nights) {
         it?.isNotEmpty()
     }
 

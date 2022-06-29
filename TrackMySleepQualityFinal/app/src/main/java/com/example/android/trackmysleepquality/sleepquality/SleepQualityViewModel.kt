@@ -34,8 +34,8 @@ import kotlinx.coroutines.withContext
  * @param database Handle to the [SleepDatabaseDao] to use to call its Room SQLite methods.
  */
 class SleepQualityViewModel(
-        private val sleepNightKey: Long = 0L,
-        val database: SleepDatabaseDao
+    private val sleepNightKey: Long = 0L,
+    val database: SleepDatabaseDao
 ) : ViewModel() {
 
     /** Coroutine setup variables */
