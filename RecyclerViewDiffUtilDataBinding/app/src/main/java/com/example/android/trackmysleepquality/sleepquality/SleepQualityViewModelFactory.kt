@@ -31,8 +31,8 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
  * Room database.
  */
 class SleepQualityViewModelFactory(
-        private val sleepNightKey: Long,
-        private val dataSource: SleepDatabaseDao
+    private val sleepNightKey: Long,
+    private val dataSource: SleepDatabaseDao
 ) : ViewModelProvider.Factory {
     /**
      * Creates a new instance of the given [Class].
@@ -44,7 +44,7 @@ class SleepQualityViewModelFactory(
      * to access the Room database.
      */
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepQualityViewModel::class.java)) {
             return SleepQualityViewModel(sleepNightKey, dataSource) as T
         }
