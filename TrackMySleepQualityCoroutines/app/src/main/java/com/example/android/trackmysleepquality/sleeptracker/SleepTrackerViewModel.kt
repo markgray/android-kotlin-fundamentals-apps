@@ -39,8 +39,8 @@ import kotlinx.coroutines.withContext
  */
 @Suppress("MemberVisibilityCanBePrivate")
 class SleepTrackerViewModel(
-        val database: SleepDatabaseDao,
-        application: Application
+    val database: SleepDatabaseDao,
+    application: Application
 ) : AndroidViewModel(application) {
 
     /**
@@ -67,7 +67,7 @@ class SleepTrackerViewModel(
      * convert our [LiveData] wrapped list of [SleepNight]'s field [nights] into a [LiveData]
      * wrapped [Spanned] by applying our [formatNights] method to the value in [nights].
      */
-    val nightsString = Transformations.map(nights) { nights ->
+    val nightsString: LiveData<Spanned> = Transformations.map(nights) { nights ->
         formatNights(nights, application.resources)
     }
 

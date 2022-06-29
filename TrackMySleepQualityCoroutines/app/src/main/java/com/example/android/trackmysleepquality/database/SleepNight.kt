@@ -28,34 +28,34 @@ import androidx.room.PrimaryKey
  */
 @Entity(tableName = "daily_sleep_quality_table")
 data class SleepNight(
-        /**
-         * The `PrimaryKey` of our table, we let SQLite `autoGenerate` the unique id starting at "1"
-         * (Insert methods treat 0 as not-set while inserting the item)>
-         */
-        @PrimaryKey(autoGenerate = true)
-        var nightId: Long = 0L,
+    /**
+     * The `PrimaryKey` of our table, we let SQLite `autoGenerate` the unique id starting at "1"
+     * (Insert methods treat 0 as not-set while inserting the item)>
+     */
+    @PrimaryKey(autoGenerate = true)
+    var nightId: Long = 0L,
 
-        /**
-         * The start time in milliseconds of our night's sleep. The `@ColumnInfo` annotation sets
-         * the name of the column in the database to "start_time_milli". Defaults to the field name
-         * if not set.
-         */
-        @ColumnInfo(name = "start_time_milli")
-        var startTimeMilli: Long = System.currentTimeMillis(),
+    /**
+     * The start time in milliseconds of our night's sleep. The `@ColumnInfo` annotation sets
+     * the name of the column in the database to "start_time_milli". Defaults to the field name
+     * if not set.
+     */
+    @ColumnInfo(name = "start_time_milli")
+    var startTimeMilli: Long = System.currentTimeMillis(),
 
-        /**
-         * The end time in milliseconds of our night's sleep. The `@ColumnInfo` annotation sets
-         * the name of the column in the database to "end_time_milli". Defaults to the field name
-         * if not set.
-         */
-        @ColumnInfo(name = "end_time_milli")
-        var endTimeMilli: Long = startTimeMilli,
+    /**
+     * The end time in milliseconds of our night's sleep. The `@ColumnInfo` annotation sets
+     * the name of the column in the database to "end_time_milli". Defaults to the field name
+     * if not set.
+     */
+    @ColumnInfo(name = "end_time_milli")
+    var endTimeMilli: Long = startTimeMilli,
 
-        /**
-         * The user's subjective rating of his night's sleep. The `@ColumnInfo` annotation sets
-         * the name of the column in the database to "quality_rating". Defaults to the field name
-         * if not set.
-         */
-        @ColumnInfo(name = "quality_rating")
-        var sleepQuality: Int = -1
+    /**
+     * The user's subjective rating of his night's sleep. The `@ColumnInfo` annotation sets
+     * the name of the column in the database to "quality_rating". Defaults to the field name
+     * if not set.
+     */
+    @ColumnInfo(name = "quality_rating")
+    var sleepQuality: Int = -1
 )

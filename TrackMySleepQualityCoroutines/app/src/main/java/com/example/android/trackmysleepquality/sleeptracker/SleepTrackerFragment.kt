@@ -71,17 +71,17 @@ class SleepTrackerFragment : Fragment() {
      */
     @Suppress("RedundantNullableReturnType")
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
 
         // Get a reference to the binding object and inflate the fragment views.
         val binding: FragmentSleepTrackerBinding = DataBindingUtil.inflate(
-                inflater,
-                R.layout.fragment_sleep_tracker,
-                container,
-                false
+            inflater,
+            R.layout.fragment_sleep_tracker,
+            container,
+            false
         )
 
         val application: Application = requireNotNull(this.activity).application
@@ -91,8 +91,8 @@ class SleepTrackerFragment : Fragment() {
         val viewModelFactory = SleepTrackerViewModelFactory(dataSource, application)
 
         val sleepTrackerViewModel =
-                ViewModelProvider(this, viewModelFactory)
-                        .get(SleepTrackerViewModel::class.java)
+            ViewModelProvider(this, viewModelFactory)
+                .get(SleepTrackerViewModel::class.java)
 
         binding.lifecycleOwner = this
 
