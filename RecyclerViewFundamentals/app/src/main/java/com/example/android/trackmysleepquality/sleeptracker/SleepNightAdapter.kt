@@ -34,7 +34,7 @@ import com.example.android.trackmysleepquality.database.SleepNight
  * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database.
  */
 @Suppress("MemberVisibilityCanBePrivate")
-class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
+class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
 
     /**
      * Our dataset of [SleepNight] records read from our database. It is set by an `Observer` added
@@ -46,7 +46,7 @@ class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
      * then calls the [notifyDataSetChanged] method to notify any registered observers that the
      * data set has changed.
      */
-    var data =  listOf<SleepNight>()
+    var data: List<SleepNight> = listOf()
         @SuppressLint("NotifyDataSetChanged")
         set(value) {
             field = value
@@ -59,7 +59,7 @@ class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
      *
      * @return The total number of items in this adapter.
      */
-    override fun getItemCount() = data.size
+    override fun getItemCount(): Int = data.size
 
     /**
      * Called by RecyclerView to display the data at the specified position. This method should
@@ -97,7 +97,7 @@ class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
      *
      * @param itemView the inflated [View] that we are to hold
      */
-    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView){
+    class ViewHolder private constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
         /**
          * The [TextView] where we display the sleep duration.
          */
@@ -158,7 +158,7 @@ class SleepNightAdapter: RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
                 val view = layoutInflater
-                        .inflate(R.layout.list_item_sleep_night, parent, false)
+                    .inflate(R.layout.list_item_sleep_night, parent, false)
 
                 return ViewHolder(view)
             }

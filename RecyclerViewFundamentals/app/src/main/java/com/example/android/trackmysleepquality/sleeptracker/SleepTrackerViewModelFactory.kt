@@ -31,8 +31,8 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
  * @param application the [Application] that owns our activity, used to access resources.
  */
 class SleepTrackerViewModelFactory(
-        private val dataSource: SleepDatabaseDao,
-        private val application: Application) : ViewModelProvider.Factory {
+    private val dataSource: SleepDatabaseDao,
+    private val application: Application) : ViewModelProvider.Factory {
 
     /**
      * Creates a new instance of the given [Class].
@@ -44,7 +44,7 @@ class SleepTrackerViewModelFactory(
      * to access resources.
      */
     @Suppress("unchecked_cast")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
             return SleepTrackerViewModel(dataSource, application) as T
         }
