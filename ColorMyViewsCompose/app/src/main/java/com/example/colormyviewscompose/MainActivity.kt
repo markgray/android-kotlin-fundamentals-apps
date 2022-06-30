@@ -6,9 +6,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -52,6 +55,18 @@ fun ColumnContent(modifier: Modifier = Modifier) {
     var boxOneColor by remember {
         mutableStateOf(Color.White)
     }
+    var boxTwoColor by remember {
+        mutableStateOf(Color.White)
+    }
+    var boxThreeColor by remember {
+        mutableStateOf(Color.White)
+    }
+    var boxFourColor by remember {
+        mutableStateOf(Color.White)
+    }
+    var boxFiveColor by remember {
+        mutableStateOf(Color.White)
+    }
     Column(
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
@@ -60,7 +75,8 @@ fun ColumnContent(modifier: Modifier = Modifier) {
             text = stringResource(id = R.string.box_one),
             fontSize = 24.sp,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
                 .padding(16.dp)
                 .background(boxOneColor)
                 .padding(16.dp)
@@ -68,5 +84,51 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                     boxOneColor = Color.DarkGray
                 }
         )
+        Row {
+            Text(
+                text = stringResource(id = R.string.box_two),
+                fontSize = 24.sp,
+                textAlign = TextAlign.Start,
+                modifier = Modifier
+                    .width(130.dp)
+                    .height(130.dp)
+                    .background(boxTwoColor)
+                    .clickable {
+                        boxTwoColor = Color.Gray
+                    }
+            )
+            Column {
+                Text(
+                    text = stringResource(id = R.string.box_three),
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(boxThreeColor)
+                        .clickable {
+                            boxThreeColor = Color.Blue
+                        }
+                )
+                Text(
+                    text = stringResource(id = R.string.box_four),
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(boxFourColor)
+                        .clickable {
+                            boxFourColor = Color.Magenta
+                        }
+                )
+                Text(
+                    text = stringResource(id = R.string.box_five),
+                    fontSize = 24.sp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(boxFiveColor)
+                        .clickable {
+                            boxFiveColor = Color.Blue
+                        }
+                )
+            }
+        }
     }
 }
