@@ -141,7 +141,7 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                 )
             }
         }
-        Row() {
+        Row {
             Text(
                 text = stringResource(id = R.string.how_to_play),
                 fontSize = 24.sp
@@ -154,7 +154,7 @@ fun ColumnContent(modifier: Modifier = Modifier) {
             )
         }
         Spacer(modifier = Modifier.weight(1.0f, fill = true))
-        Row() {
+        Row {
             Button(onClick = { boxThreeColor = Color.Red }) {
                 Text(
                     text = stringResource(id = R.string.button_red)
