@@ -7,12 +7,14 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
+import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -73,6 +75,7 @@ fun ColumnContent(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = stringResource(id = R.string.box_one),
+            color = Color.White,
             fontSize = 24.sp,
             textAlign = TextAlign.Center,
             modifier = Modifier
@@ -85,10 +88,12 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                 }
         )
         Row {
+            Spacer(modifier = Modifier.width(16.dp))
             Text(
                 text = stringResource(id = R.string.box_two),
+                color = Color.White,
                 fontSize = 24.sp,
-                textAlign = TextAlign.Start,
+                textAlign = TextAlign.Center,
                 modifier = Modifier
                     .width(130.dp)
                     .height(130.dp)
@@ -97,9 +102,11 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                         boxTwoColor = Color.Gray
                     }
             )
+            Spacer(modifier = Modifier.width(16.dp))
             Column {
                 Text(
                     text = stringResource(id = R.string.box_three),
+                    color = Color.White,
                     fontSize = 24.sp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -108,8 +115,10 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                             boxThreeColor = Color.Blue
                         }
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = stringResource(id = R.string.box_four),
+                    color = Color.White,
                     fontSize = 24.sp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -118,8 +127,10 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                             boxFourColor = Color.Magenta
                         }
                 )
+                Spacer(modifier = Modifier.height(16.dp))
                 Text(
                     text = stringResource(id = R.string.box_five),
+                    color = Color.White,
                     fontSize = 24.sp,
                     modifier = Modifier
                         .fillMaxWidth()
@@ -127,6 +138,38 @@ fun ColumnContent(modifier: Modifier = Modifier) {
                         .clickable {
                             boxFiveColor = Color.Blue
                         }
+                )
+            }
+        }
+        Row() {
+            Text(
+                text = stringResource(id = R.string.how_to_play),
+                fontSize = 24.sp
+            )
+            Text(
+                text = stringResource(id = R.string.tap_the_boxes_and_buttons),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(8.dp)
+            )
+        }
+        Spacer(modifier = Modifier.weight(1.0f, fill = true))
+        Row() {
+            Button(onClick = { boxThreeColor = Color.Red }) {
+                Text(
+                    text = stringResource(id = R.string.button_red)
+                )
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { boxFourColor =Color.Yellow }) {
+                Text(
+                    text = stringResource(id = R.string.button_yellow)
+                )
+            }
+            Spacer(modifier = Modifier.width(16.dp))
+            Button(onClick = { boxFiveColor = Color.Green }) {
+                Text(
+                    text = stringResource(id = R.string.button_green)
                 )
             }
         }
