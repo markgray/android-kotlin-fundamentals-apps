@@ -74,6 +74,7 @@ class TitleFragment : Fragment() {
         binding.playButton.setOnClickListener { view: View ->
             view.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
+        @Suppress("DEPRECATION")
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -87,7 +88,9 @@ class TitleFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate an XML menu file with.
      */
+    @Deprecated("Deprecated in Java")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        @Suppress("DEPRECATION")
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
     }
@@ -106,7 +109,9 @@ class TitleFragment : Fragment() {
      * @return [Boolean] Return `false` to allow normal menu processing to
      *         proceed, `true` to consume it here.
      */
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        @Suppress("DEPRECATION")
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
             || super.onOptionsItemSelected(item)
     }

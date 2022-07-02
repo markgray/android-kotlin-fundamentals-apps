@@ -19,7 +19,12 @@ package com.example.android.navigation
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -82,6 +87,7 @@ class GameWonFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
+        @Suppress("DEPRECATION")
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -131,8 +137,10 @@ class GameWonFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
      */
+    @Deprecated("Deprecated in Java")
     @SuppressLint("QueryPermissionsNeeded")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        @Suppress("DEPRECATION")
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
         // check if the activity resolves
@@ -153,10 +161,12 @@ class GameWonFragment : Fragment() {
      * consume it here.
      */
 
+    @Deprecated("Deprecated in Java")
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> shareSuccess()
         }
+        @Suppress("DEPRECATION")
         return super.onOptionsItemSelected(item)
     }
 }
