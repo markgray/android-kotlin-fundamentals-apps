@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.material.Button
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
@@ -54,7 +55,9 @@ fun GameScreenContent(
 fun QuestionContent(
     modifier: Modifier = Modifier
 ) {
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier.selectableGroup()
+    ) {
         Text(
             text = "What color is the Android mascot?",
             fontSize = 30.sp
