@@ -11,11 +11,14 @@ import androidx.compose.material.Button
 import androidx.compose.material.RadioButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -33,6 +36,9 @@ fun GameScreen(
 fun GameScreenContent(
     modifier: Modifier = Modifier
 ) {
+    var selectedId by remember {
+        mutableStateOf(0)
+    }
     Column(
         modifier = modifier.padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -41,7 +47,11 @@ fun GameScreenContent(
             painter = painterResource(id = R.drawable.android_category_simple),
             contentDescription = null
         )
-        QuestionContent(modifier = modifier)
+        QuestionContent(
+            modifier = modifier,
+            selectedId = selectedId,
+            changeSelection = { selectedId = it }
+        )
         Button(onClick = { /*TODO*/ }) {
             Text(
                 text = stringResource(id = R.string.submit_button),
@@ -53,7 +63,9 @@ fun GameScreenContent(
 
 @Composable
 fun QuestionContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    selectedId: Int = 0,
+    changeSelection: (Int) -> Unit = {}
 ) {
     Column(
         modifier = modifier.selectableGroup()
@@ -63,28 +75,44 @@ fun QuestionContent(
             fontSize = 30.sp
         )
         Row {
-            RadioButton(selected = false, onClick = { /*TODO*/ })
+            val id = 1
+            RadioButton(
+                selected = selectedId == id,
+                onClick = { changeSelection(id) }
+            )
             Text(
                 modifier = modifier.padding(top = 12.dp),
                 text = "Blue"
             )
         }
         Row {
-            RadioButton(selected = false, onClick = { /*TODO*/ })
+            val id = 2
+            RadioButton(
+                selected = selectedId == id,
+                onClick = { changeSelection(id) }
+            )
             Text(
                 modifier = modifier.padding(top = 12.dp),
                 text = "Green"
             )
         }
         Row {
-            RadioButton(selected = false, onClick = { /*TODO*/ })
+            val id = 3
+            RadioButton(
+                selected = selectedId == id,
+                onClick = { changeSelection(id) }
+            )
             Text(
                 modifier = modifier.padding(top = 12.dp),
                 text = "Yellow"
             )
         }
         Row {
-            RadioButton(selected = false, onClick = { /*TODO*/ })
+            val id = 4
+            RadioButton(
+                selected = selectedId == id,
+                onClick = { changeSelection(id) }
+            )
             Text(
                 modifier = modifier.padding(top = 12.dp),
                 text = "Red"
