@@ -3,6 +3,7 @@
 package com.example.androidtriviacompose.game
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -22,6 +23,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
 
 @Preview
@@ -37,7 +39,7 @@ fun GameScreenContent(
     modifier: Modifier = Modifier
 ) {
     var selectedId by remember {
-        mutableStateOf(0)
+        mutableStateOf(-1)
     }
     Column(
         modifier = modifier.padding(8.dp),
@@ -64,16 +66,30 @@ fun GameScreenContent(
 @Composable
 fun QuestionContent(
     modifier: Modifier = Modifier,
-    selectedId: Int = 0,
+    selectedId: Int = -1,
+    question: Question = dummy,
     changeSelection: (Int) -> Unit = {}
 ) {
     Column(
         modifier = modifier.selectableGroup()
     ) {
         Text(
-            text = "What color is the Android mascot?",
+            text = question.text,
             fontSize = 30.sp
         )
+        Row {
+            val id = 0
+            RadioButton(
+                selected = selectedId == id,
+                onClick = { changeSelection(id) }
+            )
+            Text(
+                modifier = modifier
+                    .padding(top = 12.dp)
+                    .clickable { changeSelection(id) },
+                text = question.answers[id]
+            )
+        }
         Row {
             val id = 1
             RadioButton(
@@ -81,8 +97,10 @@ fun QuestionContent(
                 onClick = { changeSelection(id) }
             )
             Text(
-                modifier = modifier.padding(top = 12.dp),
-                text = "Blue"
+                modifier = modifier
+                    .padding(top = 12.dp)
+                    .clickable { changeSelection(id) },
+                text = question.answers[id]
             )
         }
         Row {
@@ -92,8 +110,10 @@ fun QuestionContent(
                 onClick = { changeSelection(id) }
             )
             Text(
-                modifier = modifier.padding(top = 12.dp),
-                text = "Green"
+                modifier = modifier
+                    .padding(top = 12.dp)
+                    .clickable { changeSelection(id) },
+                text = question.answers[id]
             )
         }
         Row {
@@ -103,21 +123,17 @@ fun QuestionContent(
                 onClick = { changeSelection(id) }
             )
             Text(
-                modifier = modifier.padding(top = 12.dp),
-                text = "Yellow"
-            )
-        }
-        Row {
-            val id = 4
-            RadioButton(
-                selected = selectedId == id,
-                onClick = { changeSelection(id) }
-            )
-            Text(
-                modifier = modifier.padding(top = 12.dp),
-                text = "Red"
+                modifier = modifier
+                    .padding(top = 12.dp)
+                    .clickable { changeSelection(id) },
+                text = question.answers[id]
             )
         }
     }
 }
+
+private val dummy = Question(
+    text = "What color is the Android mascot?",
+    answers = listOf("Blue", "Green", "Yellow", "Red")
+)
 
