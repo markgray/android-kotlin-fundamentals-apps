@@ -31,7 +31,64 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androidtriviacompose.ui.theme.AndroidTriviaComposeTheme
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavGraph
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import androidx.navigation.navigation
+import com.example.androidtriviacompose.about.AboutScreen
+import com.example.androidtriviacompose.game.GameScreen
+import com.example.androidtriviacompose.gameover.GameOverScreen
+import com.example.androidtriviacompose.gamewon.GameWonScreen
+import com.example.androidtriviacompose.rules.RulesScreen
+import com.example.androidtriviacompose.title.TitleScreen
 import kotlinx.coroutines.launch
+
+sealed class Routes(val route: String) {
+    object About : Routes("about")
+    object Game : Routes("game")
+    object GameOver : Routes("gameover")
+    object GameWon : Routes("gamewon")
+    object Rules : Routes("rules")
+    object Title : Routes("rules")
+}
+
+@Composable
+fun NavGraph(
+    modifier: Modifier = Modifier,
+    finishActivity: () -> Unit = {},
+    navController: NavHostController = rememberNavController(),
+    startDestination: String = Routes.Title.route
+) {
+    NavHost(
+        navController = navController,
+        startDestination = startDestination
+    ) {
+        composable(Routes.About.route) {
+            AboutScreen()
+        }
+        composable(Routes.Game.route) {
+            GameScreen()
+        }
+        composable(Routes.GameOver.route) {
+            GameOverScreen()
+        }
+        composable(Routes.GameWon.route) {
+            GameWonScreen()
+        }
+        composable(Routes.Rules.route) {
+            RulesScreen()
+        }
+        composable(Routes.Title.route) {
+            TitleScreen()
+        }
+    }
+}
+
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -95,13 +152,6 @@ fun SimpleScaffoldWithTopBar() {
                         Icon(Icons.Filled.Menu, contentDescription = "Localized description")
                     }
                 }
-            )
-        },
-        floatingActionButtonPosition = FabPosition.End,
-        floatingActionButton = {
-            ExtendedFloatingActionButton(
-                text = { Text("Inc") },
-                onClick = { /* fab click handler */ }
             )
         },
         content = { innerPadding ->
