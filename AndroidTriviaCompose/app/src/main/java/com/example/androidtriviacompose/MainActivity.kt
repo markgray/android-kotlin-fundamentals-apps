@@ -9,8 +9,10 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.Button
 import androidx.compose.material.ExtendedFloatingActionButton
 import androidx.compose.material.FabPosition
 import androidx.compose.material.Icon
@@ -48,13 +50,24 @@ import com.example.androidtriviacompose.rules.RulesScreen
 import com.example.androidtriviacompose.title.TitleScreen
 import kotlinx.coroutines.launch
 
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            AndroidTriviaComposeTheme {
+                AndroidTriviaApp()
+            }
+        }
+    }
+}
+
 sealed class Routes(val route: String) {
     object About : Routes("about")
     object Game : Routes("game")
     object GameOver : Routes("gameover")
     object GameWon : Routes("gamewon")
     object Rules : Routes("rules")
-    object Title : Routes("rules")
+    object Title : Routes("title")
 }
 
 @Composable
@@ -89,21 +102,9 @@ fun NavGraph(
     }
 }
 
-
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            AndroidTriviaComposeTheme {
-                AndroidTriviaApp()
-            }
-        }
-    }
-}
-
 @Composable
 fun AndroidTriviaApp() {
-    ColumnContent(
+    MainScaffold(
         modifier = Modifier
             .fillMaxSize()
             .wrapContentSize(Alignment.Center)
@@ -111,38 +112,33 @@ fun AndroidTriviaApp() {
 }
 
 @Composable
-fun ColumnContent(modifier: Modifier = Modifier) {
-    Column(
-        modifier = modifier,
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text(
-            text = stringResource(id = R.string.hello_world),
-            fontSize = 40.sp
-        )
+fun DrawerContent(navController: NavHostController) {
+    Button(onClick = {
+        navController.navigate(Routes.Rules.route)
+    }) {
+        Text(text = stringResource(id = R.string.rules))
+    }
+    Button(onClick = {
+        navController.navigate(Routes.About.route)
+    }) {
+        Text(text = stringResource(id = R.string.about))
     }
 }
 
-private val colors = listOf(
-    Color(0xFFffd7d7.toInt()),
-    Color(0xFFffe9d6.toInt()),
-    Color(0xFFfffbd0.toInt()),
-    Color(0xFFe3ffd9.toInt()),
-    Color(0xFFd0fff8.toInt())
-)
-
-@Suppress("unused")
 @Preview(showBackground = true)
 @Composable
-fun SimpleScaffoldWithTopBar() {
+fun MainScaffold(
+    modifier: Modifier = Modifier
+) {
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()
+    val navController: NavHostController = rememberNavController()
     Scaffold(
         scaffoldState = scaffoldState,
-        drawerContent = { Text("Drawer content") },
+        drawerContent = { DrawerContent(navController) },
         topBar = {
             TopAppBar(
-                title = { Text("Simple Scaffold Screen") },
+                title = { Text(text = stringResource(id = R.string.android_trivia)) },
                 navigationIcon = {
                     IconButton(
                         onClick = {
@@ -155,16 +151,10 @@ fun SimpleScaffoldWithTopBar() {
             )
         },
         content = { innerPadding ->
-            LazyColumn(contentPadding = innerPadding) {
-                items(count = 100) {
-                    Box(
-                        Modifier
-                            .fillMaxWidth()
-                            .height(50.dp)
-                            .background(colors[it % colors.size])
-                    )
-                }
-            }
+            NavGraph(
+                modifier = Modifier.padding(innerPadding),
+                navController = navController
+            )
         }
     )
 }
