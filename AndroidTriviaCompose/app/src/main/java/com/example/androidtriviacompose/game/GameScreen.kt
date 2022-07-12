@@ -27,6 +27,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
+import com.example.androidtriviacompose.Routes
 
 @Preview
 @Composable
@@ -35,18 +36,27 @@ fun GameScreen(
     navController: NavHostController = rememberNavController()
 ) {
     val questionRepository = QuestionRepository().also { it.initialize() }
+    val initialQuestion = questionRepository.nextQuestion()
+    var nextQuestionToAsk by remember {
+        mutableStateOf(initialQuestion)
+    }
     GameScreenContent(
         modifier = modifier,
-        questionRepository = questionRepository
+        navController = navController,
+        questionRepository = questionRepository,
+        questionToAsk = nextQuestionToAsk,
+        nextQuestion = { nextQuestionToAsk = questionRepository.nextQuestion() }
     )
 }
 
 @Composable
 fun GameScreenContent(
     modifier: Modifier = Modifier,
-    questionRepository: QuestionRepository
+    navController: NavHostController,
+    questionRepository: QuestionRepository,
+    questionToAsk: Question = dummy,
+    nextQuestion: () -> Unit
 ) {
-    val questionToAsk = questionRepository.nextQuestion()
     var selectedId by remember {
         mutableStateOf(-1)
     }
@@ -64,7 +74,14 @@ fun GameScreenContent(
             question = questionToAsk,
             changeSelection = { selectedId = it }
         )
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = {
+            if (questionRepository.checkAnswer(questionToAsk.answers[selectedId])) {
+                nextQuestion()
+            } else {
+                navController.navigate(Routes.GameOver.route)
+            }
+        }
+        ) {
             Text(
                 text = stringResource(id = R.string.submit_button),
                 fontSize = 18.sp
