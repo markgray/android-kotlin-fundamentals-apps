@@ -52,13 +52,13 @@ class QuestionRepository {
      * The current question that we are asking.
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    var currentQuestion: Question
+    lateinit var currentQuestion: Question
 
     /**
      * The shuffled `answers` list field of the [Question] field [currentQuestion].
      */
     @Suppress("MemberVisibilityCanBePrivate")
-    var answers: MutableList<String>
+    lateinit var answers: MutableList<String>
 
     @Suppress("MemberVisibilityCanBePrivate")
     var gameWon: Boolean = false
@@ -73,7 +73,7 @@ class QuestionRepository {
      */
     private val numQuestions = ((questions.size + 1) / 2).coerceAtMost(3)
 
-    init {
+    fun initialize() {
         questions.shuffle()
         questionIndex = 0
         currentQuestion = questions[questionIndex]

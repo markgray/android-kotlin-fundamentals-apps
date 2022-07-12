@@ -34,13 +34,19 @@ fun GameScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    GameScreenContent(modifier = modifier)
+    val questionRepository = QuestionRepository().also { it.initialize() }
+    GameScreenContent(
+        modifier = modifier,
+        questionRepository = questionRepository
+    )
 }
 
 @Composable
 fun GameScreenContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    questionRepository: QuestionRepository
 ) {
+    val questionToAsk = questionRepository.nextQuestion()
     var selectedId by remember {
         mutableStateOf(-1)
     }
@@ -55,6 +61,7 @@ fun GameScreenContent(
         QuestionContent(
             modifier = modifier,
             selectedId = selectedId,
+            question = questionToAsk,
             changeSelection = { selectedId = it }
         )
         Button(onClick = { /*TODO*/ }) {
