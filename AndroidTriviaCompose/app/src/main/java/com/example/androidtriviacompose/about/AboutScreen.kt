@@ -37,7 +37,8 @@ fun AboutScreenContent(
     ) {
         Image(
             painter = painterResource(id = R.drawable.about_android_trivia),
-            contentDescription = null)
+            contentDescription = null
+        )
         Spacer(modifier = modifier.height(20.dp))
         Text(
             text = stringResource(id = R.string.about_text),
