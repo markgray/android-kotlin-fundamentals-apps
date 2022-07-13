@@ -12,7 +12,9 @@ import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Button
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
+import androidx.compose.material.ScaffoldState
 import androidx.compose.material.Text
 import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
@@ -37,6 +39,7 @@ import com.example.androidtriviacompose.gamewon.GameWonScreen
 import com.example.androidtriviacompose.rules.RulesScreen
 import com.example.androidtriviacompose.title.TitleScreen
 import com.example.androidtriviacompose.ui.theme.AndroidTriviaComposeTheme
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
@@ -102,8 +105,13 @@ fun AndroidTriviaApp() {
 }
 
 @Composable
-fun DrawerContent(navController: NavHostController) {
+fun DrawerContent(
+    navController: NavHostController,
+    scaffoldState: ScaffoldState,
+    scope: CoroutineScope
+) {
     Button(onClick = {
+        scope.launch { scaffoldState.drawerState.close() }
         navController.navigate(Routes.Rules.route)
     }) {
         Image(
@@ -114,6 +122,7 @@ fun DrawerContent(navController: NavHostController) {
         Text(text = stringResource(id = R.string.rules))
     }
     Button(onClick = {
+        scope.launch { scaffoldState.drawerState.close() }
         navController.navigate(Routes.About.route)
     }) {
         Image(
@@ -130,12 +139,19 @@ fun DrawerContent(navController: NavHostController) {
 fun MainScaffold(
     modifier: Modifier = Modifier
 ) {
-    val scaffoldState = rememberScaffoldState()
-    val scope = rememberCoroutineScope()
+    val scaffoldState: ScaffoldState = rememberScaffoldState()
+    val scope: CoroutineScope = rememberCoroutineScope()
     val navController: NavHostController = rememberNavController()
     Scaffold(
         scaffoldState = scaffoldState,
-        drawerContent = { DrawerContent(navController) },
+        drawerContent = {
+            DrawerContent(
+                navController = navController,
+                scaffoldState = scaffoldState,
+                scope = scope
+            )
+        },
+        drawerShape = MaterialTheme.shapes.small,
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.android_trivia)) },
