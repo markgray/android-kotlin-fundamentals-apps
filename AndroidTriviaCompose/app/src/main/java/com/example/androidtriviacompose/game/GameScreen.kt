@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.example.androidtriviacompose.game
 
 import androidx.compose.foundation.Image
@@ -29,13 +27,14 @@ import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
 import com.example.androidtriviacompose.Routes
 
+val questionRepository = QuestionRepository().also { it.initialize() }
+
 @Preview
 @Composable
 fun GameScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    val questionRepository = QuestionRepository().also { it.initialize() }
     val initialQuestion = questionRepository.nextQuestion()
     var nextQuestionToAsk by remember {
         mutableStateOf(initialQuestion)
@@ -76,8 +75,14 @@ fun GameScreenContent(
         )
         Button(onClick = {
             if (questionRepository.checkAnswer(questionToAsk.answers[selectedId])) {
+                selectedId = -1
+                if (questionRepository.gameWon) {
+                    questionRepository.initialize()
+                    navController.navigate(Routes.GameWon.route)
+                }
                 nextQuestion()
             } else {
+                questionRepository.initialize()
                 navController.navigate(Routes.GameOver.route)
             }
         }

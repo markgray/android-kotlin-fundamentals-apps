@@ -1,5 +1,3 @@
-@file:Suppress("UNUSED_PARAMETER")
-
 package com.example.androidtriviacompose
 
 import android.os.Bundle
@@ -61,6 +59,7 @@ sealed class Routes(val route: String) {
     object Title : Routes("title")
 }
 
+@Suppress("UNUSED_PARAMETER")
 @Composable
 fun NavGraph(
     modifier: Modifier = Modifier,

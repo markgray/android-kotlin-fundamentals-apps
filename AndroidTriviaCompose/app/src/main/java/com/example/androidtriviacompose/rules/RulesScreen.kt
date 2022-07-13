@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.example.androidtriviacompose.rules
 
 import androidx.compose.foundation.Image

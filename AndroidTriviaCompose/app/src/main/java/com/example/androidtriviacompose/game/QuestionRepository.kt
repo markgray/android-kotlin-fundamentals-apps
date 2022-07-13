@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.example.androidtriviacompose.game
 
 class QuestionRepository {
@@ -76,6 +74,7 @@ class QuestionRepository {
     fun initialize() {
         questions.shuffle()
         questionIndex = 0
+        gameWon = false
         currentQuestion = questions[questionIndex]
         answers = currentQuestion.answers.toMutableList()
         answers.shuffle()

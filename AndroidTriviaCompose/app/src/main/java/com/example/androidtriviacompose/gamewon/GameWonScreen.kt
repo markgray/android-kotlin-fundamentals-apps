@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidtriviacompose.R
+import com.example.androidtriviacompose.Routes
 
 @Preview
 @Composable
@@ -25,12 +26,16 @@ fun GameWonScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    GameWonScreenContent(modifier = modifier)
+    GameWonScreenContent(
+        modifier = modifier,
+        navController = navController
+    )
 }
 
 @Composable
 fun GameWonScreenContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     Column(
         modifier = modifier.padding(8.dp),
@@ -42,7 +47,7 @@ fun GameWonScreenContent(
             contentDescription = null
         )
         Spacer(modifier = modifier.height(100.dp))
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { navController.navigate(Routes.Game.route) }) {
             Text(
                 text = stringResource(id = R.string.next_match),
                 fontSize = 18.sp

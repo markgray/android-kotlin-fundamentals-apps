@@ -1,5 +1,3 @@
-@file:Suppress("unused")
-
 package com.example.androidtriviacompose.gameover
 
 import androidx.compose.foundation.Image
@@ -20,6 +18,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidtriviacompose.R
+import com.example.androidtriviacompose.Routes
 
 @Preview
 @Composable
@@ -27,11 +26,15 @@ fun GameOverScreen(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    GameOverScreenContent(modifier = modifier)
+    GameOverScreenContent(
+        modifier = modifier,
+        navController = navController
+    )
 }
 @Composable
 fun GameOverScreenContent(
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navController: NavHostController
 ) {
     Column(
         modifier = modifier.padding(8.dp),
@@ -43,7 +46,7 @@ fun GameOverScreenContent(
             contentDescription = null
         )
         Spacer(modifier = modifier.height(100.dp))
-        Button(onClick = { /*TODO*/ }) {
+        Button(onClick = { navController.navigate(Routes.Game.route) }) {
             Text(
                 text = stringResource(id = R.string.try_again),
                 fontSize = 18.sp
