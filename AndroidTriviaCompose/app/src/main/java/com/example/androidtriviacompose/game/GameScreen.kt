@@ -84,6 +84,7 @@ fun GameScreenContent(
                 }
                 nextQuestion()
             } else {
+                selectedId = -1
                 questionRepository.initialize()
                 navController.navigate(Routes.GameOver.route)
             }
