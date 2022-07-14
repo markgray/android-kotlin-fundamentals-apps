@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
@@ -110,10 +111,12 @@ fun DrawerContent(
     scaffoldState: ScaffoldState,
     scope: CoroutineScope
 ) {
-    Button(onClick = {
-        scope.launch { scaffoldState.drawerState.close() }
-        navController.navigate(Routes.Rules.route)
-    }) {
+    Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            scope.launch { scaffoldState.drawerState.close() }
+            navController.navigate(Routes.Rules.route)
+        }) {
         Image(
             painter = painterResource(id = R.drawable.rules),
             contentDescription = stringResource(id = R.string.rules)
@@ -121,10 +124,12 @@ fun DrawerContent(
         Spacer(modifier = Modifier.width(4.dp))
         Text(text = stringResource(id = R.string.rules))
     }
-    Button(onClick = {
-        scope.launch { scaffoldState.drawerState.close() }
-        navController.navigate(Routes.About.route)
-    }) {
+    Button(
+        modifier = Modifier.fillMaxWidth(),
+        onClick = {
+            scope.launch { scaffoldState.drawerState.close() }
+            navController.navigate(Routes.About.route)
+        }) {
         Image(
             painter = painterResource(id = R.drawable.about_button),
             contentDescription = stringResource(id = R.string.about)
