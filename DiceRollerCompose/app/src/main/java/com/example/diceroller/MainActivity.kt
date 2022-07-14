@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
      * then we call [setContent] to Compose the given composable into our activity. The content will
-     * become the root view of the given activity. This composable conists of our our [DiceRollerTheme]
+     * become the root view of the given activity. This composable consists of our [DiceRollerTheme]
      * app theme wrapping our [DiceRollerApp] composable.
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so we ignore it.
