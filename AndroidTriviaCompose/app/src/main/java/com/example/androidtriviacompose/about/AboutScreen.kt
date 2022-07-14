@@ -18,8 +18,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidtriviacompose.MainScaffold
 import com.example.androidtriviacompose.R
+import com.example.androidtriviacompose.Routes
 
+/**
+ * This is the screen that displays the "About" text for the AndroidTriviaCompose app. It just
+ * consists of an [Image] composable and a [Text] composable in a [Column], which uses the
+ * [Modifier.verticalScroll] modifier to allow the user to scroll the [Column] if it is too large
+ * to display. This screen is displayed when the user clicks the "About" button in the drawer of
+ * the [MainScaffold] composable found in the MainActivity.kt file. The route to this screen is
+ * defined by the [Routes.About] object and is the [String] "about".
+ */
 @Preview(showBackground = true)
 @Composable
 fun AboutScreen(
@@ -34,7 +44,9 @@ fun AboutScreenContent(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = modifier.padding(8.dp).verticalScroll(rememberScrollState()),
+        modifier = modifier
+            .padding(8.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
