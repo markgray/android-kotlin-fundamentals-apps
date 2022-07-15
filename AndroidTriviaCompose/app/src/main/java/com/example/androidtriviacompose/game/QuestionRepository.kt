@@ -1,5 +1,9 @@
 package com.example.androidtriviacompose.game
 
+/**
+ * This class is used by [GameScreen] to retrieve a random [Question] (our [nextQuestion] method)
+ * and to check the answer that the user chooses (our [checkAnswer] method).
+ */
 class QuestionRepository {
     /**
      * This Data class holds a question to ask the user in its [text] field, and a list of possible

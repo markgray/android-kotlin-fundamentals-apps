@@ -25,12 +25,34 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidtriviacompose.gameover.GameOverScreen
+import com.example.androidtriviacompose.gamewon.GameWonScreen
 import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
 import com.example.androidtriviacompose.Routes
 
+/**
+ * Our singleton instance of [QuestionRepository] that we use to retrieve the [Question] we ask the
+ * user (using the [QuestionRepository.nextQuestion] method) and use to check the answer the user
+ * chooses with its [QuestionRepository.checkAnswer] method. Each [Question] instance we get holds
+ * the question text in its [Question.text] field and the list of four suggested answers in its
+ * [Question.answers] field.
+ */
 val questionRepository = QuestionRepository().also { it.initialize() }
 
+/**
+ * This is the screen that displays each [Question] asked the user, along with a radio group of
+ * radio buttons that allow the user to choose one of four suggested answers to the question. At
+ * the bottom of the screen there is a "Submit" button which will check the answer using the
+ * [QuestionRepository.checkAnswer] method and navigate to the [GameOverScreen] if the method
+ * returns `false`. If it returns `true` it checks the [QuestionRepository.gameWon] flag of
+ * [questionRepository] and if it is `true` (the user has answered three questions correctly)
+ * it navigates to the [GameWonScreen]. Otherwise it fetches the next [Question] using the
+ * `nextQuestion` parameter of [GameScreenContent] (a lambda which sets the `nextQuestionToAsk`
+ * [Question] to the [Question] returned by the [QuestionRepository.nextQuestion] method of
+ * [questionRepository]) which causes the [GameScreenContent] composable to recompose to display
+ * the new [Question].
+ */
 @Preview
 @Composable
 fun GameScreen(
@@ -38,7 +60,7 @@ fun GameScreen(
     navController: NavHostController = rememberNavController()
 ) {
     val initialQuestion = questionRepository.nextQuestion()
-    var nextQuestionToAsk by remember {
+    var nextQuestionToAsk: Question by remember {
         mutableStateOf(initialQuestion)
     }
     GameScreenContent(
