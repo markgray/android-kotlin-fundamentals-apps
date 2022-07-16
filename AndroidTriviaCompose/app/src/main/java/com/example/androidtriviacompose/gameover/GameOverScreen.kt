@@ -1,6 +1,7 @@
 package com.example.androidtriviacompose.gameover
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -19,9 +20,19 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidtriviacompose.game.GameScreen
+import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
 import com.example.androidtriviacompose.Routes
 
+/**
+ * This is the screen that is navigated to if [GameScreen] determines that the user has answered a
+ * [Question] incorrectly. It consists of a [Column] holding an [Image] and a "Try Again?" [Button]
+ * that the user can click to navigate to the [GameScreen] to play another game. Note that the
+ * [Column] has a [Modifier.verticalScroll] modifier so it can be scrolled if the [Button] does not
+ * fit on the screen, but just in case the user fails to notice this the [Image] also has a
+ * [Modifier.clickable] that navigates to the [GameScreen] as well.
+ */
 @Preview
 @Composable
 fun GameOverScreen(
@@ -45,7 +56,8 @@ fun GameOverScreenContent(
         Spacer(modifier = modifier.height(100.dp))
         Image(
             painter = painterResource(id = R.drawable.try_again),
-            contentDescription = null
+            contentDescription = null,
+            modifier = Modifier.clickable { navController.navigate(Routes.Game.route) }
         )
         Spacer(modifier = modifier.height(100.dp))
         Button(onClick = { navController.navigate(Routes.Game.route) }) {

@@ -62,7 +62,6 @@ class QuestionRepository {
     @Suppress("MemberVisibilityCanBePrivate")
     lateinit var answers: MutableList<String>
 
-    @Suppress("MemberVisibilityCanBePrivate")
     var gameWon: Boolean = false
 
     /**
@@ -75,6 +74,13 @@ class QuestionRepository {
      */
     private val numQuestions = ((questions.size + 1) / 2).coerceAtMost(3)
 
+    /**
+     * Initializes our state for a new game. First we shuffle our [MutableList] of [Question] field
+     * [questions], set our pointer to the next question to ask, [questionIndex] to 0, set our
+     * [gameWon] flag to `false`, set the current question, [currentQuestion] to the [Question] in
+     * [questions] at the [questionIndex] index pointer, copy the [Question.answers] list of answers
+     * of [currentQuestion] to our [answers] field, and then shuffle [answers].
+     */
     fun initialize() {
         questions.shuffle()
         questionIndex = 0
@@ -84,10 +90,34 @@ class QuestionRepository {
         answers.shuffle()
     }
 
+    /**
+     * Returns a [Question] constructed to have the [Question.text] question of [currentQuestion] and
+     * the [Question.answers] field containing the shuffled answers in our [answers] field.
+     *
+     * @return the next [Question] to ask the user in its [Question.text] field, with suggested
+     * answers in its [Question.answers] field.
+     */
     fun nextQuestion(): Question {
         return Question(text = currentQuestion.text, answers = answers)
     }
 
+    /**
+     * Checks whether its [String] parameter [answer] matches the correct answer which is at index
+     * 0 in the [Question.answers] list of [currentQuestion], saving the result in its [Boolean]
+     * variable `val okay`. It then increments the pointer to the next question contained in
+     * [questionIndex] and branches on whether it is less than our field [numQuestions]:
+     *  - if it is less than [numQuestions] we set our new current [Question] field [currentQuestion]
+     *  to the [Question] at index [questionIndex] in our [questions] list, set our [answers] field
+     *  to a copy of the [Question.answers] list of [currentQuestion] and then shuffle [answers].
+     *  - if [questionIndex] is greater than or equal to [numQuestions] we set our [gameWon] flag
+     *  to `true` (whether the last answer was correct or not notice, but that is handled by our
+     *  callers checking our return value before they check the value of [gameWon]).
+     *
+     * Finally we return `okay` to the caller.
+     *
+     * @param answer the answer chosen by the user.
+     * @return `true` if [answer] is the correct answer, `false` if it is not the correct answer.
+     */
     fun checkAnswer(answer: String): Boolean {
         val okay: Boolean = answer == currentQuestion.answers[0]
         questionIndex++
