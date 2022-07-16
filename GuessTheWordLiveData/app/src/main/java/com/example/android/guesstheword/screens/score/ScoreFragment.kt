@@ -103,8 +103,7 @@ class ScoreFragment : Fragment() {
         viewModelFactory = ScoreViewModelFactory(
             ScoreFragmentArgs.fromBundle(requireArguments()).score
         )
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(ScoreViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[ScoreViewModel::class.java]
 
         // Add observer for score
         viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->

@@ -104,7 +104,7 @@ class GameFragment : Fragment() {
         )
         Log.i("GameFragment", "Called ViewModelProvider")
 
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         /** Setting up LiveData observation relationship **/
         viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
