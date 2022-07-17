@@ -7,6 +7,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -18,8 +20,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.androidtriviacompose.MainActivity
 import com.example.androidtriviacompose.R
+import com.example.androidtriviacompose.Routes
 
+/**
+ * This is the screen which expalins the rules of the "Android Trivia" game. It just consists of an
+ * [Image] composable and a [Text] composable in a [Column], which uses the [Modifier.verticalScroll]
+ * modifier to allow the user to scroll the [Column] if it is too large to display. It is navigated
+ * to when the user clicks the "Rules" [Button] in the drawer of the [Scaffold] of [MainActivity].
+ * The route to this screen is defined by the [Routes.Rules] object and is the [String] "rules".
+ */
 @Preview(showBackground = true)
 @Composable
 fun RulesScreen(

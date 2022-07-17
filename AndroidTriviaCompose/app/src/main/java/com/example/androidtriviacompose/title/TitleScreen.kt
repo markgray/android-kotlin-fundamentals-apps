@@ -1,6 +1,7 @@
 package com.example.androidtriviacompose.title
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -21,7 +22,15 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.androidtriviacompose.R
 import com.example.androidtriviacompose.Routes
+import com.example.androidtriviacompose.game.GameScreen
 
+/**
+ * This is the start screen of the game, and it consists of a [Column] holding an [Image] and a
+ * "Play" [Button] that the user can click to navigate to the [GameScreen] to play a game. Note that
+ * the [Column] has a [Modifier.verticalScroll] modifier so it can be scrolled if the [Button] does
+ * not fit on the screen, but just in case the user fails to notice this the [Image] also has a
+ * [Modifier.clickable] that navigates to the [GameScreen] as well.
+ */
 @Preview
 @Composable
 fun TitleScreen(
@@ -46,7 +55,8 @@ fun TitleScreenContent(
         Spacer(modifier = modifier.height(100.dp))
         Image(
             painter = painterResource(id = R.drawable.android_trivia),
-            contentDescription = null
+            contentDescription = null,
+            modifier = Modifier.clickable { navController.navigate(Routes.Game.route) }
         )
         Spacer(modifier = modifier.height(100.dp))
         Button(onClick = { navController.navigate(Routes.Game.route) }) {

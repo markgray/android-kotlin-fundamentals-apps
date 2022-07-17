@@ -29,6 +29,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -43,7 +44,19 @@ import com.example.androidtriviacompose.ui.theme.AndroidTriviaComposeTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
+/**
+ * This is the launch activity of the Android Trivia game.
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * then we call the [setContent] method to have it compose the composable passed in its `content`
+     * lambda into the our activity. The content will become the root view of the activity. That
+     * composable is our [AndroidTriviaApp] composable which is wrapped in the custom [MaterialTheme]
+     * defined by [AndroidTriviaComposeTheme].
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so we ignore it.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -54,12 +67,43 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This class defines the navigation routes that can be requested of the [NavHost] in our [NavGraph]
+ * composable.
+ *
+ * @param route the [String] that is used as the route argument of the [NavGraphBuilder.composable]
+ * method in the [NavHost] composable of [NavGraph] for the screen which is the composable for the
+ * destination given in the [NavGraphBuilder.composable] `content` lambda argument.
+ */
 sealed class Routes(val route: String) {
+    /**
+     * Used to navigate to the [AboutScreen] composable.
+     */
     object About : Routes("about")
+
+    /**
+     * Used to navigate to the [GameScreen] composable.
+     */
     object Game : Routes("game")
+
+    /**
+     * Used to navigate to the [GameOverScreen] composable.
+     */
     object GameOver : Routes("gameover")
+
+    /**
+     * Used to navigate to the [GameWonScreen] composable.
+     */
     object GameWon : Routes("gamewon")
+
+    /**
+     * Used to navigate to the [RulesScreen] composable.
+     */
     object Rules : Routes("rules")
+
+    /**
+     * Used to navigate to the [TitleScreen] composable.
+     */
     object Title : Routes("title")
 }
 
