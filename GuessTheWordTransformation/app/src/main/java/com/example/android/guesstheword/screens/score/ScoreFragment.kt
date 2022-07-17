@@ -98,8 +98,7 @@ class ScoreFragment : Fragment() {
         )
 
         viewModelFactory = ScoreViewModelFactory(ScoreFragmentArgs.fromBundle(requireArguments()).score)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-            .get(ScoreViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory)[ScoreViewModel::class.java]
         binding.scoreViewModel = viewModel
 
         // Specify the fragment view as the lifecycle owner of the binding.

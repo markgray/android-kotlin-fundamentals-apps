@@ -93,7 +93,7 @@ class GameFragment : Fragment() {
         )
         Log.i("GameFragment", "Called ViewModelProvider(this).get")
 
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         // Set the viewModel for databinding - this allows the bound layout access
         // to all the data in the VieWModel
