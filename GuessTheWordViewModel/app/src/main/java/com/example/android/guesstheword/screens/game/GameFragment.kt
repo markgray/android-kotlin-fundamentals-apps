@@ -97,7 +97,7 @@ class GameFragment : Fragment() {
         Log.i("GameFragment", "Called ViewModelProvider")
 
         // Get the viewModel
-        viewModel = ViewModelProvider(this).get(GameViewModel::class.java)
+        viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
