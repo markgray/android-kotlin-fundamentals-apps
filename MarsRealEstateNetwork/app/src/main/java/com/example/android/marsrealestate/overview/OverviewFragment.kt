@@ -37,7 +37,7 @@ class OverviewFragment : Fragment() {
      * Lazily initialize our [OverviewViewModel].
      */
     private val viewModel: OverviewViewModel by lazy {
-        ViewModelProvider(this).get(OverviewViewModel::class.java)
+        ViewModelProvider(this)[OverviewViewModel::class.java]
     }
 
     /**
@@ -77,6 +77,7 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
+        @Suppress("DEPRECATION")
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -89,6 +90,7 @@ class OverviewFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate an XML file into a menu.
      */
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
