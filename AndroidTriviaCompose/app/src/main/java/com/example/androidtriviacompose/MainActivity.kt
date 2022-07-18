@@ -107,6 +107,17 @@ sealed class Routes(val route: String) {
     object Title : Routes("title")
 }
 
+/**
+ * This Composable holds the [NavHost] used to navigate between screens and is the `content`
+ * argument of the [Scaffold] Composable used in our [MainScaffold] Composable.
+ *
+ * @param modifier a [Modifier] instance that we might find useful to pass as the head of a [Modifier]
+ * chain to the Composables we contain (but do not do at present). Defaults to the empty, default,
+ * or starter [Modifier] that contains no elements.
+ * @param finishActivity a lambda parameter we lazily copied from some sample code (unused).
+ * @param navController the [NavHostController] that will be used by our [NavHost].
+ * @param startDestination the route for the start destination that will be used by our [NavHost].
+ */
 @Suppress("UNUSED_PARAMETER")
 @Composable
 fun NavGraph(
@@ -140,6 +151,12 @@ fun NavGraph(
     }
 }
 
+/**
+ * This Composable exists solely to pass to our [MainScaffold] Composable a [Modifier] configured by
+ * [Modifier.fillMaxSize] to have its content fill the Constraints.maxWidth and Constraints.maxHeight
+ * of the incoming measurement constraints, and by [Modifier.wrapContentSize] to align the content to
+ * the center of the incoming measurement constraints.
+ */
 @Composable
 fun AndroidTriviaApp() {
     MainScaffold(
@@ -149,6 +166,17 @@ fun AndroidTriviaApp() {
     )
 }
 
+/**
+ * This Composable is used as the `drawerContent` argument of the [Scaffold] used in [MainScaffold].
+ * (content of the Drawer sheet that can be pulled from the left side or right for RTL).
+ *
+ * @param navController the [NavHostController] that can be used to navigate to the different screens
+ * controlled by the [NavHost] in our [NavGraph] Composable.
+ * @param scaffoldState the [ScaffoldState] of the scaffold widget whose `drawerContent` we are. It
+ * contains the state of the screen, e.g. variables to provide manual control over the drawer
+ * behavior, sizes of components, etc
+ * @param scope a [CoroutineScope] we can use to launch a background process to close the drawer.
+ */
 @Composable
 fun DrawerContent(
     navController: NavHostController,
