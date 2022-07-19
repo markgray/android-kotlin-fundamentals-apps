@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -211,6 +212,40 @@ fun DrawerContent(
     }
 }
 
+/**
+ * This Composable exists in order to hold a [Scaffold] Composable and pass it memoized instances of
+ * [ScaffoldState] (our variable `val scaffoldState`), [CoroutineScope] (our variable `val scope`)
+ * and [NavHostController] (our variable `val navController`) that will be stable across re-composition.
+ * The arguments we pass to [Scaffold] are:
+ *  - `modifier` - we just pass our own `modifier` parameter. The [Modifier] we are passed is
+ *  configured with [Modifier.fillMaxSize] to have us fill our entire incoming measurement constraints,
+ *  and [Modifier.wrapContentSize] to have us align to the center of our canvas
+ *  - `scaffoldState` - we pass our "remembered" variable `val scaffoldState` as the [ScaffoldState]
+ *  that contains the state of the widget, e.g. variables that provide manual control over the drawer
+ *  behavior, sizes of components, etc. Note that we pass `scaffoldState` to our [DrawerContent] so
+ *  it can use it to close the drawer when one of its buttons is clicked, and also to the [TopAppBar]
+ *  composable we use for the `topBar` argument so it can use it to open the drawer when the [IconButton]
+ *  used for its `navigationIcon` parameter is clicked.
+ *  - `drawerContent` - we pass an instance of our [DrawerContent] Composable constructed to use our
+ *  remembered [NavHostController] variable `navController` to navigate, our [ScaffoldState] variable
+ *  `scaffoldState` to use to close the drawer when one of its buttons is clicked, and our
+ *  [CoroutineScope] variable `scope` to use to close the drawer in a background process. [Scaffold]
+ *  will use this as the content of the Drawer sheet that can be pulled from the left side (right for
+ *  RTL).
+ *  - `topBar` - we use an instance of [TopAppBar] as top app bar of the screen. Its `title` is the
+ *  string "Android Trivia", and its `navigationIcon` is an instance of [IconButton] whose `onClick`
+ *  parameter launches a coroutine using our remembered [CoroutineScope] variable `scope` which
+ *  calls the `open` method of the [ScaffoldState.drawerState] of our `scaffoldState` variable to
+ *  have it open the drawer. The [Icon] used as the content of the [IconButton] uses the system icon
+ *  [Icons.Filled.Menu].
+ *  - `content` - the content for the [Scaffold] is the [NavHost] which is wrapped by our [NavGraph]
+ *  composable, with the `modifier` passed it consisting of a [Modifier.padding] constructed to use
+ *  the [PaddingValues] passed as the argument to the lambda by [Scaffold] as its padding, and with
+ *  the `navController` parameter of [NavGraph] our remembered [NavHostController] variable
+ *  `navController`
+ *
+ * @param modifier the [Modifier] that we should pass to [Scaffold] for the root of the [Scaffold].
+ */
 @Preview(showBackground = true)
 @Composable
 fun MainScaffold(
@@ -220,6 +255,7 @@ fun MainScaffold(
     val scope: CoroutineScope = rememberCoroutineScope()
     val navController: NavHostController = rememberNavController()
     Scaffold(
+        modifier = modifier,
         scaffoldState = scaffoldState,
         drawerContent = {
             DrawerContent(
@@ -228,7 +264,6 @@ fun MainScaffold(
                 scope = scope
             )
         },
-        drawerShape = MaterialTheme.shapes.small,
         topBar = {
             TopAppBar(
                 title = { Text(text = stringResource(id = R.string.android_trivia)) },
@@ -243,7 +278,7 @@ fun MainScaffold(
                 }
             )
         },
-        content = { innerPadding ->
+        content = { innerPadding: PaddingValues ->
             NavGraph(
                 modifier = Modifier.padding(innerPadding),
                 navController = navController
