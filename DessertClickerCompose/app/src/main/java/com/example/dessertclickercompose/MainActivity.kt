@@ -60,7 +60,7 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
         Image(
             painter = painterResource(R.drawable.bakery_back),
             contentDescription = null,
-            contentScale = ContentScale.FillBounds,
+            contentScale = ContentScale.Crop,
             modifier = Modifier
                 .constrainAs(backgroundImage) {
                     top.linkTo(parent.top)
@@ -71,7 +71,7 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(50.dp)
+                .height(100.dp)
                 .background(Color.White)
                 .constrainAs(whiteBackground) {
                     absoluteLeft.linkTo(parent.absoluteLeft)
