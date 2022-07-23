@@ -5,10 +5,12 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -56,6 +58,8 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
     ConstraintLayout(modifier = modifier) {
         val backgroundImage: ConstrainedLayoutReference = createRef()
         val whiteBackground: ConstrainedLayoutReference = createRef()
+        val dessertButton: ConstrainedLayoutReference = createRef()
+//      val barrier = createEndBarrier(backgroundImage, whiteBackground)
 
         Image(
             painter = painterResource(R.drawable.bakery_back),
@@ -78,6 +82,20 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                     absoluteRight.linkTo(parent.absoluteRight)
                     bottom.linkTo(parent.bottom)
                 }
+        )
+        Image(
+            painter = painterResource(id = R.drawable.cupcake),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .size(150.dp)
+                .constrainAs(dessertButton) {
+                    top.linkTo(parent.top)
+                    absoluteLeft.linkTo(parent.absoluteLeft)
+                    absoluteRight.linkTo(parent.absoluteRight)
+                    bottom.linkTo(whiteBackground.top)
+                }
+                .clickable { /* TODO */ }
         )
 
     }
