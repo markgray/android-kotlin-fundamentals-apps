@@ -53,7 +53,7 @@ class TitleFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // Method we overrride returns View?
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -74,7 +74,7 @@ class TitleFragment : Fragment() {
         binding.playButton.setOnClickListener { view: View ->
             view.findNavController().navigate(TitleFragmentDirections.actionTitleFragmentToGameFragment())
         }
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -88,9 +88,9 @@ class TitleFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate an XML menu file with.
      */
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
     }
@@ -109,9 +109,9 @@ class TitleFragment : Fragment() {
      * @return [Boolean] Return `false` to allow normal menu processing to
      *         proceed, `true` to consume it here.
      */
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
             || super.onOptionsItemSelected(item)
     }

@@ -16,7 +16,6 @@
 
 package com.example.android.navigation
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -62,7 +61,7 @@ class GameWonFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // Method we overrride returns View?
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -87,7 +86,7 @@ class GameWonFragment : Fragment() {
             Toast.LENGTH_LONG
         ).show()
 
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -137,10 +136,9 @@ class GameWonFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] one can use to inflate an XML menu file.
      */
-    @Deprecated("Deprecated in Java")
-    @SuppressLint("QueryPermissionsNeeded")
+    @Deprecated("Deprecated in Java") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.winner_menu, menu)
         // check if the activity resolves
@@ -161,12 +159,12 @@ class GameWonFragment : Fragment() {
      * consume it here.
      */
 
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.share -> shareSuccess()
         }
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: migrate to MenuHost and addMenuProvider(MenuProvider)
         return super.onOptionsItemSelected(item)
     }
 }
