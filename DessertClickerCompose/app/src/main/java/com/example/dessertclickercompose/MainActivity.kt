@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.dessertclickercompose.ui.theme.DessertClickerComposeTheme
@@ -59,7 +61,9 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
         val backgroundImage: ConstrainedLayoutReference = createRef()
         val whiteBackground: ConstrainedLayoutReference = createRef()
         val dessertButton: ConstrainedLayoutReference = createRef()
-//      val barrier = createEndBarrier(backgroundImage, whiteBackground)
+        val revenueText: ConstrainedLayoutReference = createRef()
+        val dessertSoldText: ConstrainedLayoutReference = createRef()
+        val amountSoldText: ConstrainedLayoutReference = createRef()
 
         Image(
             painter = painterResource(R.drawable.bakery_back),
@@ -96,6 +100,52 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                     bottom.linkTo(whiteBackground.top)
                 }
                 .clickable { /* TODO */ }
+        )
+        Text(
+            text = "$92",
+            fontSize = 33.sp,
+            color = Color.Green,
+            modifier = Modifier
+                .constrainAs(revenueText) {
+                    absoluteRight.linkTo(
+                        parent.absoluteRight,
+                        margin = 16.dp
+                    )
+                    bottom.linkTo(
+                        parent.bottom,
+                        margin = 16.dp
+                    )
+                }
+        )
+        Text(
+            text = "Dessert Sold",
+            fontSize = 20.sp,
+            modifier = Modifier
+                .constrainAs(dessertSoldText) {
+                    absoluteLeft.linkTo(
+                        parent.absoluteLeft,
+                        margin = 16.dp
+                    )
+                    top.linkTo(
+                        whiteBackground.top,
+                        margin = 16.dp
+                    )
+                }
+        )
+        Text(
+            text = "12",
+            fontSize = 20.sp,
+            modifier = Modifier
+                .constrainAs(amountSoldText) {
+                    absoluteRight.linkTo(
+                        parent.absoluteRight,
+                        margin = 16.dp
+                    )
+                    top.linkTo(
+                        whiteBackground.top,
+                        margin = 16.dp
+                    )
+                }
         )
 
     }
