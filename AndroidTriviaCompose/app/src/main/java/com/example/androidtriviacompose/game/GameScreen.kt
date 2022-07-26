@@ -38,7 +38,7 @@ import com.example.androidtriviacompose.Routes
  * the question text in its [Question.text] field and the list of four suggested answers in its
  * [Question.answers] field.
  */
-val questionRepository = QuestionRepository().also { it.initialize() }
+val questionRepository: QuestionRepository = QuestionRepository().also { it.initialize() }
 
 /**
  * This is the screen that displays each [Question] asked the user, along with a radio group of
@@ -52,6 +52,11 @@ val questionRepository = QuestionRepository().also { it.initialize() }
  * [Question] to the [Question] returned by the [QuestionRepository.nextQuestion] method of
  * [questionRepository]) which causes the [GameScreenContent] composable to recompose to display
  * the new [Question].
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so, so the default [Modifier] is used instead).
+ * @param navController the [NavHostController] we use to navigate to the [GameWonScreen] or to the
+ * [GameOverScreen].
  */
 @Preview
 @Composable
@@ -72,6 +77,33 @@ fun GameScreen(
     )
 }
 
+/**
+ * This is the content displayed by the [GameScreen] Composable, the indirection allows us to hoist
+ * state to [GameScreen]. Its content consists of a column whose `modifier` adds a padding of 8dp
+ * to the [Modifier] that is passed to [GameScreenContent] and adds [Modifier.verticalScroll] to
+ * allow its contents to scroll. The `horizontalAlignment` parameter (horizontal alignment of its
+ * children) is set to centered by [Alignment.CenterHorizontally]. The contents of the column
+ * consists of an [Image], a [QuestionContent] composable to display our [Question] parameter
+ * [questionToAsk], and a [Button] labeled with a "Submit" [Text] which when clicked will use the
+ * [QuestionRepository.checkAnswer] method to check whether the user answered the question correctly
+ * and if they did it will check if the [QuestionRepository.gameWon] flag indicated that the user
+ * won the game and if so use [navController] to navigate to the [GameWonScreen], otherwise it will
+ * call the [nextQuestion] lambda to move on the next question. If the user did not answer the
+ * question correctly it will use [navController] to navigate to the [GameOverScreen] (setting the
+ * `selectedId` to -1 and calling [QuestionRepository.initialize] to get ready for the next question
+ * is necessary too).
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so, so the default [Modifier] is used instead).
+ * @param navController the [NavHostController] we use to navigate to the [GameWonScreen] or to the
+ * [GameOverScreen].
+ * @param questionRepository the [QuestionRepository] singleton we use to keep track of questions,
+ * answers, check the user's answers for correctness, and decide if the user has won the game.
+ * @param questionToAsk the current [Question] with its answers that we should display in our
+ * [QuestionContent].
+ * @param nextQuestion the lambda we should call when the user answers a [Question] correctly to
+ * fetch the next question from the [QuestionRepository].
+ */
 @Composable
 fun GameScreenContent(
     modifier: Modifier = Modifier,
@@ -80,6 +112,9 @@ fun GameScreenContent(
     questionToAsk: Question = dummy,
     nextQuestion: () -> Unit
 ) {
+    /**
+     * Which [RadioButton] of [QuestionContent] is currently selected, -1 indicates none selected.
+     */
     var selectedId by remember {
         mutableStateOf(-1)
     }
@@ -120,6 +155,25 @@ fun GameScreenContent(
     }
 }
 
+/**
+ * The Composable which displays a [Question], as well as 4 possible answers with [RadioButton]'s
+ * which allow the user to select one of them. Its content consists of a [Column] with a `modifier`
+ * of [Modifier.selectableGroup] to group its contents together for accessibility use, and the
+ * content of the column consists of a [Text] displaying the [Question.text] question of our
+ * [question] parameter, along with 4 [Row]'s to display the 4 answers of [Question.answers] in
+ * [Text]'s with a [RadioButton] in each [Row] that the user can click to select that answer by
+ * calling the [changeSelection] lambda with the ID of the [Row] (the [Text] in each [Row] is also
+ * clickable to enble the answer to be selected by clicking on it as well).
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables. The
+ * default [Modifier] passed to [GameScreenContent] is the same default [Modifier] used by
+ * [GameScreen] with no modifications.
+ * @param selectedId which of our [RadioButton] composables are currently selected, with -1
+ * indicating that none are selected.
+ * @param question the current [Question] and answers we should be diplaying.
+ * @param changeSelection the lambda that each [RadioButton] should call with its ID when it is
+ * clicked to change the [selectedId] to point to it.
+ */
 @Composable
 fun QuestionContent(
     modifier: Modifier = Modifier,
@@ -189,6 +243,9 @@ fun QuestionContent(
     }
 }
 
+/**
+ * A dummy [Question] to use for preview only.
+ */
 private val dummy = Question(
     text = "What color is the Android mascot?",
     answers = listOf("Blue", "Green", "Yellow", "Red")

@@ -20,10 +20,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.example.androidtriviacompose.game.GameScreen
-import com.example.androidtriviacompose.game.QuestionRepository.Question
 import com.example.androidtriviacompose.R
 import com.example.androidtriviacompose.Routes
+import com.example.androidtriviacompose.game.GameScreen
+import com.example.androidtriviacompose.game.QuestionRepository.Question
 
 /**
  * This is the screen that is navigated to if [GameScreen] determines that the user has answered a
@@ -32,6 +32,10 @@ import com.example.androidtriviacompose.Routes
  * [Column] has a [Modifier.verticalScroll] modifier so it can be scrolled if the [Button] does not
  * fit on the screen, but just in case the user fails to notice this the [Image] also has a
  * [Modifier.clickable] that navigates to the [GameScreen] as well.
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so).
+ * @param navController the [NavHostController] we should use to navigate to another screen.
  */
 @Preview
 @Composable
@@ -44,13 +48,31 @@ fun GameOverScreen(
         navController = navController
     )
 }
+
+/**
+ * This is the content displayed by the [GameOverScreen] Composable, a level of indirection added
+ * for flexibility when writing the code but not necessary it turned out. Our `content` consists of
+ * a [Column] whose `modifier` adds 8 dp to the padding of the `modifier` parameter passed to
+ * [GameOverScreen] and modifies the [Column] to allow to scroll it to scroll vertically. Its
+ * `horizontalAlignment` parameter (horizontal alignment of the layout's children) is
+ * [Alignment.CenterHorizontally] (the children are centered horizontally). The `content` of the
+ * [Column] is an [Spacer] of 100dp, followed by an  [Image], followed by a [Spacer] of 100dp, and
+ * a [Button] labeled "Try Again?" whose `onClick` parameter uses our [navController] parameter to
+ * navigate to the [Routes.Game.route] (the [GameScreen]) to allow the user to play another game.
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so, so the default [Modifier] is used instead).
+ * @param navController the [NavHostController] we use to navigate to the [GameScreen].
+ */
 @Composable
 fun GameOverScreenContent(
     modifier: Modifier = Modifier,
     navController: NavHostController
 ) {
     Column(
-        modifier = modifier.padding(8.dp).verticalScroll(rememberScrollState()),
+        modifier = modifier
+            .padding(8.dp)
+            .verticalScroll(rememberScrollState()),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Spacer(modifier = modifier.height(100.dp))
