@@ -16,6 +16,10 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -65,6 +69,16 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
         val dessertSoldText: ConstrainedLayoutReference = createRef()
         val amountSoldText: ConstrainedLayoutReference = createRef()
 
+        var dessertId by remember {
+            mutableStateOf(bakery.currentDessert.imageId)
+        }
+        var dessertsSold by remember {
+            mutableStateOf(bakery.dessertsSold)
+        }
+        var revenue by remember {
+            mutableStateOf(bakery.revenue)
+        }
+
         Image(
             painter = painterResource(R.drawable.bakery_back),
             contentDescription = null,
@@ -88,7 +102,7 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                 }
         )
         Image(
-            painter = painterResource(id = R.drawable.cupcake),
+            painter = painterResource(id = dessertId),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
@@ -99,10 +113,15 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                     absoluteRight.linkTo(parent.absoluteRight)
                     bottom.linkTo(whiteBackground.top)
                 }
-                .clickable { /* TODO */ }
+                .clickable {
+                    bakery.onDessertClicked()
+                    dessertId = bakery.currentDessert.imageId
+                    dessertsSold = bakery.dessertsSold
+                    revenue = bakery.revenue
+                }
         )
         Text(
-            text = "$92",
+            text = "$$revenue",
             fontSize = 33.sp,
             color = Color.Green,
             modifier = Modifier
@@ -133,7 +152,7 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                 }
         )
         Text(
-            text = "12",
+            text = "$dessertsSold",
             fontSize = 20.sp,
             modifier = Modifier
                 .constrainAs(amountSoldText) {
