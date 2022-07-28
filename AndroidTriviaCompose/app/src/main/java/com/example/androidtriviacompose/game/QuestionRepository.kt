@@ -62,6 +62,9 @@ class QuestionRepository {
     @Suppress("MemberVisibilityCanBePrivate")
     lateinit var answers: MutableList<String>
 
+    /**
+     * Flag that indicates that the user has won the game by answering 3 questions correctly.
+     */
     var gameWon: Boolean = false
 
     /**

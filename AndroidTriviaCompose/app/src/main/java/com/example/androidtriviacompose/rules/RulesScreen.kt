@@ -40,6 +40,18 @@ fun RulesScreen(
     RulesScreenContent(modifier)
 }
 
+/**
+ * This is the content displayed by the [RulesScreen], a level of indirection added for flexibility
+ * when writing the code but not necessary it turned out. Our `content` consists of a [Column] whose
+ * `modifier` adds 8 dp to the padding of the `modifier` parameter passed to [RulesScreenContent]
+ * and modifies the [Column] to allow to scroll it to scroll vertically. Its `horizontalAlignment`
+ * parameter (horizontal alignment of the layout's children) is [Alignment.CenterHorizontally] (the
+ * children are centered horizontally). The `content` of the [Column] is an [Image], followed by a
+ * [Spacer] of 20dp, and a [Text] containing the text explaining the rules of the game.
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so, so the default [Modifier] is used instead).
+ */
 @Composable
 fun RulesScreenContent(
     modifier: Modifier = Modifier

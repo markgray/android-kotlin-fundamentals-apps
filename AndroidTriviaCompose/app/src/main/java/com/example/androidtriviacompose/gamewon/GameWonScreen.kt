@@ -45,6 +45,21 @@ fun GameWonScreen(
     )
 }
 
+/**
+ * This is the content displayed by the [GameWonScreen] composable, a level of indirection added
+ * for flexibility when writing the code but not necessary it turned out. Our `content` consists of
+ * a [Column] whose `modifier` adds 8 dp to the padding of the `modifier` parameter passed to
+ * [GameWonScreenContent] and modifies the [Column] to allow to scroll it to scroll vertically. Its
+ * `horizontalAlignment` parameter (horizontal alignment of the layout's children) is
+ * [Alignment.CenterHorizontally] (the children are centered horizontally). The `content` of the
+ * [Column] is an [Spacer] of 100dp, followed by an  [Image], followed by a [Spacer] of 100dp, and
+ * a [Button] labeled "Next Match" whose `onClick` parameter uses our [navController] parameter to
+ * navigate to the [Routes.Game.route] (the [GameScreen]) to allow the user to play another game.
+ *
+ * @param modifier a [Modifier] instance that our caller could use to modify our Composables (but
+ * they don't do so, so the default [Modifier] is used instead).
+ * @param navController the [NavHostController] we use to navigate to the [GameScreen].
+ */
 @Composable
 fun GameWonScreenContent(
     modifier: Modifier = Modifier,
