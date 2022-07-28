@@ -1,5 +1,8 @@
 package com.example.dessertclickercompose
 
+/**
+ * Our Singleton instance of [Bakery]
+ */
 val bakery: Bakery = Bakery()
 
 /**
@@ -24,6 +27,9 @@ data class Dessert(
     val startProductionAmount: Int
 )
 
+/**
+ * This class holds the state of our dessert sales.
+ */
 class Bakery {
     /**
      * Create a list of all desserts, in order of when they start being produced
@@ -47,17 +53,17 @@ class Bakery {
     /**
      * The current [Dessert] we are selling (and displaying in our UI).
      */
-    var currentDessert = allDesserts[0]
+    var currentDessert: Dessert = allDesserts[0]
 
     /**
      * Running total of the price of all desserts sold so far.
      */
-    var revenue = 0
+    var revenue: Int = 0
 
     /**
      * Total number of desserts sold so far.
      */
-    var dessertsSold = 0
+    var dessertsSold: Int = 0
 
     /**
      * Updates the score when the dessert is clicked. Possibly shows a new dessert. We add the
