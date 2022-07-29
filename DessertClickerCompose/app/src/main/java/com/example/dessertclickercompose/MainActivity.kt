@@ -32,7 +32,21 @@ import androidx.constraintlayout.compose.ConstrainedLayoutReference
 import androidx.constraintlayout.compose.ConstraintLayout
 import com.example.dessertclickercompose.ui.theme.DessertClickerComposeTheme
 
+/**
+ * This is the main activity of our DessertClicker app.
+ */
 class MainActivity : ComponentActivity() {
+    /**
+     * Called when the activity is starting. First we call our super's implementation of `onCreate`,
+     * and then we call the [setContent] method to Compose the composable given in its composable
+     * lambda argument into the activity (the content will become the root view of the activity).
+     * That composable lambda consists of our [DessertClickerComposeTheme] custom [MaterialTheme]
+     * wrapping a [Surface] whose `modifier` is a [Modifier.fillMaxSize] to have it fill the space
+     * allowed it, and whose background color is the 'background' color from our theme. The composable
+     * lambda of the [Surface] consists of a call to our [MainScreen] composable.
+     *
+     * @param savedInstanceState we do not override [onSaveInstanceState] so ignore this.
+     */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {

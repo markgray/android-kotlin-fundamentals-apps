@@ -27,6 +27,15 @@ private val LightColorPalette = lightColors(
     */
 )
 
+/**
+ * Our custom [MaterialTheme].
+ *
+ * @param darkTheme flag which if `true` indicates that we are to use our [DarkColorPalette] palette
+ * of [darkColors] as the `colors` of our [MaterialTheme], and if `false` indicates that we are to
+ * use our [LightColorPalette] palette of [lightColors] for the complete definition of the Material
+ * Color theme for this hierarchy.
+ * @param content the Composable lambda we are to wrap in our theme.
+ */
 @Composable
 fun DessertClickerComposeTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
