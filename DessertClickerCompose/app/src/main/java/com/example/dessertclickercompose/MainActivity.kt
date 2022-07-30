@@ -63,6 +63,12 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+/**
+ * This is the main screen of our app, it exists solely to feed our [ConstraintLayoutContent] a
+ * `modifier` argument consisting of a [Modifier.fillMaxSize] to have its content fill the space
+ * allowed it, and a [Modifier.wrapContentSize] to have it use [Alignment.TopCenter] to align its
+ * content to the top center of its allowed space.
+ */
 @Preview(showBackground = true)
 @Composable
 fun MainScreen() {
@@ -73,6 +79,38 @@ fun MainScreen() {
     )
 }
 
+/**
+ * This Composable holds our [ConstraintLayout]. Strictly speaking the [ConstraintLayout] could be
+ * directly used as the content of the [Surface] used in our [MainActivity.onCreate] override, with
+ * [MainScreen] and [ConstraintLayoutContent] totally superfluous, but the indirection gives one
+ * flexibility when writing the code in case you need to hoist something (it also lessens the amount
+ * of indentation used).
+ *
+ * We pass our [Modifier] parmeter [modifier] as the `modifier` parameter of our [ConstraintLayout]
+ * content. Our [ConstraintLayout] first creates [ConstrainedLayoutReference] instances for the 6
+ * widgets it is to contain as its content, and `remember`'s three [Int]'s that are to be found in
+ * our [bakery] singleton instance of [Bakery]:
+ *  - `dessertId` is the resource ID of the drawable for the current dessert: The [Dessert.imageId]
+ *  field of the [Bakery.currentDessert] field of [bakery].
+ *  - `dessertsSold` is the total number of desserts sold: the [Bakery.dessertsSold] field of [bakery]
+ *  - `revenue` is the amount of money received: the [Bakery.revenue] field of [bakery].
+ *
+ * The widgets contained in the [ConstraintLayout] listed by the [ConstrainedLayoutReference] used
+ * to constrain them:
+ *  - `backgroundImage` is an [Image] displaying our background drawable [R.drawable.bakery_back],
+ *  whose `top` is linked to the `top` of its parent, and its `absoluteLeft` and `absoluteRight`
+ *  are linked to its parent's `absoluteLeft` and `absoluteRight` respectively.
+ *  - `whiteBackground` is a 100.dp high white [Box] whose `bottom` is linked to its parent's `bottom`
+ *  and whose `absoluteLeft` and `absoluteRight` are linked to its parent's `absoluteLeft` and
+ *  `absoluteRight` respectively.
+ *  - `dessertButton` is a clickable [Image] displaying the drawable of the current dessert whose
+ *  resource ID is given by `dessertId`. It [Modifier.clickable] is a lambda which calls the
+ *  [Bakery.onDessertClicked] method of [bakery] then updates `dessertId`, `dessertsSold`, and
+ *  `revenue` to the new values that are now to be found in [bakery] for them. Its `top` is linked
+ *  to its parent's `top`, its `absoluteLeft` and `absoluteRight` are linked to its parent's
+ *  `absoluteLeft` and `absoluteRight` respectively, and its `bottom` is linked to the `top` of
+ *  `whiteBackground` (the White [Box] at the bottom of the [ConstraintLayout]).
+ */
 @Composable
 fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
     ConstraintLayout(modifier = modifier) {
@@ -83,13 +121,13 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
         val dessertSoldText: ConstrainedLayoutReference = createRef()
         val amountSoldText: ConstrainedLayoutReference = createRef()
 
-        var dessertId by remember {
+        var dessertId: Int by remember {
             mutableStateOf(bakery.currentDessert.imageId)
         }
-        var dessertsSold by remember {
+        var dessertsSold: Int by remember {
             mutableStateOf(bakery.dessertsSold)
         }
-        var revenue by remember {
+        var revenue: Int by remember {
             mutableStateOf(bakery.revenue)
         }
 
