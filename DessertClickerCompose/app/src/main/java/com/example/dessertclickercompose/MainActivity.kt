@@ -104,12 +104,24 @@ fun MainScreen() {
  *  and whose `absoluteLeft` and `absoluteRight` are linked to its parent's `absoluteLeft` and
  *  `absoluteRight` respectively.
  *  - `dessertButton` is a clickable [Image] displaying the drawable of the current dessert whose
- *  resource ID is given by `dessertId`. It [Modifier.clickable] is a lambda which calls the
+ *  resource ID is given by `dessertId`. The lambda parameter of its [Modifier.clickable] calls the
  *  [Bakery.onDessertClicked] method of [bakery] then updates `dessertId`, `dessertsSold`, and
  *  `revenue` to the new values that are now to be found in [bakery] for them. Its `top` is linked
  *  to its parent's `top`, its `absoluteLeft` and `absoluteRight` are linked to its parent's
  *  `absoluteLeft` and `absoluteRight` respectively, and its `bottom` is linked to the `top` of
  *  `whiteBackground` (the White [Box] at the bottom of the [ConstraintLayout]).
+ *  - `revenueText` is a [Text] displaying the remembered `revenue` value, which is taken from the
+ *  [Bakery.revenue] field of [bakery], and represents the amount of money charged the "dessert
+ *  clicking" customer. Its `absoluteRight` is linked to the `absoluteRight` of its parent with a
+ *  margin of 16.dp, and its `bottom` is linked to its parent's `bottom` with a margin of 16.dp
+ *  - `dessertSoldText` is a [Text] displaying the static text "Desserts Sold". Its `absoluteLeft`
+ *  is linked to the `absoluteLeft` of its parent with a margin of 16.dp, and its `top` is linked
+ *  to the `top` of `whiteBackground` with a margin of 16.dp
+ *  - `amountSoldText` is a [Text] displaying the remembered `dessertsSold` value, which is taken
+ *  from the [Bakery.dessertsSold] field of [bakery], and represents the total number of times that
+ *  the user has clicked the dessert icons displayed in the `dessertButton` [Image]. Its `absoluteRight`
+ *  is linked to its parent's `absoluteRight` with a margin of 16.dp, and its `top` is linked to the
+ *  `top` of `whiteBackground` with a margin of 16.dp
  */
 @Composable
 fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
@@ -189,7 +201,7 @@ fun ConstraintLayoutContent(modifier: Modifier = Modifier) {
                 }
         )
         Text(
-            text = "Dessert Sold",
+            text = "Desserts Sold",
             fontSize = 20.sp,
             modifier = Modifier
                 .constrainAs(dessertSoldText) {
