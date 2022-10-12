@@ -132,6 +132,8 @@ class GdgListFragment : Fragment() {
                 }
             })
 
+        // TODO: Fix setHasOptionsMenu deprecated warning.
+        @Suppress("DEPRECATION")
         setHasOptionsMenu(true)
         return binding.root
     }
