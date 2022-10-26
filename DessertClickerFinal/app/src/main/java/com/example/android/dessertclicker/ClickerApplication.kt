@@ -22,7 +22,7 @@ import timber.log.Timber
  * This custom [Application] subclass allows us to initialize the [Timber]
  * library once for the entire app before everything else is set up.
  */
-@Suppress("unused")
+@Suppress("unused") // It is used in AndroidManifest.xml
 class ClickerApplication : Application() {
     /**
      * Called when the application is starting, before any activity, service, or receiver objects
