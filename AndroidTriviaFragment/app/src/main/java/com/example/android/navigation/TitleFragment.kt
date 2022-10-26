@@ -24,12 +24,11 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.example.android.navigation.databinding.FragmentTitleBinding
 
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-@Suppress("unused")
+@Suppress("unused") // TODO: Rename parameter arguments, choose names that match
 private const val ARG_PARAM1 = "param1"
 
-@Suppress("unused")
+@Suppress("unused") // TODO: Rename parameter arguments, choose names that match
 private const val ARG_PARAM2 = "param2"
 
 /**
@@ -55,7 +54,7 @@ class TitleFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType")  // Method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
