@@ -35,7 +35,7 @@ import com.bumptech.glide.Glide
  * @param isNetWorkError the value of the "app:isNetworkError" attribute
  * @param playlist the value of the "app:playlist" attribute
  */
-@Suppress("unused")
+@Suppress("unused") // Unused but instructional
 @BindingAdapter("isNetworkError", "playlist")
 fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
     view.visibility = if (playlist != null) View.GONE else View.VISIBLE
@@ -60,7 +60,7 @@ fun hideIfNetworkError(view: View, isNetWorkError: Boolean, playlist: Any?) {
  * @param imageView the [ImageView] we are to load the image into.
  * @param url the network Url for the image we are to download.
  */
-@Suppress("unused")
+@Suppress("unused") // Unused but instructional
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(imageView.context).load(url).into(imageView)

@@ -131,8 +131,8 @@ class DevByteFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
-    @SuppressLint("QueryPermissionsNeeded")
-    @Suppress("RedundantNullableReturnType")
+    @SuppressLint("QueryPermissionsNeeded") // And it is requested in AndroidManifest.xml
+    @Suppress("RedundantNullableReturnType")  // Method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -236,7 +236,7 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
  * @param callback the [VideoClick] every element in our RecyclerView should use for its
  * `videoCallback` variable, and then call when its view is clicked.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // Breaks kdoc linking
 class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     /**
@@ -252,7 +252,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      * to be invalidated.
      */
     var videos: List<DevByteVideo> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged") // The whole List is changed as far as I can see.
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.

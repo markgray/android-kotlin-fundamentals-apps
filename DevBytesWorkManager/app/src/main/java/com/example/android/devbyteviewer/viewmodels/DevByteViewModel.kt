@@ -82,7 +82,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * Event triggered for network error. This is private to avoid exposing a way to set this value
      * to observers. Public read-only access is provide by our property [eventNetworkError].
      */
-    @Suppress("RemoveExplicitTypeArguments")
+    @Suppress("RemoveExplicitTypeArguments") // I like type arguments!
     private var _eventNetworkError = MutableLiveData<Boolean>(false)
 
     /**
@@ -108,7 +108,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
      * [onNetworkErrorShown] to reset it to `false`. `onNetworkError` is called by an `Observer`
      * of our [eventNetworkError] event when it transitions to `true`.
      */
-    @Suppress("RemoveExplicitTypeArguments")
+    @Suppress("RemoveExplicitTypeArguments") // I like type arguments!
     private var _isNetworkErrorShown = MutableLiveData<Boolean>(false)
 
     /**
@@ -197,7 +197,7 @@ class DevByteViewModel(application: Application) : AndroidViewModel(application)
          */
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(DevByteViewModel::class.java)) {
-                @Suppress("UNCHECKED_CAST")
+                @Suppress("UNCHECKED_CAST") // The if statement checks the type
                 return DevByteViewModel(app) as T
             }
             throw IllegalArgumentException("Unable to construct viewmodel")
