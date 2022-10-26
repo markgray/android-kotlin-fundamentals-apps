@@ -145,7 +145,7 @@ class GameFragment : Fragment() {
      *
      * @return Return the View for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType")  // Method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

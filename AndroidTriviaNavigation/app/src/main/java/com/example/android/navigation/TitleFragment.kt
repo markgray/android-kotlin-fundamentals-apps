@@ -25,14 +25,12 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.FragmentTitleBinding
 
-
-// TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-@Suppress("unused")
+@Suppress("unused") // TODO: Rename parameter arguments, choose names that match
 private const val ARG_PARAM1 = "param1"
 
 @Suppress("unused")
-private const val ARG_PARAM2 = "param2"
+private const val ARG_PARAM2 = "param2" // TODO: Rename parameter arguments, choose names that match
 
 /**
  * The `startDestination` [Fragment] of our app, it just displays our Title "Android Trivia", and
@@ -63,7 +61,7 @@ class TitleFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType")  // Method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -93,7 +91,7 @@ class TitleFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate an XML menu file with.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO Replace with MenuHost
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.options_menu, menu)
@@ -113,7 +111,7 @@ class TitleFragment : Fragment() {
      * @return [Boolean] Return `false` to allow normal menu processing to
      *         proceed, `true` to consume it here.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO Replace with MenuHost
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
             || super.onOptionsItemSelected(item)
