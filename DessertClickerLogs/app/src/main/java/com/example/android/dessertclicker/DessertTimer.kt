@@ -1,4 +1,4 @@
-@file:Suppress("PackageDirectoryMismatch")
+@file:Suppress("PackageDirectoryMismatch") // Odd lint check I must say
 ///*
 // * Copyright 2019, The Android Open Source Project
 // *
