@@ -132,8 +132,8 @@ class DevByteFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
-    @SuppressLint("QueryPermissionsNeeded")
-    @Suppress("RedundantNullableReturnType")
+    @SuppressLint("QueryPermissionsNeeded") // It is requested in AndroidManifest.xml
+    @Suppress("RedundantNullableReturnType")  // Method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -174,10 +174,9 @@ class DevByteFragment : Fragment() {
 
 
         // Observer for the network error.
-        @Suppress("RedundantSamConstructor")
-        viewModel.eventNetworkError.observe(viewLifecycleOwner, Observer { isNetworkError ->
+        viewModel.eventNetworkError.observe(viewLifecycleOwner) { isNetworkError ->
             if (isNetworkError) onNetworkError()
-        })
+        }
 
         return binding.root
     }
@@ -238,7 +237,7 @@ class VideoClick(val block: (DevByteVideo) -> Unit) {
  * @param callback the [VideoClick] every element in our RecyclerView should use for its
  * `videoCallback` variable, and then call when its view is clicked.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // Breaks kdoc if private
 class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteViewHolder>() {
 
     /**
@@ -254,7 +253,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
      * to be invalidated.
      */
     var videos: List<DevByteVideo> = emptyList()
-        @SuppressLint("NotifyDataSetChanged")
+        @SuppressLint("NotifyDataSetChanged") // Entire List is replaced as far as I can see
         set(value) {
             field = value
             // For an extra challenge, update this to use the paging library.
