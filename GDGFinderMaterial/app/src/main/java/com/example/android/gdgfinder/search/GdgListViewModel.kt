@@ -91,7 +91,7 @@ class GdgListViewModel : ViewModel() {
      * override of `GdgListFragment` will eventually update the `Chip`'s in the filter selector
      * `ChipGroup` to display this list when that part of the UI is implemented.
      */
-    @Suppress("unused")
+    @Suppress("unused") // Unused but instructional
     val regionList: LiveData<List<String>>
         get() = _regionList
 
@@ -176,7 +176,7 @@ class GdgListViewModel : ViewModel() {
      * @param filter the [String] value of the tag of the `Chip`
      * @param isChecked `true` if the `Chip` is selected.
      */
-    @Suppress("unused")
+    @Suppress("unused") // Unused but instructional
     fun onFilterChanged(filter: String, isChecked: Boolean) {
         if (this.filter.update(filter, isChecked)) {
             onQueryChanged()

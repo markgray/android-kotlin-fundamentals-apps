@@ -41,7 +41,7 @@ class HomeFragment : Fragment() {
         /**
          * Called to create a new instance of [HomeFragment] which it returns.
          */
-        @Suppress("unused")
+        @Suppress("unused") // Unused but instructional
         fun newInstance(): HomeFragment = HomeFragment()
     }
 
@@ -79,7 +79,7 @@ class HomeFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns a nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -90,15 +90,13 @@ class HomeFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
-        viewModel.navigateToSearch.observe(viewLifecycleOwner,
-            Observer<Boolean> { navigate ->
-                if (navigate) {
-                    val navController = findNavController()
-                    navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
-                    viewModel.onNavigatedToSearch()
-                }
-            })
+        viewModel.navigateToSearch.observe(viewLifecycleOwner) { navigate: Boolean ->
+            if (navigate) {
+                val navController = findNavController()
+                navController.navigate(R.id.action_homeFragment_to_gdgListFragment)
+                viewModel.onNavigatedToSearch()
+            }
+        }
 
         return binding.root
     }
