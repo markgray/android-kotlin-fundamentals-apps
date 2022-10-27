@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate") // I like to reference methods from kdoc
 
 package com.example.android.diceroller
 
@@ -74,10 +74,8 @@ class MainActivity : AppCompatActivity() {
      * `drawableResource`.
      */
     private fun rollDice() {
-        @Suppress("MoveVariableDeclarationIntoWhen")
-        val randomInt = (1..6).random()
 
-        val drawableResource = when (randomInt) {
+        val drawableResource = when ((1..6).random()) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
