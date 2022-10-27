@@ -34,7 +34,7 @@ import com.example.android.gdgfinder.databinding.ListItemBinding
  * @param clickListener the [GdgClickListener] whose `onClick` override will be called when any item
  * in our list is clicked.
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to reference methods and fields from kdoc
 class GdgListAdapter(
     val clickListener: GdgClickListener
 ) : ListAdapter<GdgChapter, GdgListViewHolder>(DiffCallback) {

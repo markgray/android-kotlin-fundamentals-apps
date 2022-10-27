@@ -109,7 +109,7 @@ class GdgListFragment : Fragment() {
      * from a previous saved state as given here.
      * @return Return the [View] for the fragment's UI.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns a nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -131,17 +131,15 @@ class GdgListFragment : Fragment() {
         // Sets the adapter of the RecyclerView
         binding.gdgChapterList.adapter = adapter
 
-        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
-        viewModel.showNeedLocation.observe(viewLifecycleOwner,
-            Observer<Boolean> { show -> // Snackbar is like Toast but it lets us show forever
-                if (show == true) {
-                    Snackbar.make(
-                        binding.root,
-                        "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
-                        Snackbar.LENGTH_LONG
-                    ).show()
-                }
-            })
+        viewModel.showNeedLocation.observe(viewLifecycleOwner) { show -> // Snackbar is like Toast but it lets us show forever
+            if (show == true) {
+                Snackbar.make(
+                    binding.root,
+                    "No location. Enable location in settings (hint: test with Maps) then check app permissions!",
+                    Snackbar.LENGTH_LONG
+                ).show()
+            }
+        }
 
         viewModel.regionList.observe(viewLifecycleOwner, object : Observer<List<String>> {
             override fun onChanged(data: List<String>?) {
@@ -165,8 +163,7 @@ class GdgListFragment : Fragment() {
             }
         })
 
-        // TODO: Fix setHasOptionsMenu deprecated warning.
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Fix setHasOptionsMenu deprecated warning.
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -197,7 +194,7 @@ class GdgListFragment : Fragment() {
      * permission request).
      */
     private fun requestLocationPermission() {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Replace with ActivityResultContract
         requestPermissions(arrayOf(LOCATION_PERMISSION), LOCATION_PERMISSION_REQUEST)
     }
 
@@ -268,7 +265,7 @@ class GdgListFragment : Fragment() {
             return
         }
 
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Use LocationRequest.Builder.setPriority(int) instead
         val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
@@ -291,13 +288,13 @@ class GdgListFragment : Fragment() {
      * @param permissions the permissions requested.
      * @param grantResults the grant results for the corresponding permissions in [permissions]
      */
-    @Deprecated("Deprecated in Java")
+    @Deprecated("Deprecated in Java") // TODO: Replace with ActivityResultContract
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<out String>,
         grantResults: IntArray
     ) {
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Replace with ActivityResultContract
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         when (requestCode) {
             LOCATION_PERMISSION_REQUEST -> {
