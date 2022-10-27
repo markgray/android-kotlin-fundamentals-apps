@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-@file:Suppress("MemberVisibilityCanBePrivate")
+@file:Suppress("MemberVisibilityCanBePrivate") // I like to reference methods and fields in kdoc
 
 package com.example.android.diceroller
 
@@ -91,10 +91,8 @@ class MainActivity : AppCompatActivity() {
      * @return a randomly chosen drawable resourse ID from our 6 dice images.
      */
     private fun getRandomDiceImage(): Int {
-        @Suppress("MoveVariableDeclarationIntoWhen")
-        val randomInt = (1..6).random()
 
-        return when (randomInt) {
+        return when ((1..6).random()) {
             1 -> R.drawable.dice_1
             2 -> R.drawable.dice_2
             3 -> R.drawable.dice_3
