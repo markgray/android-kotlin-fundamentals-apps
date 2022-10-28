@@ -71,7 +71,7 @@ class AddGdgFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we are overriding returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -84,8 +84,7 @@ class AddGdgFragment : Fragment() {
 
         binding.viewModel = viewModel
 
-        @Suppress("RedundantSamConstructor")
-        viewModel.showSnackBarEvent.observe(viewLifecycleOwner, Observer {
+        viewModel.showSnackBarEvent.observe(viewLifecycleOwner) {
             if (it == true) { // Observed state is true.
                 Snackbar.make(
                     requireActivity().findViewById(android.R.id.content),
@@ -94,10 +93,9 @@ class AddGdgFragment : Fragment() {
                 ).show()
                 viewModel.doneShowingSnackbar()
             }
-        })
+        }
 
-        // TODO: Fix setHasOptionsMenu deprecated warning.
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: Fix setHasOptionsMenu deprecated warning.
         setHasOptionsMenu(true)
         return binding.root
     }

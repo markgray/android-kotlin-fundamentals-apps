@@ -138,7 +138,7 @@ class GdgChapterRepository(gdgApiService: GdgApiService) {
          * coroutineScope will automatically wait for anything started via async {} or await{}
          * in it's block to complete.
          */
-        @Suppress("UnnecessaryVariable")
+        @Suppress("UnnecessaryVariable") // The variable makes it easier to breakpoint
         val result = coroutineScope {
             /**
              * launch a new coroutine to do the sort (so other requests can wait for this sort to
