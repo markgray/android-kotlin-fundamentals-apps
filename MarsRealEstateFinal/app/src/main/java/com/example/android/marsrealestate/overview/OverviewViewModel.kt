@@ -163,7 +163,7 @@ class OverviewViewModel : ViewModel() {
     private fun getMarsRealEstateProperties(filter: MarsApiFilter) {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            @Suppress("CanBeVal")
+            @Suppress("CanBeVal") // But it gets modified, so how can it be a val?
             var getPropertiesDeferred: Deferred<List<MarsProperty>> = MarsApi.retrofitService.getProperties(filter.value)
             try {
                 _status.value = MarsApiStatus.LOADING
