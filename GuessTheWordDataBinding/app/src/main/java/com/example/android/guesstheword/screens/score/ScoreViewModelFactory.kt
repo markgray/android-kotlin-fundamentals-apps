@@ -37,7 +37,7 @@ class ScoreViewModelFactory(private val finalScore: Int) : ViewModelProvider.Fac
      */
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(ScoreViewModel::class.java)) {
-            @Suppress("UNCHECKED_CAST")
+            @Suppress("UNCHECKED_CAST") // The above if statement checks the cast
             return ScoreViewModel(finalScore) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

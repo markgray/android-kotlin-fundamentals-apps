@@ -77,7 +77,7 @@ class GameFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or `null`.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we are overriding returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -104,10 +104,9 @@ class GameFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Observer for the Game finished event
-        @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments")
-        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+        viewModel.eventGameFinish.observe(viewLifecycleOwner) { hasFinished: Boolean ->
             if (hasFinished) gameFinished()
-        })
+        }
 
         return binding.root
     }

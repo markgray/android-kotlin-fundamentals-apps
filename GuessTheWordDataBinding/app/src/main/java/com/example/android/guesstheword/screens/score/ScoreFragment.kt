@@ -22,7 +22,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.android.guesstheword.R
@@ -82,7 +81,7 @@ class ScoreFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we are overriding returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -106,13 +105,12 @@ class ScoreFragment : Fragment() {
         binding.lifecycleOwner = viewLifecycleOwner
 
         // Navigates back to game when button is pressed
-        @Suppress("RedundantSamConstructor")
-        viewModel.eventPlayAgain.observe(viewLifecycleOwner, Observer { playAgain ->
+        viewModel.eventPlayAgain.observe(viewLifecycleOwner) { playAgain: Boolean ->
             if (playAgain) {
                 findNavController().navigate(ScoreFragmentDirections.actionRestart())
                 viewModel.onPlayAgainComplete()
             }
-        })
+        }
 
         return binding.root
     }
