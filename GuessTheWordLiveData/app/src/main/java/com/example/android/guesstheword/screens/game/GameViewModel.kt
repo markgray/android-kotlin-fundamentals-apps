@@ -167,7 +167,7 @@ class GameViewModel : ViewModel() {
      * set the value of our [_eventGameFinish] property to `true` and an `Observer` of the public
      * version [eventGameFinish] will navigate to the `ScoreFragment` on this transition.
      */
-    @Suppress("MemberVisibilityCanBePrivate")
+    @Suppress("MemberVisibilityCanBePrivate") // I like to do kdoc [] references
     fun onGameFinish() {
         _eventGameFinish.value = true
     }

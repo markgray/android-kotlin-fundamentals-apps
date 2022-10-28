@@ -88,7 +88,7 @@ class GameFragment : Fragment() {
      * saved state as given here.
      * @return Return the [View] for the fragment's UI, or `null`.
      */
-    @Suppress("RedundantSamConstructor", "RemoveExplicitTypeArguments", "RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we are overriding returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -107,19 +107,19 @@ class GameFragment : Fragment() {
         viewModel = ViewModelProvider(this)[GameViewModel::class.java]
 
         /** Setting up LiveData observation relationship **/
-        viewModel.word.observe(viewLifecycleOwner, Observer { newWord ->
+        viewModel.word.observe(viewLifecycleOwner) { newWord: String ->
             binding.wordText.text = newWord
-        })
+        }
 
-        viewModel.score.observe(viewLifecycleOwner, Observer { newScore ->
+        viewModel.score.observe(viewLifecycleOwner) { newScore: Int ->
             binding.scoreText.text = newScore.toString()
 
-        })
+        }
 
         // Observer for the Game finished event
-        viewModel.eventGameFinish.observe(viewLifecycleOwner, Observer<Boolean> { hasFinished ->
+        viewModel.eventGameFinish.observe(viewLifecycleOwner) { hasFinished: Boolean ->
             if (hasFinished) gameFinished()
-        })
+        }
 
         binding.correctButton.setOnClickListener { onCorrect() }
         binding.skipButton.setOnClickListener { onSkip() }
