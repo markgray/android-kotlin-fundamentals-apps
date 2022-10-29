@@ -143,7 +143,7 @@ class OverviewViewModel : ViewModel() {
         coroutineScope.launch {
             _status.value = MarsApiStatus.LOADING
             // this will run on a thread managed by Retrofit
-            @Suppress("CanBeVal")
+            @Suppress("CanBeVal") // Its value is modified so cannot be val?
             var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
                 _status.value = MarsApiStatus.LOADING

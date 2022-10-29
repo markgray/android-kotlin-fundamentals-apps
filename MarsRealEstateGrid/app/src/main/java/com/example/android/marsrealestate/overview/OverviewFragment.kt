@@ -65,7 +65,7 @@ class OverviewFragment : Fragment() {
      *
      * @return Return the [View] for the fragment's UI, or null.
      */
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we are overriding returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -83,7 +83,7 @@ class OverviewFragment : Fragment() {
         // Sets the adapter of the photosGrid RecyclerView
         binding.photosGrid.adapter = PhotoGridAdapter()
 
-        @Suppress("DEPRECATION")
+        @Suppress("DEPRECATION") // TODO: replace with MenuHost
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -96,7 +96,7 @@ class OverviewFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate an XML file into a menu.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION")
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: replace with MenuHost
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
