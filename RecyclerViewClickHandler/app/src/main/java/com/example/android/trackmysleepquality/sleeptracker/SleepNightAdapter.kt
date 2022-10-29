@@ -40,7 +40,7 @@ import com.example.android.trackmysleepquality.databinding.ListItemSleepNightBin
  * file calls the `onClick` method of its `clickListener` variable with its `sleep` variable (the
  * [SleepNight] it displays).
  */
-@Suppress("MemberVisibilityCanBePrivate")
+@Suppress("MemberVisibilityCanBePrivate") // I like to use [] references in kdoc
 class SleepNightAdapter(
     val clickListener: SleepNightListener
 ) : ListAdapter<SleepNight, SleepNightAdapter.ViewHolder>(SleepNightDiffCallback()) {
