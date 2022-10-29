@@ -44,9 +44,9 @@ class SleepTrackerViewModelFactory(
      * [SleepDatabaseDao] to access the Room database, and [application] as the context to use
      * to access resources.
      */
-    @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") // The above if statement checks the cast
             return SleepTrackerViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
