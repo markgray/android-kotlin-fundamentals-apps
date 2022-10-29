@@ -85,11 +85,11 @@ class OverviewViewModel : ViewModel() {
     private fun getMarsRealEstateProperties() {
         coroutineScope.launch {
             // Get the Deferred object for our Retrofit request
-            @Suppress("CanBeVal")
+            @Suppress("CanBeVal") // If is modified so cannot be a val?
             var getPropertiesDeferred = MarsApi.retrofitService.getProperties()
             try {
                 // Await the completion of our Retrofit request
-                @Suppress("CanBeVal")
+                @Suppress("CanBeVal") // If is modified so cannot be a val?
                 var listResult = getPropertiesDeferred.await()
                 _response.value = "Success: ${listResult.size} Mars properties retrieved"
             } catch (e: Exception) {

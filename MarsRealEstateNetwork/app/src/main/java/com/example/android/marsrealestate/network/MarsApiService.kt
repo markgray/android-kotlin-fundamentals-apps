@@ -56,7 +56,7 @@ private val retrofit = Retrofit.Builder()
 /**
  * A public interface that exposes the [getProperties] method
  */
-@Suppress("DeferredIsResult")
+@Suppress("DeferredIsResult") // A rose is a rose is a rose
 interface MarsApiService {
     /**
      * Returns a Coroutine [Deferred] wrapped [List] of [MarsProperty] which can be fetched with

@@ -24,7 +24,7 @@ import com.example.android.marsrealestate.network.MarsProperty
 /**
  * The [ViewModel] that is associated with the [DetailFragment]. Skeleton code for later code lab
  */
-@Suppress("UNUSED_PARAMETER", "RemoveEmptyClassBody")
+@Suppress("UNUSED_PARAMETER", "RemoveEmptyClassBody") // Skeleton code for later code lab
 class DetailViewModel(
     marsProperty: MarsProperty,
     app: Application
