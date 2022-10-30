@@ -29,7 +29,7 @@ import com.example.android.trackmysleepquality.database.SleepDatabaseDao
  * @param dataSource Handle to the [SleepDatabaseDao] to use to call its Room SQLite methods.
  * @param application the [Application] that owns our activity, used to access resources.
  */
-@Suppress("unused")
+@Suppress("unused") // Skeleton code for later codelab
 class SleepTrackerViewModelFactory(
     private val dataSource: SleepDatabaseDao,
     private val application: Application
@@ -43,9 +43,9 @@ class SleepTrackerViewModelFactory(
      * [SleepDatabaseDao] to access the Room database, and [application] as the context to use
      * to access resources.
      */
-    @Suppress("unchecked_cast")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SleepTrackerViewModel::class.java)) {
+            @Suppress("UNCHECKED_CAST") // It is checked by above if statement
             return SleepTrackerViewModel(dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")

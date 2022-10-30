@@ -87,7 +87,7 @@ abstract class SleepDatabase : RoomDatabase() {
          * @param context The application context Singleton, used to get access to the filesystem.
          * @return our singleton [SleepDatabase] instance.
          */
-        @Suppress("unused")
+        @Suppress("unused") // Unused but instructionsl
         fun getInstance(context: Context): SleepDatabase {
             synchronized(this) {
                 var instance = INSTANCE
