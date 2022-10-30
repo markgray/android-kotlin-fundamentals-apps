@@ -78,7 +78,7 @@ class SleepQualityFragment : Fragment() {
      * @return Return the [View] for the fragment's UI, or null.
      */
 
-    @Suppress("RedundantNullableReturnType")
+    @Suppress("RedundantNullableReturnType") // The method we override returns nullable
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -109,16 +109,15 @@ class SleepQualityFragment : Fragment() {
         binding.sleepQualityViewModel = sleepQualityViewModel
 
         // Add an Observer to the state variable for Navigating when a Quality icon is tapped.
-        @Suppress("RedundantSamConstructor")
-        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner, Observer {
-            if (it == true) { // Observed state is true.
+        sleepQualityViewModel.navigateToSleepTracker.observe(viewLifecycleOwner) { doNavigation: Boolean? ->
+            if (doNavigation == true) { // Observed state is true.
                 this.findNavController().navigate(
                     SleepQualityFragmentDirections.actionSleepQualityFragmentToSleepTrackerFragment())
                 // Reset state to make sure we only navigate once, even if the device
                 // has a configuration change.
                 sleepQualityViewModel.doneNavigating()
             }
-        })
+        }
 
         return binding.root
     }
