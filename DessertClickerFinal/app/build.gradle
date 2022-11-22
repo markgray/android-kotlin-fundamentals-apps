@@ -16,6 +16,7 @@
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion 33
@@ -42,7 +43,6 @@ android {
         jvmTarget = "1.8"
     }
     buildFeatures {
-        //noinspection DataBindingWithoutKapt
         dataBinding true
     }
     namespace 'com.example.android.dessertclicker'
