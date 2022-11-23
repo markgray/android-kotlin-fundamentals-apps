@@ -232,7 +232,7 @@ class GdgListFragment : Fragment() {
             return
         }
 
-        @Suppress("DEPRECATION") // Use LocationRequest.Builder.setPriority(int) instead
+        @Suppress("DEPRECATION") // TODO: Use LocationRequest.Builder.setPriority(int) instead
         val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
