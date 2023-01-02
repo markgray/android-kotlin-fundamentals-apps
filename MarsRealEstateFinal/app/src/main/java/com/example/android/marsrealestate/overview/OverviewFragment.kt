@@ -114,7 +114,7 @@ class OverviewFragment : Fragment() {
             }
         }
 
-        @Suppress("DEPRECATION") // TODO Replace with MenuHost
+        @Suppress("DEPRECATION") // TODO: Replace with MenuHost
         setHasOptionsMenu(true)
         return binding.root
     }
@@ -127,7 +127,7 @@ class OverviewFragment : Fragment() {
      * @param menu The options menu in which you place your items.
      * @param inflater a [MenuInflater] you can use to inflate XML menu files.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO Replace with MenuHost
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.overflow_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
@@ -148,7 +148,7 @@ class OverviewFragment : Fragment() {
      * @return [Boolean] Return `false` to allow normal menu processing to
      * proceed, `true` to consume it here.
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO Replace with MenuHost
+    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         viewModel.updateFilter(
             when (item.itemId) {
