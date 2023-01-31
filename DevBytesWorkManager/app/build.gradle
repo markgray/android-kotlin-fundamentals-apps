@@ -55,9 +55,9 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // support libraries
-    implementation 'androidx.appcompat:appcompat:1.5.1'
+    implementation 'androidx.appcompat:appcompat:1.6.0'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
 
     // Android KTX
     implementation 'androidx.core:core-ktx:1.9.0'
@@ -99,8 +99,8 @@ dependencies {
     kapt 'com.github.bumptech.glide:compiler:4.14.2'
 
     // Room dependency
-    implementation "androidx.room:room-runtime:2.4.3"
-    kapt "androidx.room:room-compiler:2.4.3"
+    implementation "androidx.room:room-runtime:2.5.0"
+    kapt "androidx.room:room-compiler:2.5.0"
 
     // WorkManager dependency
     implementation "androidx.work:work-runtime-ktx:2.7.1"
