@@ -55,7 +55,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     // support libraries
-    implementation 'androidx.appcompat:appcompat:1.6.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.google.android.material:material:1.8.0'
 
@@ -103,5 +103,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
 
     // WorkManager dependency
-    implementation "androidx.work:work-runtime-ktx:2.7.1"
+    implementation "androidx.work:work-runtime-ktx:2.8.0"
 }
