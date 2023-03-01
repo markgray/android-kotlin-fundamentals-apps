@@ -19,6 +19,8 @@ package com.example.android.navigation
 
 import android.os.Bundle
 import android.view.*
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
 import androidx.navigation.findNavController
@@ -46,11 +48,11 @@ class TitleFragment : Fragment() {
      * [container] for its LayoutParams without attaching to it. We then set the `OnClickListener`
      * of the `playButton` property of `binding` (the button with ID [R.id.playButton]) to a
      * lambda which finds the `NavController` associated with the [View] clicked and uses it to
-     * navigate to the `GameFragment`. We call the [setHasOptionsMenu] method with `true` to
-     * report that this fragment would like to participate in populating the options menu by
-     * receiving a call to [onCreateOptionsMenu] and related methods. Finally we return the `root`
-     * property of `binding` (the outermost [View] in the layout file associated with the Binding)
-     * to the caller.
+     * navigate to the `GameFragment`. We initialize our [MenuHost] variable `val menuHost` to
+     * to the `FragmentActivity` this fragment is currently associated with, then call its
+     * [MenuHost.addMenuProvider] method to add our [MenuProvider] field [menuProvider] to add
+     * the [MenuProvider] to the [MenuHost]. Finally we return the `root` property of `binding`
+     * (the outermost [View] in the layout file associated with the Binding) to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -77,44 +79,43 @@ class TitleFragment : Fragment() {
         binding.playButton.setOnClickListener { view: View ->
             view.findNavController().navigate(R.id.action_titleFragment_to_gameFragment)
         }
-        @Suppress("DEPRECATION")
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
     /**
-     * Initialize the contents of the Fragment host's standard options menu. First we call our
-     * super's implementation of `onCreateOptionsMenu`, then we use our [MenuInflater] parameter
-     * [inflater] to inflate our menu layout file [R.menu.options_menu] into our [Menu] parameter
-     * [menu].
-     *
-     * @param menu The options menu in which you place your items.
-     * @param inflater a [MenuInflater] you can use to inflate an XML menu file with.
+     * Our  [MenuProvider]
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        super.onCreateOptionsMenu(menu, inflater)
-        inflater.inflate(R.menu.options_menu, menu)
-    }
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        /**
+         * Initialize the contents of the Fragment host's standard options menu. We use our
+         * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
+         * [R.menu.options_menu] into our [Menu] parameter [menu].
+         *
+         * @param menu The options menu in which you place your items.
+         * @param menuInflater a [MenuInflater] you can use to inflate an XML menu file with.
+         */
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.options_menu, menu)
+        }
 
-    /**
-     * This hook is called whenever an item in your options menu is selected. We return the result
-     * of calling the [NavigationUI.onNavDestinationSelected] method with our [MenuItem] parameter
-     * [item] and the `NavController` associated with the root [View] of our [Fragment] (this
-     * method will try to navigate to the fragment whose ID is the same as the item ID of [item]
-     * which in our case is `aboutFragment`). If it was able to navigate to the destination
-     * associated with the given MenuItem it returns `true` which we return to our caller, if it
-     * fails it returns `false` and we return the value returned by our super's implementation of
-     * `onOptionsItemSelected`.
-     *
-     * @param item The menu item that was selected.
-     * @return [Boolean] Return `false` to allow normal menu processing to
-     *         proceed, `true` to consume it here.
-     */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: Replace with MenuHost
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return NavigationUI.onNavDestinationSelected(item, requireView().findNavController())
-            || super.onOptionsItemSelected(item)
+        /**
+         * This hook is called whenever an item in your options menu is selected. We return the result
+         * of calling the [NavigationUI.onNavDestinationSelected] method with our [MenuItem] parameter
+         * [menuItem] and the `NavController` associated with the root [View] of our [Fragment] (this
+         * method will try to navigate to the fragment whose ID is the same as the item ID of
+         * [menuItem] which in our case is `aboutFragment`). If it was able to navigate to the
+         * destination associated with the given MenuItem it returns `true` which we return to our
+         * caller, if it fails it returns `false` and we return the value returned by our super's
+         * implementation of `onOptionsItemSelected`.
+         *
+         * @param menuItem The menu item that was selected.
+         * @return [Boolean] Return `false` to allow normal menu processing to
+         *         proceed, `true` to consume it here.
+         */
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return NavigationUI.onNavDestinationSelected(menuItem, requireView().findNavController())
+        }
     }
-
 }
