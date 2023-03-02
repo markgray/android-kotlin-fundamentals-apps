@@ -57,9 +57,8 @@ class AddGdgFragment : Fragment() {
      * to `true`, show a [Snackbar], then call the `doneShowingSnackbar` method of [viewModel] to
      * reset it to `false`.
      *
-     * We then call `setHasOptionsMenu(true)` to report that this fragment would like to participate
-     * in populating the options menu, and finally return the `root` property of `binding` (the
-     * outermost [View] in the layout file associated with the Binding).
+     * Finally return the `root` property of `binding` (the outermost [View] in the layout file
+     * associated with the Binding).
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment
@@ -95,8 +94,6 @@ class AddGdgFragment : Fragment() {
             }
         }
 
-        @Suppress("DEPRECATION") // TODO: Fix setHasOptionsMenu deprecated warning.
-        setHasOptionsMenu(true)
         return binding.root
     }
 
