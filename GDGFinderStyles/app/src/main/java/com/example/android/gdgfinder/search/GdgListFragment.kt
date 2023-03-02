@@ -85,10 +85,8 @@ class GdgListFragment : Fragment() {
      * [viewModel] whose lambda shows a [Snackbar] when that property transitions to `true` (the
      * [Snackbar] asks the user to enable location in the settings app).
      *
-     * The last things that our [onCreateView] override has to do is to call [setHasOptionsMenu]
-     * with `true` to report that this fragment would like to participate in populating the options
-     * menu, and then to return the outermost [View] in the layout file associated with `binding`
-     * to the caller.
+     * Finally we return the outermost [View] in the layout file associated with `binding` (the
+     * `root` property of `binding`) to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate layout XML files.
      * @param container If non-null, this is the parent view that the fragment's
@@ -129,9 +127,6 @@ class GdgListFragment : Fragment() {
                 ).show()
             }
         }
-
-        @Suppress("DEPRECATION") // TODO: Fix setHasOptionsMenu deprecated warning.
-        setHasOptionsMenu(true)
         return binding.root
     }
 
