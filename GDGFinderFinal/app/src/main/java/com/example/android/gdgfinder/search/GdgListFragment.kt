@@ -96,10 +96,8 @@ class GdgListFragment : Fragment() {
      * property of `binding` and then loops adding each of the [Chip] widgets we just created
      * to the `regionList` `ChipGroup`.
      *
-     * The last things that our [onCreateView] override has to do is to call [setHasOptionsMenu]
-     * with `true` to report that this fragment would like to participate in populating the options
-     * menu, and then to return the outermost [View] in the layout file associated with `binding`
-     * to the caller.
+     * The last things that our [onCreateView] override has to do is to return the outermost [View]
+     * in the layout file associated with `binding` (`binding.root`) to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate layout XML files.
      * @param container If non-null, this is the parent view that the fragment's
@@ -163,8 +161,6 @@ class GdgListFragment : Fragment() {
             }
         })
 
-        @Suppress("DEPRECATION") // TODO: Fix setHasOptionsMenu deprecated warning.
-        setHasOptionsMenu(true)
         return binding.root
     }
 
