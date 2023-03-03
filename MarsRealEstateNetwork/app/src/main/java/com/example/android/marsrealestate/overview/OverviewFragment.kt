@@ -21,8 +21,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.MenuHost
+import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.android.marsrealestate.R
@@ -49,9 +52,11 @@ class OverviewFragment : Fragment() {
      * that should be used for observing changes of LiveData in `binding` to `this` [OverviewFragment],
      * and set the `viewModel` variable property of `binding` to our [OverviewViewModel] field
      * [viewModel] (gives the binding expressions in `binding` access to our [OverviewViewModel]).
-     * We call [setHasOptionsMenu] with `true` to report that this fragment would like to participate
-     * in populating the options menu. Finally we return the outermost View in the layout file
-     * associated with `binding` to the caller.
+     * We initialize our [MenuHost] variable `val menuHost` to to the `FragmentActivity` this fragment
+     * is currently associated with, then call its [MenuHost.addMenuProvider] method to add our
+     * [MenuProvider] field [menuProvider] to add the [MenuProvider] to the [MenuHost]. Finally we
+     * return the outermost [View] in the layout file associated with `binding` (the `root` property
+     * of `binding`) to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
      * any views in the fragment.
@@ -77,22 +82,36 @@ class OverviewFragment : Fragment() {
         // Giving the binding access to the OverviewViewModel
         binding.viewModel = viewModel
 
-        @Suppress("DEPRECATION") // TODO: replace with MenuHost
-        setHasOptionsMenu(true)
+        val menuHost: MenuHost = requireActivity()
+        menuHost.addMenuProvider(menuProvider, viewLifecycleOwner)
         return binding.root
     }
 
     /**
-     * Inflates the overflow menu that contains filtering options. We just use our [MenuInflater]
-     * parameter [inflater] to inflate our layout file menu/overflow_menu.xml into our [Menu]
-     * parameter [menu] and then call our super's implementation of `onCreateOptionsMenu`.
-     *
-     * @param menu The options menu in which you place your items.
-     * @param inflater a [MenuInflater] you can use to inflate an XML file into a menu.
+     * Our  [MenuProvider]
      */
-    @Suppress("DEPRECATION", "OVERRIDE_DEPRECATION") // TODO: replace with MenuHost
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.overflow_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
+    private val menuProvider: MenuProvider = object : MenuProvider {
+        /**
+         * Initialize the contents of the Fragment host's standard options menu. We use our
+         * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
+         * [R.menu.overflow_menu] into our [Menu] parameter [menu].
+         *
+         * @param menu The options menu in which you place your items.
+         * @param menuInflater a [MenuInflater] you can use to inflate an XML menu file with.
+         */
+        override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+            menuInflater.inflate(R.menu.overflow_menu, menu)
+        }
+
+        /**
+         * Called by the [MenuHost] when a [MenuItem] is selected from the menu. We do not implement
+         * anything yet, this will be done in `MarsRealEstateFinal`.
+         *
+         * @param menuItem the menu item that was selected
+         * @return `true` if the given menu item is handled by this menu provider, `false` otherwise.
+         */
+        override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+            return false
+        }
     }
 }
