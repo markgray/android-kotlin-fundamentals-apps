@@ -22,9 +22,12 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -38,14 +41,9 @@ import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 import com.google.android.material.chip.Chip
 import com.google.android.material.snackbar.Snackbar
-
-/**
- * The permission request code we use when we call `requestPermissions` to ask user for location
- * permission.
- */
-private const val LOCATION_PERMISSION_REQUEST = 1
 
 /**
  * [String] used to request the "ACCESS_FINE_LOCATION" permission.
@@ -184,14 +182,12 @@ class GdgListFragment : Fragment() {
 
     /**
      * Show the user a dialog asking for permission to use location. Just calls the method
-     * [requestPermissions] with our [LOCATION_PERMISSION] permission string and our request
-     * code [LOCATION_PERMISSION_REQUEST] ([LOCATION_PERMISSION_REQUEST] will be returned to
-     * our [onRequestPermissionsResult] override so we can verify it was called for this
-     * permission request).
+     * [ActivityResultLauncher.launch] of our [ActivityResultContracts.RequestMultiplePermissions]
+     * field [actionRequestPermission] with our [LOCATION_PERMISSION] permission string (the callback
+     * of [actionRequestPermission] will receive the results).
      */
     private fun requestLocationPermission() {
-        @Suppress("DEPRECATION") // TODO: Replace with ActivityResultContract
-        requestPermissions(arrayOf(LOCATION_PERMISSION), LOCATION_PERMISSION_REQUEST)
+        actionRequestPermission.launch(arrayOf(LOCATION_PERMISSION))
     }
 
     /**
@@ -261,8 +257,9 @@ class GdgListFragment : Fragment() {
             return
         }
 
-        @Suppress("DEPRECATION") // TODO: Use LocationRequest.Builder.setPriority(int) instead
-        val request = LocationRequest.create().setPriority(LocationRequest.PRIORITY_LOW_POWER)
+        val request = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 0)
+            .setPriority(Priority.PRIORITY_LOW_POWER)
+            .build()
         val callback = object : LocationCallback() {
             override fun onLocationResult(locationResult: LocationResult) {
                 val location: Location? = locationResult.lastLocation
@@ -273,33 +270,15 @@ class GdgListFragment : Fragment() {
     }
 
     /**
-     * This will be called by Android when the user responds to the permission request. If granted,
-     * continue with the operation that the user gave us permission to do. First we call our super's
-     * implementation of `onRequestPermissionsResult`. If our [requestCode] parameter is our
-     * constant [LOCATION_PERMISSION_REQUEST] we check if the zeroth entry in the [grantResults]
-     * parameter is [PackageManager.PERMISSION_GRANTED] and if so we call our method
-     * [requestLastLocationOrStartLocationUpdates].
-     *
-     * @param requestCode request code of the call to [requestPermissions] whose result this is.
-     * @param permissions the permissions requested.
-     * @param grantResults the grant results for the corresponding permissions in [permissions]
+     * The [ActivityResultLauncher] that we launch to have the system ask the user to grant us the
+     * permissions we need. Its callback parameter logs the result returned, and then calls our
+     * [requestLastLocationOrStartLocationUpdates] method.
      */
-    @Deprecated("Deprecated in Java") // TODO: Replace with ActivityResultContract
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        @Suppress("DEPRECATION") // TODO: Replace with ActivityResultContract
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when (requestCode) {
-            LOCATION_PERMISSION_REQUEST -> {
-                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    requestLastLocationOrStartLocationUpdates()
-                }
-            }
+    private val actionRequestPermission: ActivityResultLauncher<Array<String>> =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {
+            Log.i("GdgListFragment", "Result for $LOCATION_PERMISSION: ${it[LOCATION_PERMISSION]}")
+            requestLastLocationOrStartLocationUpdates()
         }
-    }
 }
 
 
