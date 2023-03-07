@@ -181,12 +181,23 @@ class GdgListFragment : Fragment() {
     }
 
     /**
-     * Show the user a dialog asking for permission to use location. Just calls the method
+     * We use this flag to turn off the request for permissions if the user refuses to grant us the
+     * permission the first time we ask for them. The user will then have to have the system grant
+     * us permission if they change their mind.
+     */
+    private var haveAskedForPermissions: Boolean = false
+
+    /**
+     * Show the user a dialog asking for permission to use location. If [haveAskedForPermissions] is
+     * `true` we just return (the user has refused to grant us permission the first time we asked).
+     * Otherwise we set [haveAskedForPermissions] to `true` and call the method
      * [ActivityResultLauncher.launch] of our [ActivityResultContracts.RequestMultiplePermissions]
      * field [actionRequestPermission] with our [LOCATION_PERMISSION] permission string (the callback
      * of [actionRequestPermission] will receive the results).
      */
     private fun requestLocationPermission() {
+        if (haveAskedForPermissions) return
+        haveAskedForPermissions = true
         actionRequestPermission.launch(arrayOf(LOCATION_PERMISSION))
     }
 
