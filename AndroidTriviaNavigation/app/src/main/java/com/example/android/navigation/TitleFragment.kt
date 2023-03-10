@@ -27,13 +27,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.example.android.navigation.databinding.FragmentTitleBinding
 
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-@Suppress("unused") // TODO: Rename parameter arguments, choose names that match
-private const val ARG_PARAM1 = "param1"
-
-@Suppress("unused")
-private const val ARG_PARAM2 = "param2" // TODO: Rename parameter arguments, choose names that match
-
 /**
  * The `startDestination` [Fragment] of our app, it just displays our Title "Android Trivia", and
  * a "Play" button which navigates to the `GameFragment` when clicked.
