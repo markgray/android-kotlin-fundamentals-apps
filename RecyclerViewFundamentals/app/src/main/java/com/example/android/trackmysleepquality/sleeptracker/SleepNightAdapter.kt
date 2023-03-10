@@ -47,7 +47,7 @@ class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
      * data set has changed.
      */
     var data: List<SleepNight> = listOf()
-        @SuppressLint("NotifyDataSetChanged") // TODO: replace notifyDataSetChanged with fine grained update
+        @SuppressLint("NotifyDataSetChanged") // Too much effort required for very little benefit
         set(value) {
             field = value
             notifyDataSetChanged()
