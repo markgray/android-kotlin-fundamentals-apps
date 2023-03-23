@@ -103,5 +103,5 @@ dependencies {
     kapt "androidx.room:room-compiler:2.5.0"
 
     // WorkManager dependency
-    implementation "androidx.work:work-runtime-ktx:2.8.0"
+    implementation "androidx.work:work-runtime-ktx:2.8.1"
 }
