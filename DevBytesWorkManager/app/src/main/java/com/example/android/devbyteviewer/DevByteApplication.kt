@@ -35,7 +35,6 @@ import java.util.concurrent.TimeUnit
 /**
  * Override application to setup background work via WorkManager
  */
-@Suppress("unused") // It is actually used in our AndroidManifest.xml file.
 class DevByteApplication : Application() {
 
     /**
