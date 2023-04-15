@@ -65,7 +65,6 @@ object DevByteNetwork {
     /**
      * This is the [DevbyteService] implementation created by retrofit.
      */
-    @Suppress("HasPlatformType") // Silly warning in an Android only app
     val devbytes: DevbyteService? = retrofit.create(DevbyteService::class.java)
 
 }
