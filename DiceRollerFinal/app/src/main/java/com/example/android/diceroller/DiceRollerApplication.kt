@@ -7,7 +7,6 @@ import timber.log.Timber
  * This override of [Application] allows us to `plant` a [Timber] tree for debug  builds.
  * Automatically infers the tag from the calling class.
  */
-@Suppress("unused") // It really is used in AndroidManifest.xml
 class DiceRollerApplication : Application() {
 
     /**
