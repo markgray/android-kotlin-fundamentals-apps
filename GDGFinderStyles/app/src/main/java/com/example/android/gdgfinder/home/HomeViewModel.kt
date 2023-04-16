@@ -47,7 +47,7 @@ class HomeViewModel : ViewModel() {
      * `HomeFragment` whose lambda will trigger navigation to the `GdgListFragment` fragment when
      * it transitions to `true` when that is added in the next code lab.
      */
-    @Suppress("unused") // Unused but instructional
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     val navigateToSearch: LiveData<Boolean>
         get() = _navigateToSearch
 
@@ -57,7 +57,7 @@ class HomeViewModel : ViewModel() {
      * of the `FloatingActionButton` widget in the layout/home_fragment.xml layout file when that
      * FAB is added in the next code lab.
      */
-    @Suppress("unused") // Unused but instructional
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     fun onFabClicked() {
         _navigateToSearch.value = true
     }
@@ -69,7 +69,7 @@ class HomeViewModel : ViewModel() {
      * `GdgListFragment` fragment in response to the property toggling to `true` when that is added
      * in the next code lab.
      */
-    @Suppress("unused") // Unused but instructional
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     fun onNavigatedToSearch() {
         _navigateToSearch.value = false
     }
