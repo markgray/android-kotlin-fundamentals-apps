@@ -98,7 +98,7 @@ class GameViewModel : ViewModel() {
      * the [Transformations.map] method to format this as a [LiveData] wrapped [String] for display
      * in the `GameFragment` UI.
      */
-    @Suppress("MemberVisibilityCanBePrivate") // I like to do kdoc [] references
+    @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
     val currentTime: LiveData<Long>
         get() = _currentTime
 
