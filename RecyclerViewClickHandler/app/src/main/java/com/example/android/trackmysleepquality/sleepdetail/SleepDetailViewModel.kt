@@ -64,7 +64,7 @@ class SleepDetailViewModel(
      * sets the text of the `TextView` to one formatted based on the `startTimeMilli` and `endTimeMilli`
      * properties of [night]).
      */
-    @Suppress("JoinDeclarationAndAssignment") // Saving assignment for init allow bereakpoint
+    @Suppress("JoinDeclarationAndAssignment") // Saving assignment for init allows breakpoints
     private val night: LiveData<SleepNight>
 
     /**
