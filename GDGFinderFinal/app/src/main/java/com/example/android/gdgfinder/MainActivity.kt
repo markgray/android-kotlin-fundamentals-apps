@@ -112,6 +112,7 @@ class MainActivity : AppCompatActivity() {
                     toolBar.setDisplayShowTitleEnabled(false)
                     binding.heroImage.visibility = View.VISIBLE
                 }
+
                 else -> {
                     toolBar.setDisplayShowTitleEnabled(true)
                     binding.heroImage.visibility = View.GONE
