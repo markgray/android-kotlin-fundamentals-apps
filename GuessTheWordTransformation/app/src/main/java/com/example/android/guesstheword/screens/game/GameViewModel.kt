@@ -21,8 +21,8 @@ import android.text.format.DateUtils
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.map
 
 /**
  * ViewModel containing all the logic needed to run the game displayed by `GameFragment`
@@ -95,7 +95,7 @@ class GameViewModel : ViewModel() {
 
     /**
      * Public read-only access to our [_currentTime] property. Our property [currentTimeString] uses
-     * the [Transformations.map] method to format this as a [LiveData] wrapped [String] for display
+     * the [LiveData.map] method to format this as a [LiveData] wrapped [String] for display
      * in the `GameFragment` UI.
      */
     @Suppress("MemberVisibilityCanBePrivate") // I like to use kdoc [] references
@@ -107,7 +107,7 @@ class GameViewModel : ViewModel() {
      * "android:text" attribute of the `TextView` with ID R.id.timer_text updates the text displayed
      * whenever this changes value (which it does when our [currentTime] changes value.
      */
-    val currentTimeString: LiveData<String> = Transformations.map(currentTime) { time ->
+    val currentTimeString: LiveData<String> = currentTime.map { time ->
         DateUtils.formatElapsedTime(time)
     }
 
