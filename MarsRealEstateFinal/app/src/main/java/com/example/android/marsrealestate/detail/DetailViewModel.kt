@@ -67,7 +67,7 @@ class DetailViewModel(
      * layout file layout/fragment_detail.xml and sets the text of that `TextView` whenever
      * [displayPropertyPrice] changes value.
      */
-    val displayPropertyPrice: LiveData<String> = Transformations.map(selectedProperty) {
+    val displayPropertyPrice: LiveData<String> = selectedProperty.map {
         app.applicationContext.getString(
             when (it.isRental) {
                 true -> R.string.display_price_monthly_rental
@@ -84,7 +84,7 @@ class DetailViewModel(
      * with ID R.id.property_type_text in the layout file layout/fragment_detail.xml and sets the
      * text of that `TextView` whenever [displayPropertyType] changes value.
      */
-    val displayPropertyType: LiveData<String> = Transformations.map(selectedProperty) {
+    val displayPropertyType: LiveData<String> = selectedProperty.map {
         app.applicationContext.getString(R.string.display_type,
             app.applicationContext.getString(
                 when (it.isRental) {
