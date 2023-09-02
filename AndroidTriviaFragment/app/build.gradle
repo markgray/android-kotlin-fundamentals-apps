@@ -15,9 +15,7 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -28,7 +26,6 @@ android {
     defaultConfig {
         applicationId 'com.example.android.navigation'
         minSdkVersion 21
-        //noinspection EditedTargetSdkVersion
         targetSdkVersion 34
         vectorDrawables.useSupportLibrary = true
         versionCode 1
