@@ -15,7 +15,6 @@
  */
 
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
 
 android {
@@ -23,7 +22,6 @@ android {
     defaultConfig {
         applicationId "com.android.example.colormyviews"
         minSdkVersion 21
-        //noinspection EditedTargetSdkVersion
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
