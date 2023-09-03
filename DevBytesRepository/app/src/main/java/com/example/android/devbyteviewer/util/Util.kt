@@ -16,6 +16,10 @@
 
 package com.example.android.devbyteviewer.util
 
+/**
+ * The punctuation characters
+ */
+@Suppress("PrivatePropertyName")
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
 /**
