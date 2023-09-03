@@ -25,7 +25,6 @@ android {
     defaultConfig {
         applicationId "com.example.android.devbyteviewer"
         minSdkVersion 21
-        //noinspection EditedTargetSdkVersion
         targetSdkVersion 34
         versionCode 1
         versionName "1.0"
@@ -68,9 +67,9 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // navigation
-    implementation "androidx.navigation:navigation-runtime-ktx:2.7.0"
-    implementation "androidx.navigation:navigation-fragment-ktx:2.7.0"
-    implementation "androidx.navigation:navigation-ui-ktx:2.7.0"
+    implementation "androidx.navigation:navigation-runtime-ktx:2.7.1"
+    implementation "androidx.navigation:navigation-fragment-ktx:2.7.1"
+    implementation "androidx.navigation:navigation-ui-ktx:2.7.1"
 
     // coroutines for getting off the UI thread
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.1"
