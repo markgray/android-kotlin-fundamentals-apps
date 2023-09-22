@@ -19,7 +19,7 @@ package com.example.android.devbyteviewer.util
 /**
  * The punctuation characters
  */
-@Suppress("PrivatePropertyName")
+@Suppress("PrivatePropertyName") // This should be a const in the BoAPW
 private val PUNCTUATION = listOf(", ", "; ", ": ", " ")
 
 /**
