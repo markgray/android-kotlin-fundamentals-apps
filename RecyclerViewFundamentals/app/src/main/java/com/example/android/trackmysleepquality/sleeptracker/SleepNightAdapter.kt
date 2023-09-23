@@ -33,7 +33,7 @@ import com.example.android.trackmysleepquality.database.SleepNight
  * The adapter we use for the [RecyclerView] with resource ID R.id.sleep_list in the layout file
  * layout/fragment_sleep_tracker.xml which displays the [SleepNight] records read from our database.
  */
-@Suppress("MemberVisibilityCanBePrivate") // // I like to use [] references in kdoc
+@Suppress("MemberVisibilityCanBePrivate") // I like to use [] references in kdoc
 class SleepNightAdapter : RecyclerView.Adapter<SleepNightAdapter.ViewHolder>() {
 
     /**
