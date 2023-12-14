@@ -36,7 +36,7 @@ import com.example.android.devbyteviewer.domain.DevByteVideo
  * @param thumbnail the Url for the app:imageUrl binding adapter attribute of the `ImageView`
  */
 @Entity
-data class DatabaseVideo constructor(
+data class DatabaseVideo(
     @PrimaryKey
     val url: String,
     val updated: String,
