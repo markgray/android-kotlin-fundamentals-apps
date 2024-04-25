@@ -55,7 +55,7 @@ class ScoreFragment : Fragment() {
      * to the binding object it returns.
      *
      * We initialize our [ScoreViewModelFactory] field [viewModelFactory] to a new instance constructed
-     * to use the `score` safe args property of the [ScoreFragmentArgs] created from the arguments
+     * to use the `score` safe args property of the `ScoreFragmentArgs` created from the arguments
      * supplied when the fragment was instantiated. We create a [ViewModelProvider] with `this` as the
      * `ViewModelStoreOwner`, and [viewModelFactory] as the Factory which will be used to instantiate
      * new ViewModels, and call its `get` method to retrieve an existing [ScoreViewModel] ViewModel
