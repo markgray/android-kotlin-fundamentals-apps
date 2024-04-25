@@ -44,8 +44,8 @@ class GameWonFragment : Fragment() {
      * parameter [inflater] to inflate our layout file [R.layout.fragment_game_won], using our
      * [ViewGroup] parameter [container] for its LayoutParams without attaching to it. We then set
      * the `OnClickListener` of the `nextMatchButton` button of `binding` to a lambda which navigates
-     * to the `GameFragment`. We then initialize our [GameWonFragmentArgs] variable `val args` to
-     * the class that the `fromBundle` method of our [GameWonFragmentArgs] generated `NavArgs`
+     * to the `GameFragment`. We then initialize our `GameWonFragmentArgs` variable `val args` to
+     * the class that the `fromBundle` method of our `GameWonFragmentArgs` generated `NavArgs`
      * class creates from the arguments supplied when the fragment was instantiated. We toast the
      * "NumCorrect" and "NumQuestions" values stored in `args`, then call [setHasOptionsMenu] with
      * `true` to report that this fragment would like to participate in populating the options menu
@@ -136,8 +136,8 @@ class GameWonFragment : Fragment() {
     }
 
     /**
-     * Creating our Share Intent. We initialize our [GameWonFragmentArgs] variable `val args`
-     * to the safe `NavArgs` class that the [GameWonFragmentArgs.fromBundle]  method creates
+     * Creating our Share Intent. We initialize our `GameWonFragmentArgs` variable `val args`
+     * to the safe `NavArgs` class that the `GameWonFragmentArgs.fromBundle`  method creates
      * from the arguments supplied when the fragment was instantiated (it contains getters for
      * the `numCorrect` and `numQuestions` safe arguments). We initialize our [Intent] variable
      * `val shareIntent` with the action [Intent.ACTION_SEND] (Deliver some data to someone else).
