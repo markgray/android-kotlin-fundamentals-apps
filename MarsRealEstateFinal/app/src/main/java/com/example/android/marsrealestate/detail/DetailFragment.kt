@@ -41,7 +41,7 @@ class DetailFragment : Fragment() {
      * layout/fragment_detail.xml and return a binding to that view. We set the LifecycleOwner that
      * should be used for observing changes of LiveData in `binding` to `this`. We initialize
      * our [MarsProperty] variable `val marsProperty` by using the `fromBundle` method of the
-     * [DetailFragmentArgs] which is passing safe args to us to retrieve the arguments from the
+     * `DetailFragmentArgs` which is passing safe args to us to retrieve the arguments from the
      * arguments passed to our fragment, then retrieving the [MarsProperty] stored under the key
      * `selectedProperty` from that HashMap. We next initialize our [DetailViewModelFactory] variable
      * `val viewModelFactory` with an instance which will provide `marsProperty` as the [MarsProperty]
