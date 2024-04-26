@@ -42,8 +42,8 @@ class SleepQualityFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. First we use the
      * [DataBindingUtil.inflate] method to inflate our layout file R.layout.fragment_sleep_quality.
      * Then we initialize our [Application] variable `val application` to the application that owns
-     * this activity, and our [SleepQualityFragmentArgs] variable `val arguments` to the instance
-     * that the [SleepQualityFragmentArgs.fromBundle] method creates from the arguments supplied
+     * this activity, and our `SleepQualityFragmentArgs` variable `val arguments` to the instance
+     * that the `SleepQualityFragmentArgs.fromBundle` method creates from the arguments supplied
      * when the fragment was instantiated (the safe args [Long] for the `sleepNightKey` argument
      * will be stored in the `sleepNightKey` property of `arguments`). We initialize our
      * [SleepDatabaseDao] variable `val dataSource` to the `sleepDatabaseDao` property of our
