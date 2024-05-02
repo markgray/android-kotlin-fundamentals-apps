@@ -113,7 +113,7 @@ class GameFragment : Fragment() {
 
     /**
      * Called when the game is finished. First we toast the message "Game has just finished", then
-     * we initialize our variable `val action` with a new [GameFragmentDirections.ActionGameToScore]
+     * we initialize our variable `val action` with a new `GameFragmentDirections.ActionGameToScore`
      * instance, set the `score` property of `action` to the `score` property of our [GameViewModel]
      * field [viewModel] (the final score) or to 0 if it is `null`, then locate the `NavController`
      * associated with this [Fragment], and use it to navigate to `action` (the `ScoreFragment` with
