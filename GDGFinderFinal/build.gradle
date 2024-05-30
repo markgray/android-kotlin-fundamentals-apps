@@ -3,7 +3,7 @@
 
 buildscript {
     ext {
-        // Versions for all the dependencies we plan to use. It's particularly useful for kotlin and
+        // Versions for all the dependencies we plan to use. It is particularly useful for kotlin and
         // navigation where the versions of the plugin needs to be the same as the version of the
         // library defined in the app Gradle file
         version_kotlin = "1.9.24"
@@ -14,9 +14,9 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:8.4.1'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
-        classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7"
+        classpath ("com.android.tools.build:gradle:8.4.1")
+        classpath ("org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin")
+        classpath ("androidx.navigation:navigation-safe-args-gradle-plugin:2.7.7")
     }
 }
 
@@ -27,6 +27,6 @@ allprojects {
     }
 }
 
-tasks.register('clean', Delete) {
-    delete rootProject.layout.buildDir
+tasks.register("clean", Delete) {
+    delete (rootProject.layout.buildDir)
 }
