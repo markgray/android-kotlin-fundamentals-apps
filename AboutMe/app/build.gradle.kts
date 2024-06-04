@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-apply plugin: "com.android.application"
-
-apply plugin: "kotlin-android"
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+}
 
 android {
-    compileSdk (34)
+    compileSdk = 34
     defaultConfig {
-        applicationId ("com.android.example.aboutme")
-        minSdkVersion (21)
-        targetSdkVersion (34)
-        versionCode (1)
-        versionName ("1.0")
-        testInstrumentationRunner ("android.support.test.runner.AndroidJUnitRunner")
+        applicationId = "com.android.example.aboutme"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        release {
-            minifyEnabled (false)
+        getByName("release") {
+            isMinifyEnabled = true
             proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -41,13 +42,12 @@ android {
     kotlinOptions {
         jvmTarget = "17"
     }
-    namespace ("com.android.example.aboutme")
+    namespace = "com.android.example.aboutme"
 
 }
 
 dependencies {
-    implementation (fileTree(dir: "libs", include: ["*.jar"]))
-    implementation ("androidx.appcompat:appcompat:1.7.0")
-    implementation ("androidx.core:core-ktx:1.13.1")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
