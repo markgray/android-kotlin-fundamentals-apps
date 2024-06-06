@@ -14,25 +14,30 @@
  * limitations under the License.
  */
 
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
-apply plugin: "kotlin-kapt"
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+}
 
 android {
-    compileSdk (34)
+    compileSdk = 34
     defaultConfig {
-        applicationId ("com.example.android.dessertclicker")
-        minSdkVersion (21)
-        targetSdkVersion (34)
-        versionCode (1)
-        versionName ("1.0")
-        testInstrumentationRunner ("androidx.test.runner.AndroidJUnitRunner")
+        applicationId = "com.example.android.dessertclicker"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {
-            minifyEnabled (false)
-            proguardFiles (getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -44,14 +49,13 @@ android {
     }
 
     buildFeatures {
-        dataBinding (true)
+        dataBinding = true
     }
-    namespace ("com.example.android.dessertclicker")
+    namespace = "com.example.android.dessertclicker"
 }
 
 dependencies {
-    implementation (fileTree(dir: "libs", include: ["*.jar"]))
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
-    implementation ("com.jakewharton.timber:timber:5.0.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }
