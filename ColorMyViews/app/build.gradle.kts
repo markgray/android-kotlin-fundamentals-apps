@@ -14,23 +14,29 @@
  * limitations under the License.
  */
 
-apply plugin: "com.android.application"
-apply plugin: "kotlin-android"
+plugins {
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.kapt")
+}
 
 android {
-    compileSdk (34)
+    compileSdk = 34
     defaultConfig {
-        applicationId ("com.android.example.colormyviews")
-        minSdkVersion (21)
-        targetSdkVersion (34)
-        versionCode (1)
-        versionName ("1.0")
-        testInstrumentationRunner ("android.support.test.runner.AndroidJUnitRunner")
+        applicationId = "com.android.example.colormyviews"
+        minSdk = 21
+        targetSdk = 34
+        versionCode = 1
+        versionName = "1.0"
+        testInstrumentationRunner = "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
         release {
-            minifyEnabled (false)
-            proguardFiles (getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            isMinifyEnabled = false
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     compileOptions {
@@ -41,14 +47,13 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
-        viewBinding (true)
+        viewBinding = true
     }
-    namespace ("com.android.example.colormyviews")
+    namespace = "com.android.example.colormyviews"
 
 }
 
 dependencies {
-    implementation (fileTree(dir: "libs", include: ["*.jar"]))
-    implementation ("androidx.appcompat:appcompat:1.6.1")
-    implementation ("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 }
