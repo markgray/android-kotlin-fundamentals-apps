@@ -38,7 +38,11 @@ allprojects {
         mavenCentral()
     }
 }
-
 tasks.register("clean", Delete) {
     delete rootProject.layout.buildDir
 }
+// Becomes:
+//tasks.register("clean", Delete::class) {
+//    delete(rootProject.layout.buildDir)
+//}
+
