@@ -16,15 +16,16 @@
 
 package com.android.example.aboutme
 
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
 import android.os.Bundle
+import androidx.activity.enableEdgeToEdge
 
 /**
  * Main Activity of the AboutMe app. This app demonstrates:
  *  * LinearLayout with TextViews, ImageView, and ScrollView
  *  * ScrollView to display scrollable text
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     /**
      * Called when the activity is starting. We just set our content view to our layout file
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
      * @param savedInstanceState we do not implement [onSaveInstanceState], so do not use
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
