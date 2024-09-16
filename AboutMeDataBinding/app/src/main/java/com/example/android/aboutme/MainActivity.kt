@@ -20,7 +20,8 @@ import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.databinding.DataBindingUtil
 import com.example.android.aboutme.databinding.ActivityMainBinding
 
@@ -35,7 +36,7 @@ import com.example.android.aboutme.databinding.ActivityMainBinding
  *  * Data binding between MainActivity and activity_main.xml. How to remove findViewById,
  *  and how to display data in views using the data binding object.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     /**
      * Binding handle associated with the inflated content view of our layout file (resource ID
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main)
 
         binding.myName = myName
