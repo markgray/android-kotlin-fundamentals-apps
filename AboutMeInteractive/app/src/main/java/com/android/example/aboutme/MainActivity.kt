@@ -17,7 +17,8 @@
 package com.android.example.aboutme
 
 import android.content.Context
-import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.InputMethodManager
@@ -32,7 +33,7 @@ import android.widget.TextView
  *  * Setting a click handler on a TextView.
  *  * Setting the visibility status of a view.
  */
-class MainActivity : AppCompatActivity() {
+class MainActivity : ComponentActivity() {
 
     /**
      * Called when the activity is starting. First we call our super's implementation of [onCreate],
@@ -46,6 +47,7 @@ class MainActivity : AppCompatActivity() {
      */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         findViewById<Button>(R.id.done_button).setOnClickListener {
