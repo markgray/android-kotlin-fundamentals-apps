@@ -21,7 +21,7 @@ pluginManagement {
     }
 }
 dependencyResolutionManagement {
-    @Suppress("UnstableApiUsage") // TODO: Keep an eye on this
+    @Suppress("UnstableApiUsage")
     repositories {
         google()
         mavenCentral()
