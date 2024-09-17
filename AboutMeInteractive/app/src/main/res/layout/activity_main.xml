@@ -22,6 +22,7 @@
     android:orientation="vertical"
     android:paddingStart="@dimen/layout_padding"
     android:paddingEnd="@dimen/layout_padding"
+    android:id="@+id/root_view"
     tools:context=".MainActivity">
 
     <TextView
