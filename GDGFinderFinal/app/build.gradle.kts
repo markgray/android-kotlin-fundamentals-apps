@@ -68,6 +68,7 @@ dependencies {
 
     // material design components
     implementation("com.google.android.material:material:1.12.0")
+    implementation("androidx.activity:activity-ktx:1.9.2")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.0")
