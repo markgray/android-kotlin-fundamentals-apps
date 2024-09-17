@@ -20,13 +20,12 @@ import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import com.android.example.colormyviews.databinding.ActivityMainBinding
-import androidx.core.view.updateLayoutParams as updateLayoutParams1
 
 /**
  * The ColorMyViews app demonstrates how to use a `ConstraintLayout` using the Layout Editor.
