@@ -18,6 +18,7 @@ package com.example.android.navigation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.findNavController
@@ -62,6 +63,7 @@ class MainActivity : AppCompatActivity() {
             this,
             R.layout.activity_main
         )
+        enableEdgeToEdge()
 
         drawerLayout = binding.drawerLayout
 
