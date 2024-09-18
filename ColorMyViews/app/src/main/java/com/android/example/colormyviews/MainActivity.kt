@@ -59,10 +59,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
-            // Apply the insets as a margin to the view. This solution sets
-            // only the bottom, left, and right dimensions, but you can apply whichever
-            // insets are appropriate to your layout. You can also update the view padding
-            // if that's more appropriate.
+            // Apply the insets as a margin to the view.
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left
                 bottomMargin = insets.bottom
