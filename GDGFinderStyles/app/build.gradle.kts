@@ -58,6 +58,7 @@ android {
 }
 
 dependencies {
+    implementation("androidx.activity:activity-ktx:1.9.2")
     // Constraint Layout
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
