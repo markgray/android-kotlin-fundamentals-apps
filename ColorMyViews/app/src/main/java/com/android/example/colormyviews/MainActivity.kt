@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity() {
      * shut down then this Bundle contains the data it most recently supplied in [onSaveInstanceState]
      */
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         enableEdgeToEdge()
+        super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->

@@ -62,12 +62,12 @@ class MainActivity : AppCompatActivity() {
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
      */
     override fun onCreate(savedInstanceState: Bundle?) {
+        enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         val binding = DataBindingUtil.setContentView<ActivityMainBinding>(
             this,
             R.layout.activity_main
         )
-        enableEdgeToEdge()
 
         drawerLayout = binding.drawerLayout
         ViewCompat.setOnApplyWindowInsetsListener(drawerLayout) { v, windowInsets ->
