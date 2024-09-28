@@ -56,7 +56,6 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(binding.root)
         ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view.
@@ -71,7 +70,7 @@ class MainActivity : AppCompatActivity() {
             // down to descendant views.
             WindowInsetsCompat.CONSUMED
         }
-
+        setContentView(binding.root)
 
         setListeners()
     }
