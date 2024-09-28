@@ -70,7 +70,7 @@ class MainActivity : AppCompatActivity() {
         )
 
         drawerLayout = binding.drawerLayout
-        ViewCompat.setOnApplyWindowInsetsListener(drawerLayout) { v, windowInsets ->
+        ViewCompat.setOnApplyWindowInsetsListener(binding.root) { v, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view.
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
