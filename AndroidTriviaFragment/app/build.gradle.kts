@@ -21,14 +21,14 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildFeatures {
         dataBinding = true
     }
     defaultConfig {
         applicationId = "com.example.android.navigation"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         vectorDrawables.useSupportLibrary = true
         versionCode = 1
         versionName = "1.0"
@@ -55,9 +55,9 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.21")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.activity:activity-ktx:1.9.2")
+    implementation("androidx.activity:activity-ktx:1.9.3")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation("junit:junit:4.13.2")
