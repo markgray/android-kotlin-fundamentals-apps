@@ -24,14 +24,14 @@ plugins {
 }
 
 android {
-    compileSdk = 34
+    compileSdk = 35
     buildFeatures {
         dataBinding = true
     }
     defaultConfig {
         applicationId = "com.example.android.gdgfinder"
         minSdk = 21
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -70,8 +70,8 @@ dependencies {
     implementation("androidx.core:core-ktx:1.13.1")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
     // RecyclerView
     implementation("androidx.recyclerview:recyclerview:1.3.2")
