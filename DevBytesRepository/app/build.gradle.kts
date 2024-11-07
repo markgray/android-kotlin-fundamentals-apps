@@ -67,10 +67,10 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     // Android KTX
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
 
     // constraint layout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // navigation
     implementation("androidx.navigation:navigation-runtime-ktx:2.8.3")
