@@ -61,14 +61,14 @@ dependencies {
     // Kotlin
 
     // Constraint Layout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.3")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.9.0")
@@ -80,7 +80,7 @@ dependencies {
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.6")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.7")
 
     // material design components
     implementation("com.google.android.material:material:1.12.0")
