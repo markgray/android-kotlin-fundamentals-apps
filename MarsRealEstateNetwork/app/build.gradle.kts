@@ -59,7 +59,7 @@ dependencies {
     // Kotlin
 
     // Constraint Layout
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
@@ -69,7 +69,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.13.1")
+    implementation("androidx.core:core-ktx:1.15.0")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.1")
