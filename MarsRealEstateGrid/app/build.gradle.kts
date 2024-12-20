@@ -66,8 +66,8 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.8.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.8.4")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.8.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.8.5")
 
     // Core with Ktx
     implementation("androidx.core:core-ktx:1.15.0")
