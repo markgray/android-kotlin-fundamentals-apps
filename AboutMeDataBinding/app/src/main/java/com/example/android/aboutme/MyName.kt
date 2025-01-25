@@ -21,11 +21,11 @@ package com.example.android.aboutme
  */
 data class MyName(
     /**
-     * This is the name that will be displayed in the [R.id.name_text] `TextView`
+     * This is the name that will be displayed in the `R.id.name_text` `TextView`
      */
     var name: String = "",
     /**
-     * This is the nickname that will be displayed in the [R.id.nickname_text] `TextView`
+     * This is the nickname that will be displayed in the `R.id.nickname_text` `TextView`
      */
     var nickname: String = "")
 

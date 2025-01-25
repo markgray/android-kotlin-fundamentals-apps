@@ -16,7 +16,6 @@
 
 package com.example.android.aboutme
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -44,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
     /**
      * Binding handle associated with the inflated content view of our layout file (resource ID
-     * [R.layout.activity_main] which we can use to reference views in it.
+     * `R.layout.activity_main` which we can use to reference views in it.
      */
     private lateinit var binding: ActivityMainBinding
 
@@ -118,7 +117,7 @@ class MainActivity : ComponentActivity() {
         }
 
         // Hide the keyboard.
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 }
