@@ -34,14 +34,14 @@ import com.android.example.colormyviews.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
 
     /**
-     * Binding to our layout file [R.layout.activity_main], initialized in our [onCreate] override.
+     * Binding to our layout file `R.layout.activity_main`, initialized in our [onCreate] override.
      */
     private lateinit var binding: ActivityMainBinding
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`.
      * Then we use the [ActivityMainBinding.inflate] method with the LayoutInflater instance that
-     * this Window retrieved from its Context to inflate our layout file [R.layout.activity_main]
+     * this Window retrieved from its Context to inflate our layout file `R.layout.activity_main`
      * into an [ActivityMainBinding] instance which we use to initialize our field [binding], and
      * set our content view to the outermost View in the associated layout file associated with
      * [ActivityMainBinding]. Finally we call our [setListeners] method to have it set the
