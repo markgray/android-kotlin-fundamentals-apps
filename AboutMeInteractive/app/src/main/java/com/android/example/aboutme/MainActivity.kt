@@ -104,7 +104,7 @@ class MainActivity : ComponentActivity() {
         nicknameTextView.visibility = View.VISIBLE
 
         // Hide the keyboard.
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
 
     }
@@ -135,7 +135,7 @@ class MainActivity : ComponentActivity() {
         editText.requestFocus()
 
         // Show the keyboard.
-        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = getSystemService(INPUT_METHOD_SERVICE) as InputMethodManager
         imm.showSoftInput(editText, 0)
     }
 }
