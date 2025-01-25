@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
 
     /**
      * Called when the activity is starting. We just set our content view to our layout file
-     * [R.layout.activity_main].
+     * `R.layout.activity_main`.
      *
      * @param savedInstanceState we do not implement [onSaveInstanceState], so do not use
      */
