@@ -34,7 +34,7 @@ class GameWonFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. This will be called between
      * [onCreate] and [onActivityCreated]. We initialize our [FragmentGameWonBinding] variable
      * `val binding` by having the [DataBindingUtil.inflate] method use our [LayoutInflater]
-     * parameter [inflater] to inflate our layout file [R.layout.fragment_game_won], using our
+     * parameter [inflater] to inflate our layout file `R.layout.fragment_game_won`, using our
      * [ViewGroup] parameter [container] for its LayoutParams without attaching to it. We then set
      * the `OnClickListener` of the `nextMatchButton` button of `binding` to a lambda which navigates
      * to the `GameFragment`. Finally we return the `root` property of `binding` (the outermost [View]

@@ -35,7 +35,7 @@ class AboutFragment : Fragment() {
      * the returned View to [onViewCreated].
      *
      * We use our [LayoutInflater] parameter [inflater] to inflate our layout file (resource ID
-     * [R.layout.fragment_about]) into a [View] using our [ViewGroup] parameter [container] for
+     * `R.layout.fragment_about`) into a [View] using our [ViewGroup] parameter [container] for
      * LayoutParams without attaching to it, and return that view to our caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate any views.

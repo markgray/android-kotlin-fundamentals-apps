@@ -109,7 +109,7 @@ class GameFragment : Fragment() {
      *
      * We initialize our [FragmentGameBinding] binding variable `val binding` by having the method
      * [DataBindingUtil.inflate] use our [LayoutInflater] parameter [inflater] to inflate our binding
-     * layout file (resource ID [R.layout.fragment_game]), with its LayoutParams generated from our
+     * layout file (resource ID `R.layout.fragment_game`), with its LayoutParams generated from our
      * [ViewGroup] parameter [container] without attaching to it. Then we call our method
      * [randomizeQuestions] to have it shuffle the questions and set the question index to the first
      * question. We set the `game` variable in our `binding` to our layout to `this`. We set the

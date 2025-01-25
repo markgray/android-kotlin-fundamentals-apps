@@ -29,7 +29,7 @@ class RulesFragment : Fragment() {
     /**
      * Called to have the fragment instantiate its user interface view. We just return the [View]
      * that the `inflate` method of our [LayoutInflater] parameter [inflater] returns when it
-     * inflates a new view hierarchy from our layout file [R.layout.fragment_rules] using our
+     * inflates a new view hierarchy from our layout file `R.layout.fragment_rules` using our
      * [ViewGroup] parameter [container] for our LayoutParams without attaching to it.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
