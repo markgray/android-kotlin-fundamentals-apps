@@ -36,9 +36,9 @@ class TitleFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. We initialize our
      * [FragmentTitleBinding] variable `val binding` to the binding returned by the method
      * [DataBindingUtil.inflate] when it uses our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.fragment_title] using our [ViewGroup] parameter
+     * inflate our layout file `R.layout.fragment_title` using our [ViewGroup] parameter
      * [container] for its LayoutParams without attaching to it. We then set the `OnClickListener`
-     * of the `playButton` property of `binding` (the button with ID [R.id.playButton]) to a
+     * of the `playButton` property of `binding` (the button with ID `R.id.playButton`) to a
      * lambda which finds the `NavController` associated with the [View] clicked and uses it to
      * navigate to the `GameFragment`. We initialize our [MenuHost] variable `val menuHost` to
      * to the `FragmentActivity` this fragment is currently associated with, then call its
@@ -64,7 +64,7 @@ class TitleFragment : Fragment() {
 
         /**
          * The [FragmentTitleBinding] binding object associated with our inflated layout file
-         * [R.layout.fragment_title].
+         * `R.layout.fragment_title`.
          */
         val binding = DataBindingUtil.inflate<FragmentTitleBinding>(
             inflater,
@@ -88,7 +88,7 @@ class TitleFragment : Fragment() {
         /**
          * Initialize the contents of the Fragment host's standard options menu. We use our
          * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
-         * [R.menu.options_menu] into our [Menu] parameter [menu].
+         * `R.menu.options_menu` into our [Menu] parameter [menu].
          *
          * @param menu The options menu in which you place your items.
          * @param menuInflater a [MenuInflater] you can use to inflate an XML menu file with.

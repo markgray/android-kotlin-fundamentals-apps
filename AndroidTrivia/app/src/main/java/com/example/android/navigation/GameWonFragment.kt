@@ -41,7 +41,7 @@ class GameWonFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. This will be called between
      * [onCreate] and [onActivityCreated]. We initialize our [FragmentGameWonBinding] variable
      * `val binding` by having the [DataBindingUtil.inflate] method use our [LayoutInflater]
-     * parameter [inflater] to inflate our layout file [R.layout.fragment_game_won], using our
+     * parameter [inflater] to inflate our layout file `R.layout.fragment_game_won`, using our
      * [ViewGroup] parameter [container] for its LayoutParams without attaching to it. We then set
      * the `OnClickListener` of the `nextMatchButton` button of `binding` to a lambda which navigates
      * to the `GameFragment`. We then initialize our `GameWonFragmentArgs` variable `val args` to
@@ -100,9 +100,9 @@ class GameWonFragment : Fragment() {
         /**
          * Initialize the contents of the Fragment host's standard options menu. We use our
          * [MenuInflater] parameter [menuInflater] to inflate our menu layout file
-         * [R.menu.winner_menu] into our [Menu] parameter [menu]. If the `resolveActivity` method
+         * `R.menu.winner_menu` into our [Menu] parameter [menu]. If the `resolveActivity` method
          * of the [Intent] created by our [getShareIntent] method is unable to find an activity
-         * which can handle we set the visibility of the menu item in [menu] with the id [R.id.share]
+         * which can handle we set the visibility of the menu item in [menu] with the id `R.id.share`
          * to invisible.
          *
          * @param menu The options menu in which you place your items.
@@ -119,7 +119,7 @@ class GameWonFragment : Fragment() {
 
         /**
          * This hook is called whenever an item in your options menu is selected. When the ID of our
-         * [MenuItem] parameter [menuItem] is [R.id.share] we call our method [shareSuccess] (which
+         * [MenuItem] parameter [menuItem] is `R.id.share` we call our method [shareSuccess] (which
          * will launch another activity which will "share" our game results). In any case we then
          * return `true` to consume the event here.
          *
@@ -163,7 +163,7 @@ class GameWonFragment : Fragment() {
     /**
      * Starting an Activity with our new Intent. We just call the [startActivity] method with the
      * [Intent] created by our [getShareIntent] method. Called from our [onOptionsItemSelected]
-     * override when the `itemId` of the [MenuItem] selected is [R.id.share].
+     * override when the `itemId` of the [MenuItem] selected is `R.id.share`.
      */
     private fun shareSuccess() {
         startActivity(getShareIntent())
