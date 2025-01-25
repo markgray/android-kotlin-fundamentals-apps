@@ -34,7 +34,7 @@ class GameOverFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. This will be called between
      * [onCreate] and [onActivityCreated]. We initialize our [FragmentGameOverBinding] variable
      * `val binding` by having the [DataBindingUtil.inflate] method use our [LayoutInflater]
-     * parameter [inflater] to inflate our layout file [R.layout.fragment_game_over], using our
+     * parameter [inflater] to inflate our layout file `R.layout.fragment_game_over`, using our
      * [ViewGroup] parameter [container] for its LayoutParams without attaching to it. Finally we
      * return the `root` property of `binding` (the outermost [View] in the layout file associated
      * with the Binding) to the caller.

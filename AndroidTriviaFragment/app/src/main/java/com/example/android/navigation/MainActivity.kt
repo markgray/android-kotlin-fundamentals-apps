@@ -36,7 +36,7 @@ class MainActivity : AppCompatActivity() {
      * Called when the activity is starting. First we call our super's implementation of `onCreate`.
      * We then initialize our [ActivityMainBinding] variable `val binding` to the binding object
      * that the [DataBindingUtil.setContentView] method returns when it inflates our layout file
-     * [R.layout.activity_main] into a view which it sets as content view (binding object is
+     * `R.layout.activity_main` into a view which it sets as content view (binding object is
      * associated with the inflated content view of course).
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.

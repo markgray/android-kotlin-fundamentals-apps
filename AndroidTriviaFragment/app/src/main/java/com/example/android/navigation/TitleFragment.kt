@@ -33,7 +33,7 @@ class TitleFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. We initialize our
      * [FragmentTitleBinding] variable `val binding` to the binding returned by the method
      * [DataBindingUtil.inflate] when it uses our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.fragment_title] using our [ViewGroup] parameter
+     * inflate our layout file `R.layout.fragment_title` using our [ViewGroup] parameter
      * [container] for its LayoutParams without attaching to it. Finally we return the `root`
      * property of `binding` (the outermost [View] in the layout file associated with the Binding)
      * to the caller.
