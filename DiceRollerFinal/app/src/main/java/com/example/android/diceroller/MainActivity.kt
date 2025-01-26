@@ -37,16 +37,16 @@ import androidx.core.view.updateLayoutParams
 class MainActivity : AppCompatActivity() {
 
     /**
-     * The [ImageView] in our layout file with ID [R.id.dice_image]
+     * The [ImageView] in our layout file with ID `R.id.dice_image`
      */
     lateinit var diceImage: ImageView
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
-     * then we set our content view to our layout file [R.layout.activity_main]. We initialize our
-     * [Button] variable `val rollButton` by finding the view with ID [R.id.roll_button] and set its
+     * then we set our content view to our layout file `R.layout.activity_main`. We initialize our
+     * [Button] variable `val rollButton` by finding the view with ID `R.id.roll_button` and set its
      * `OnClickListener` to a lambda which calls our [rollDice] method. We initialize our [ImageView]
-     * field `var diceImage` by finding the view with ID [R.id.dice_image]
+     * field `var diceImage` by finding the view with ID `R.id.dice_image`
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
      * shut down then this Bundle contains the data it most recently supplied in an override of
@@ -85,12 +85,12 @@ class MainActivity : AppCompatActivity() {
      * from the [IntRange] 1 to 6. We use a `when` statement to initialize our [Int] variable
      * `val drawableResource` based on the value of `randomInt`:
      *
-     *  1. The resource ID [R.drawable.dice_1]
-     *  2. The resource ID [R.drawable.dice_2]
-     *  3. The resource ID [R.drawable.dice_3]
-     *  4. The resource ID [R.drawable.dice_4]
-     *  5. The resource ID [R.drawable.dice_5]
-     *  6. (or anything else) The resource ID [R.drawable.dice_6]
+     *  1. The resource ID `R.drawable.dice_1`
+     *  2. The resource ID `R.drawable.dice_2`
+     *  3. The resource ID `R.drawable.dice_3`
+     *  4. The resource ID `R.drawable.dice_4`
+     *  5. The resource ID `R.drawable.dice_5`
+     *  6. (or anything else) The resource ID `R.drawable.dice_6`
      *
      * Then we set the content of our [ImageView] field [diceImage] to the drawable with resourse ID
      * `drawableResource`.
