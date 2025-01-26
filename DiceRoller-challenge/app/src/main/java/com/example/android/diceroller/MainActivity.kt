@@ -36,10 +36,10 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
-     * then we set our content view to our layout file [R.layout.activity_main]. We initialize our
-     * [Button] variable `val rollButton` by finding the view with ID [R.id.roll_button] and set its
+     * then we set our content view to our layout file `R.layout.activity_main`. We initialize our
+     * [Button] variable `val rollButton` by finding the view with ID `R.id.roll_button` and set its
      * `OnClickListener` to a lambda which calls our [rollDice] method. We initialize our [Button]
-     * variable `val countButton` by finding the view with ID [R.id.countup_button] and set its
+     * variable `val countButton` by finding the view with ID `R.id.countup_button` and set its
      * `OnClickListener` to a lambda which calls our [countUp] method.
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
@@ -80,7 +80,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Click listener for the Roll button. We initialize our variable `val randomInt` to an [Int]
      * from the [IntRange] 1 to 6. We initialize our [TextView] variable `val resultText` by
-     * finding the view with ID [R.id.result_text] and set its text to the [String] value of
+     * finding the view with ID `R.id.result_text` and set its text to the [String] value of
      * `randomInt`.
      */
     private fun rollDice() {
@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Click listener for the countUp button. We initialize our [TextView] variable `val resultText`
-     * by finding the view with ID [R.id.result_text] and if its text is the default "Hello World!"
+     * by finding the view with ID `R.id.result_text` and if its text is the default "Hello World!"
      * we set its text to "1", otherwise we initialize our [Int] variable `var resultInt` to the
      * [Int] value of the `text` property of `resultText`. If `resultInt` is less than 6 we increment
      * `resultInt` and set the text of `resultText` to the [String] value of `resultInt`.
