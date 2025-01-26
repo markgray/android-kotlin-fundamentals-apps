@@ -97,7 +97,7 @@ class DevByteFragment : Fragment() {
      * Called to have the fragment instantiate its user interface view. First we initialize our
      * [FragmentDevByteBinding] variable `val binding` to the binding returned by the method
      * [DataBindingUtil.inflate] when it uses our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.fragment_dev_byte] using our [ViewGroup] parameter
+     * inflate our layout file `R.layout.fragment_dev_byte` using our [ViewGroup] parameter
      * [container] for the `LayoutParams` without attaching to it. We set the `lifecycleOwner`
      * property of `binding` to a LifecycleOwner that represents this Fragment's View lifecycle,
      * and set the `viewModel` variable of `binding` to our [DevByteViewModel] field [viewModel].
@@ -112,7 +112,7 @@ class DevByteFragment : Fragment() {
      * starts an activity to handle `intent`.
      *
      * Next we find the [RecyclerView] in the `root` view property of `binding` with ID
-     * [R.id.recycler_view] and set its `layoutManager` property to an instance of
+     * `R.id.recycler_view` and set its `layoutManager` property to an instance of
      * [LinearLayoutManager] and set its `adapter` property to our [DevByteAdapter] field
      * [viewModelAdapter]. We set an [Observer] for the `eventNetworkError` [Boolean] `LiveData`
      * property of [viewModel] (event triggered for network error) whose lambda calls our
@@ -265,7 +265,7 @@ class DevByteAdapter(val callback: VideoClick) : RecyclerView.Adapter<DevByteVie
     /**
      * Called when [RecyclerView] needs a new [DevByteViewHolder] of the given type to represent
      * an item. We initialize our variable `val withDataBinding` to the [DevbyteItemBinding] binding
-     * object that the [DataBindingUtil.inflate] returns when it inflates the [R.layout.devbyte_item]
+     * object that the [DataBindingUtil.inflate] returns when it inflates the `R.layout.devbyte_item`
      * layout file layout/devbyte_item.xml using our [ViewGroup] parameter [parent] for the layout
      * params without attaching to it. Then we return a new instance of [DevByteViewHolder]
      * constructed to use `withDataBinding` as the [DevbyteItemBinding] binding to the view it
