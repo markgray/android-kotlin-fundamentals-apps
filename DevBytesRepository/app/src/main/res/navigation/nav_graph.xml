@@ -21,6 +21,7 @@
     android:id="@+id/nav_graph"
     app:startDestination="@id/devByte">
 
+    <!--suppress NavigationFile -->
     <fragment
         android:id="@+id/devByte"
         android:name="com.example.android.devbyteviewer.ui.DevByteFragment"
