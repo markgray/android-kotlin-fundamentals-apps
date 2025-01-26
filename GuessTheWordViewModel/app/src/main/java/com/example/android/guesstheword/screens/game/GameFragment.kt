@@ -35,7 +35,7 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
 class GameFragment : Fragment() {
 
     /**
-     * [GameFragmentBinding] inflated from our layout file [R.layout.game_fragment]/
+     * [GameFragmentBinding] inflated from our layout file `R.layout.game_fragment`/
      */
     private lateinit var binding: GameFragmentBinding
 
@@ -49,7 +49,7 @@ class GameFragment : Fragment() {
      * [onCreate] and [onActivityCreated]. It is recommended to only inflate the layout in this
      * method and move logic that operates on the returned View to [onViewCreated]. We have the
      * [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to inflate
-     * our layout file [R.layout.game_fragment] using our [ViewGroup] parameter [container] for the
+     * our layout file `R.layout.game_fragment` using our [ViewGroup] parameter [container] for the
      * LayoutParams without attaching to it and use the [GameFragmentBinding] binding to the result
      * that it returns to initialize our field [binding]. We create `ViewModelProvider` with `this`
      * as the `ViewModelStoreOwner` and call its `get` method to retrieve an existing ViewModel or
@@ -57,11 +57,11 @@ class GameFragment : Fragment() {
      * returns.
      *
      * We set the `OnClickListener` of the `correctButton` property of [binding] (the button with
-     * ID [R.id.correct_button] in our layout file labeled "Got it") to a lambda that calls our
+     * ID `R.id.correct_button` in our layout file labeled "Got it") to a lambda that calls our
      * method [onCorrect], we set the `OnClickListener` of the `skipButton` property of [binding]
-     * (the button with ID [R.id.skip_button] in our layout file labeled "Skip") to a lambda that
+     * (the button with ID `R.id.skip_button` in our layout file labeled "Skip") to a lambda that
      * calls our method [onSkip], and we set the `OnClickListener` of the `endGameButton` property
-     * of [binding] (the button with ID [R.id.end_game_button] in our layout file labeled "End game")
+     * of [binding] (the button with ID `R.id.end_game_button` in our layout file labeled "End game")
      * to a lambda that calls our method [onEndGame].
      *
      * We call our method [updateScoreText] to set the text of `wordText` property of [binding] to
@@ -111,7 +111,7 @@ class GameFragment : Fragment() {
 
     /**
      * This is called when the "Skip" button is clicked (`skipButton` property of [binding], aka
-     * resource ID [R.id.skip_button] in our layout file). First we call the `onSkip` method of
+     * resource ID `R.id.skip_button` in our layout file). First we call the `onSkip` method of
      * [GameViewModel] field [viewModel] which decrements our score by 1 and advances to the next
      * word. Then we call our method [updateWordText] to update the text of the `wordText`
      * `TextView` property of [binding] to the new `word` of our [viewModel], and we call our
@@ -126,7 +126,7 @@ class GameFragment : Fragment() {
 
     /**
      * This is called when the "Got it" button is clicked (`correctButton` property of [binding],
-     * aka resource ID [R.id.correct_button] in our layout file). First we call the `onCorrect`
+     * aka resource ID `R.id.correct_button` in our layout file). First we call the `onCorrect`
      * method of [GameViewModel] field [viewModel] which increments our score by 1 and advances
      * to the next word. Then we call our method [updateWordText] to update the text of the
      * `wordText` `TextView` property of [binding] to the new `word` of our [viewModel], and we
@@ -141,7 +141,7 @@ class GameFragment : Fragment() {
 
     /**
      * This is called when the "End game" button is clicked (`endGameButton` property of [binding],
-     * aka resource ID [R.id.end_game_button] in our layout file). We just call our [gameFinished]
+     * aka resource ID `R.id.end_game_button` in our layout file). We just call our [gameFinished]
      * method which toasts the message "Game has just finished", creates an `ActionGameToScore`
      * "action", sets the `score` property [viewModel] as the `score` argument of the action and
      * then uses that action to navigate to the `ScoreFragment`.
@@ -154,7 +154,7 @@ class GameFragment : Fragment() {
 
     /**
      * Sets the text of the `TextView` of the `wordText` property of [binding] (aka resource ID
-     * [R.id.word_text]) to the `word` property of our [GameViewModel] field [viewModel] (the next
+     * `R.id.word_text`) to the `word` property of our [GameViewModel] field [viewModel] (the next
      * word to guess).
      */
     private fun updateWordText() {
@@ -164,7 +164,7 @@ class GameFragment : Fragment() {
 
     /**
      * Sets the text of the `TextView` of the `scoreText` property of [binding] (aka resource ID
-     * [R.id.score_text]) to the [String] value of the `score` property of our [GameViewModel] field
+     * `R.id.score_text`) to the [String] value of the `score` property of our [GameViewModel] field
      * [viewModel] (the current score).
      */
     private fun updateScoreText() {

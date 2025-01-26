@@ -49,14 +49,14 @@ class ScoreFragment : Fragment() {
      * method and move logic that operates on the returned View to [onViewCreated].
      *
      * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.score_fragment] with our [ViewGroup] parameter [container]
+     * inflate our layout file `R.layout.score_fragment` with our [ViewGroup] parameter [container]
      * supplying the LayoutParams, and initialize our [ScoreFragmentBinding] variable `val binding`
      * to the binding object it returns. We create the [ViewModelProvider] with `this` as the
      * `ViewModelStoreOwner`, and [viewModelFactory] as the Factory which will be used to instantiate
      * new ViewModels, and call its `get` method to retrieve an existing [ScoreViewModel] ViewModel
      * or create a new one in this fragments scope, and set our [ScoreViewModel] field [viewModel]
      * to it. We set the text of the `scoreText` property of `binding` (the `TextView` with resource
-     * ID [R.id.score_text]) to the [String] value of the `score` property of [viewModel]. Finally
+     * ID `R.id.score_text`) to the [String] value of the `score` property of [viewModel]. Finally
      * we return the outermost View in the layout file associated with `binding` to the caller.
      *
      * @param inflater The [LayoutInflater] object that can be used to inflate
