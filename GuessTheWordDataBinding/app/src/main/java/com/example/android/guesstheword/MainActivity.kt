@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting. First we call our super's implementation of `onCreate`,
-     * then we set our content view to our layout file [R.layout.main_activity] (it contains a
+     * then we set our content view to our layout file `R.layout.main_activity` (it contains a
      * `NavHostFragment` with an app:navGraph="@navigation/main_navigation" attribute which causes
      * all the fragment navigation to be defined by the navigation/main_navigation.xml file. The
      * `TitleFragment` is the home (or starting fragment) for the app as specified by the
