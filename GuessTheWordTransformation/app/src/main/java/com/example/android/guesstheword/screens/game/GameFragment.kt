@@ -36,7 +36,7 @@ import com.example.android.guesstheword.databinding.GameFragmentBinding
 class GameFragment : Fragment() {
 
     /**
-     * [GameFragmentBinding] inflated from our layout file [R.layout.game_fragment].
+     * [GameFragmentBinding] inflated from our layout file `R.layout.game_fragment`.
      */
     private lateinit var binding: GameFragmentBinding
 
@@ -50,7 +50,7 @@ class GameFragment : Fragment() {
      * [onCreate] and [onActivityCreated]. It is recommended to only inflate the layout in this
      * method and move logic that operates on the returned View to [onViewCreated]. We have the
      * [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to inflate
-     * our layout file [R.layout.game_fragment] using our [ViewGroup] parameter [container] for the
+     * our layout file `R.layout.game_fragment` using our [ViewGroup] parameter [container] for the
      * LayoutParams without attaching to it and use the [GameFragmentBinding] binding to the result
      * that it returns to initialize our field [binding]. We create `ViewModelProvider` with `this`
      * as the `ViewModelStoreOwner` and call its `get` method to retrieve an existing ViewModel or

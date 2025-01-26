@@ -37,10 +37,10 @@ class TitleFragment : Fragment() {
      * method and move logic that operates on the returned View to [onViewCreated].
      *
      * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.title_fragment] with our [ViewGroup] parameter [container]
+     * inflate our layout file `R.layout.title_fragment` with our [ViewGroup] parameter [container]
      * supplying the LayoutParams, and initialize our [TitleFragmentBinding] variable `val binding`
      * to the binding object it returns. We set the `OnClickListener` of the `playGameButton`
-     * property of `binding` (the "Play" `Button` with ID [R.id.play_game_button]) to a lambda which
+     * property of `binding` (the "Play" `Button` with ID `R.id.play_game_button`) to a lambda which
      * finds a `NavController` for this fragment and uses its `navigate` method to navigate to the
      * `GameFragment`. Finally we return the outermost View in the layout file associated with
      * `binding` to the caller.

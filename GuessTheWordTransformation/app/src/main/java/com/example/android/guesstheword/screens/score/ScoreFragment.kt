@@ -50,7 +50,7 @@ class ScoreFragment : Fragment() {
      * method and move logic that operates on the returned View to [onViewCreated].
      *
      * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.score_fragment] with our [ViewGroup] parameter [container]
+     * inflate our layout file `R.layout.score_fragment` with our [ViewGroup] parameter [container]
      * supplying the LayoutParams, and initialize our [ScoreFragmentBinding] variable `val binding`
      * to the binding object it returns. We initialize our [ScoreViewModelFactory] field
      * [viewModelFactory] with a new instance constructed using the `score` safe args passed us by
