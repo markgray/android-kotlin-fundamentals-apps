@@ -50,7 +50,7 @@ class ScoreFragment : Fragment() {
      * method and move logic that operates on the returned View to [onViewCreated].
      *
      * We have the [DataBindingUtil.inflate] method use our [LayoutInflater] parameter [inflater] to
-     * inflate our layout file [R.layout.score_fragment] with our [ViewGroup] parameter [container]
+     * inflate our layout file `R.layout.score_fragment` with our [ViewGroup] parameter [container]
      * supplying the LayoutParams, and initialize our [ScoreFragmentBinding] variable `val binding`
      * to the binding object it returns.
      *
@@ -63,9 +63,9 @@ class ScoreFragment : Fragment() {
      * to it.
      *
      * We add an `Observer` to the `score` property of [viewModel] whose lambda sets the text of
-     * the `scoreText` property of `binding` (the `TextView` with ID [R.id.score_text] in our layout
+     * the `scoreText` property of `binding` (the `TextView` with ID `R.id.score_text` in our layout
      * file) to the [String] value of `score` whenever it changes value. We set the `OnClickListener`
-     * of the `playAgainButton` property of `binding` (the `Button` with ID [R.id.play_again_button]
+     * of the `playAgainButton` property of `binding` (the `Button` with ID `R.id.play_again_button`
      * in our layout file) to  a lambda which calls the `onPlayAgain` method of [viewModel] to have
      * it set the value of its `_eventPlayAgain` property to `true`. We add an `Observer` to the
      * `eventPlayAgain` property of [viewModel] (the public read-only version of `_eventPlayAgain`)
