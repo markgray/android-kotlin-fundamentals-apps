@@ -1,4 +1,4 @@
-Android Fundamentals in Kotlin Solution Apps
+ Android Fundamentals in Kotlin Solution Apps
 ===========================================
 
 This repository contains the solution code for the apps for the
