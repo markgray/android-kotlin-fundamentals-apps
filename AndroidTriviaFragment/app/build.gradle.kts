@@ -57,8 +57,8 @@ android {
 dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.10")
     implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.activity:activity-ktx:1.10.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.2.0")
+    implementation("androidx.activity:activity-ktx:1.10.1")
+    implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test:runner:1.6.2")
