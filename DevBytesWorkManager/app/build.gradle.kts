@@ -65,7 +65,7 @@ dependencies {
     implementation("com.google.android.material:material:1.12.0")
 
     // Android KTX
-    implementation("androidx.core:core-ktx:1.15.0")
+    implementation("androidx.core:core-ktx:1.16.0")
 
     // constraint layout
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
@@ -76,8 +76,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
 
     // coroutines for getting off the UI thread
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
     // retrofit for networking
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -104,8 +104,8 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:4.16.0")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.6.1")
-    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-runtime:2.7.0")
+    ksp("androidx.room:room-compiler:2.7.0")
 
     // WorkManager dependency
     implementation("androidx.work:work-runtime-ktx:2.10.0")
