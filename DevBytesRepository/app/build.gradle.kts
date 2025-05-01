@@ -78,8 +78,8 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.8.9")
 
     // coroutines for getting off the UI thread
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.1")
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
 
     // retrofit for networking
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
@@ -106,6 +106,6 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:4.16.0")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.7.0")
-    ksp("androidx.room:room-compiler:2.7.0")
+    implementation("androidx.room:room-runtime:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
 }
