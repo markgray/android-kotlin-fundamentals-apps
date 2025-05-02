@@ -104,9 +104,9 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:4.16.0")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.7.0")
-    ksp("androidx.room:room-compiler:2.7.0")
+    implementation("androidx.room:room-runtime:2.7.1")
+    ksp("androidx.room:room-compiler:2.7.1")
 
     // WorkManager dependency
-    implementation("androidx.work:work-runtime-ktx:2.10.0")
+    implementation("androidx.work:work-runtime-ktx:2.10.1")
 }
