@@ -58,7 +58,7 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.20")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.21")
 
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.0")
