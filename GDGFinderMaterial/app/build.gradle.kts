@@ -80,7 +80,7 @@ dependencies {
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.0")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.1")
 
     // material design components
     implementation("com.google.android.material:material:1.12.0")
