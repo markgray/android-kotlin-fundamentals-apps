@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 /*
  * Copyright 2018, The Android Open Source Project
  *
@@ -21,14 +23,14 @@ plugins {
 }
 
 android {
-    compileSdk = 35
+    compileSdk = 36
     buildFeatures {
         dataBinding = true
     }
     defaultConfig {
         applicationId = "com.example.android.navigation"
         minSdk = 21
-        targetSdk = 35
+        targetSdk = 36
         vectorDrawables.useSupportLibrary = true
         versionCode = 1
         versionName = "1.0"
@@ -47,15 +49,16 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-    kotlinOptions {
-        jvmTarget = "17"
+    kotlin {
+        compilerOptions {
+            jvmTarget = JvmTarget.JVM_17
+        }
     }
-
     namespace = "com.example.android.navigation"
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.1.21")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.0")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-ktx:1.10.1")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
