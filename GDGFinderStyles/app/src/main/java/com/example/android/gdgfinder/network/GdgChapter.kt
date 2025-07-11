@@ -38,8 +38,8 @@ import kotlinx.parcelize.Parcelize
  */
 @Parcelize
 data class GdgChapter(
-    @Json(name = "chapter_name") val name: String,
-    @Json(name = "cityarea") val city: String,
+    @param:Json(name = "chapter_name") val name: String,
+    @param:Json(name = "cityarea") val city: String,
     val country: String,
     val region: String,
     val website: String,
@@ -55,7 +55,7 @@ data class GdgChapter(
 @Parcelize
 data class LatLong(
     val lat: Double,
-    @Json(name = "lng") val long: Double
+    @param:Json(name = "lng") val long: Double
 ) : Parcelable
 
 /**
@@ -68,8 +68,8 @@ data class LatLong(
  */
 @Parcelize
 data class GdgResponse(
-    @Json(name = "filters_") val filters: Filter,
-    @Json(name = "data") val chapters: List<GdgChapter>
+    @param:Json(name = "filters_") val filters: Filter,
+    @param:Json(name = "data") val chapters: List<GdgChapter>
 ) : Parcelable
 
 /**
@@ -79,7 +79,7 @@ data class GdgResponse(
  */
 @Parcelize
 data class Filter(
-    @Json(name = "region") val regions: List<String>
+    @param:Json(name = "region") val regions: List<String>
 ) : Parcelable
 
 //"chapter_name": "GDG Bordj Bou-Arréridj",
