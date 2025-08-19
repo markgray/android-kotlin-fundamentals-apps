@@ -42,6 +42,7 @@ import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.location.Priority
 import com.google.android.material.snackbar.Snackbar
+import androidx.core.net.toUri
 
 /**
  * [String] used to request the "ACCESS_FINE_LOCATION" permission.
@@ -109,7 +110,7 @@ class GdgListFragment : Fragment() {
         binding.viewModel = viewModel
 
         val adapter = GdgListAdapter(GdgClickListener { chapter ->
-            val destination = Uri.parse(chapter.website)
+            val destination = chapter.website.toUri()
             startActivity(Intent(Intent.ACTION_VIEW, destination))
         })
 

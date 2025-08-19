@@ -55,7 +55,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.core:core-ktx:1.17.0")
 
     // Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
