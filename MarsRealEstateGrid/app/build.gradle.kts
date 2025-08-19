@@ -57,7 +57,7 @@ dependencies {
     implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
 
     // Core with Ktx
-    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("androidx.core:core-ktx:1.17.0")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.2")
