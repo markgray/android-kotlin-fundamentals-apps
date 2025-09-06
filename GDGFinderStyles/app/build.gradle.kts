@@ -64,12 +64,12 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.4.0")
 
     // material design components
-    implementation("com.google.android.material:material:1.12.0")
+    implementation("com.google.android.material:material:1.13.0")
 
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.3")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.2")
@@ -83,7 +83,7 @@ dependencies {
     implementation("com.jakewharton.retrofit:retrofit2-kotlin-coroutines-adapter:0.9.2")
 
     // Glide
-    implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.github.bumptech.glide:glide:5.0.4")
 
     // Client for retrieving location
     implementation("com.google.android.gms:play-services-location:21.3.0")
