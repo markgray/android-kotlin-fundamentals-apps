@@ -16,6 +16,7 @@
 
 package com.example.android.devbyteviewer
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.os.Build
 import androidx.work.Constraints
@@ -92,26 +93,28 @@ class DevByteApplication : Application() {
      */
     private fun setupRecurringWork() {
 
-        val constraints = Constraints.Builder()
-            .setRequiredNetworkType(NetworkType.UNMETERED)
-            .setRequiresCharging(true)
-            .setRequiresBatteryNotLow(true)
+        val constraints: Constraints = Constraints.Builder()
+            .setRequiredNetworkType(networkType = NetworkType.UNMETERED)
+            .setRequiresCharging(requiresCharging = true)
+            .setRequiresBatteryNotLow(requiresBatteryNotLow = true)
             .apply {
+                @SuppressLint("ObsoleteSdkInt")
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    setRequiresDeviceIdle(true)
+                    setRequiresDeviceIdle(requiresDeviceIdle = true)
                 }
             }
             .build()
 
         val repeatingRequest = PeriodicWorkRequestBuilder<RefreshDataWorker>(
-            1,
-            TimeUnit.DAYS
+            repeatInterval = 1,
+            repeatIntervalTimeUnit = TimeUnit.DAYS
         ).setConstraints(constraints).build()
 
-        Timber.d("WorkManager: Periodic Work request for sync is scheduled")
+        Timber.d(message = "WorkManager: Periodic Work request for sync is scheduled")
         WorkManager.getInstance(this).enqueueUniquePeriodicWork(
-            RefreshDataWorker.WORK_NAME,
-            ExistingPeriodicWorkPolicy.KEEP,
-            repeatingRequest)
+            uniqueWorkName = RefreshDataWorker.WORK_NAME,
+            existingPeriodicWorkPolicy = ExistingPeriodicWorkPolicy.KEEP,
+            request = repeatingRequest
+        )
     }
 }
