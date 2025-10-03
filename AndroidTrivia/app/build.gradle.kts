@@ -45,7 +45,7 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.10")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.2.20")
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("androidx.activity:activity-ktx:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
@@ -54,7 +54,7 @@ dependencies {
     androidTestImplementation("androidx.test:runner:1.7.0")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.7.0")
     implementation("com.google.android.material:material:1.13.0")
-    implementation("androidx.navigation:navigation-runtime-ktx:2.9.4")
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.4")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.4")
+    implementation("androidx.navigation:navigation-runtime-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.5")
 }
