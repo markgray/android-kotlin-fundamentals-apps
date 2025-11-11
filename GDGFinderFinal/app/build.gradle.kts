@@ -59,8 +59,8 @@ dependencies {
     implementation("androidx.activity:activity-ktx:1.11.0")
 
     // Navigation
-    implementation("androidx.navigation:navigation-fragment-ktx:2.9.5")
-    implementation("androidx.navigation:navigation-ui-ktx:2.9.5")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.6")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.6")
 
     // Core with Ktx
     implementation("androidx.core:core-ktx:1.17.0")
