@@ -49,7 +49,7 @@ dependencies {
 
     // support libraries
     implementation("androidx.appcompat:appcompat:1.7.1")
-    implementation("androidx.activity:activity-ktx:1.11.0")
+    implementation("androidx.activity:activity-ktx:1.12.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("com.google.android.material:material:1.13.0")
 
@@ -93,8 +93,8 @@ dependencies {
     ksp("com.github.bumptech.glide:compiler:5.0.5")
 
     // Room dependency
-    implementation("androidx.room:room-runtime:2.8.3")
-    ksp("androidx.room:room-compiler:2.8.3")
+    implementation("androidx.room:room-runtime:2.8.4")
+    ksp("androidx.room:room-compiler:2.8.4")
 
     // WorkManager dependency
     implementation("androidx.work:work-runtime-ktx:2.11.0")
