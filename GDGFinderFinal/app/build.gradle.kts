@@ -15,7 +15,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.example.android.gdgfinder"
-        minSdk = 21
+        minSdk = 23
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
@@ -56,7 +56,7 @@ dependencies {
 
     // material design components
     implementation("com.google.android.material:material:1.13.0")
-    implementation("androidx.activity:activity-ktx:1.11.0")
+    implementation("androidx.activity:activity-ktx:1.12.0")
 
     // Navigation
     implementation("androidx.navigation:navigation-fragment-ktx:2.9.6")
@@ -72,7 +72,7 @@ dependencies {
     // ViewModel and LiveData
     implementation("androidx.lifecycle:lifecycle-extensions:2.2.0")
     // use viewModelScope from lifecycle-viewmodel-ktx
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.10.0")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.2")
