@@ -52,8 +52,8 @@ class MainActivity : AppCompatActivity() {
      * set to `insets.bottom`. Finally it returns [WindowInsetsCompat.CONSUMED] to the caller (so
      * that the window insets will not keep passing down to descendant views).
      *
-     * Finally we initialize our [Button] variable `val rollButton` by finding the view with ID
-     * `R.id.roll_button` and set its `OnClickListener` to a lambda which calls our [rollDice]
+     * We then initialize our [Button] variable `val rollButton` by finding the view with ID
+     * `R.id.roll_button` and set its `OnClickListener` to a lambda that calls our [rollDice]
      * method.
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
