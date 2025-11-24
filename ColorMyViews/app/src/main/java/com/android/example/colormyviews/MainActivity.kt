@@ -42,10 +42,10 @@ class MainActivity : AppCompatActivity() {
 
     /**
      * Called when the activity is starting. First we call [enableEdgeToEdge] to enable edge to edge
-     * display, then we call our super's implementation of `onCreate`. We initialize our
-     * Then we use the [ActivityMainBinding.inflate] method with the LayoutInflater instance that
-     * this Window retrieved from its Context to inflate our layout file `R.layout.activity_main`
-     * into an [ActivityMainBinding] instance which we use to initialize our property [binding].
+     * display, then we call our super's implementation of `onCreate`. We use the
+     * [ActivityMainBinding.inflate] method with the LayoutInflater instance that this Window
+     * retrieved from its Context to inflate our layout file `R.layout.activity_main` into an
+     * [ActivityMainBinding] instance which we use to initialize our property [binding].
      * We call the [ViewCompat.setOnApplyWindowInsetsListener] method to set an
      * [OnApplyWindowInsetsListener] to take over over the policy for applying window insets to
      * the `root` view of [binding], with the `listener` argument a lambda that accepts the [View]
@@ -85,7 +85,6 @@ class MainActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
         setContentView(binding.root)
-
         setListeners()
     }
 
