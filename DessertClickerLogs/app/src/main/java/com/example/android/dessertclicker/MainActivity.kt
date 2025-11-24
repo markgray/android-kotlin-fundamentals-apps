@@ -105,7 +105,7 @@ class MainActivity : AppCompatActivity() {
     /**
      * Called when the activity is starting. First we call [enableEdgeToEdge] to enable edge to edge
      * display, then we call our super's implementation of `onCreate`, and log the fact that we were
-     * called. We initialize our [ActivityMainBinding] field [binding] to the binding to the view
+     * called. We initialize our [ActivityMainBinding] property [binding] to the binding to the view
      * that the [DataBindingUtil.setContentView] creates when it inflates our layout file
      * `R.layout.activity_main` and sets the view to be our content view.
      *
