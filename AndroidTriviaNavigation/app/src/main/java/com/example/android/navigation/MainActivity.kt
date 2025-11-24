@@ -17,16 +17,22 @@
 package com.example.android.navigation
 
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.activity.enableEdgeToEdge
+import androidx.core.graphics.Insets
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
 import androidx.databinding.DataBindingUtil
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.navigation.NavigationView
 import com.example.android.navigation.databinding.ActivityMainBinding
 
 /**
@@ -43,21 +49,33 @@ class MainActivity : AppCompatActivity() {
     private lateinit var drawerLayout: DrawerLayout
 
     /**
-     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
-     * We then initialize our [ActivityMainBinding] variable `val binding` to the binding object
-     * that the [DataBindingUtil.setContentView] method returns when it inflates our layout file
+     * Called when the activity is starting. First we call [enableEdgeToEdge] to enable edge to edge
+     * display, then we call our super's implementation of `onCreate`. We initialize our
+     * [ActivityMainBinding] variable `val binding` to the binding object that the
+     * [DataBindingUtil.setContentView] method returns when it inflates our layout file
      * `R.layout.activity_main` into a view which it sets as content view (binding object is
      * associated with the inflated content view of course). We intitialize our [DrawerLayout] field
      * [drawerLayout] to the `drawerLayout` property of `binding` (resourse ID `R.id.drawerLayout`
-     * in our layout file). We initialize our `NavController` variable `val navController` to the
-     * `NavController` in our layout file (the [androidx.navigation.fragment.NavHostFragment] with
-     * ID `R.id.myNavHostFragment` in our layout file). We then call the method
-     * [NavigationUI.setupActionBarWithNavController] to have it set up the `SupportActionBar` for
-     * use with the NavController `navController`, with [drawerLayout] the DrawerLayout that should
-     * be toggled from the home button. Finally we call the method
-     * [NavigationUI.setupWithNavController] to designate the `NavigationView` in our layout file
+     * in our layout file). We call the [ViewCompat.setOnApplyWindowInsetsListener] method to set an
+     * [OnApplyWindowInsetsListener] to take over over the policy for applying window insets to
+     * the [drawerLayout], with the `listener` argument a lambda that accepts the [View] passed the
+     * lambda in variable `v` and the [WindowInsetsCompat] passed the lambda in variable
+     * `windowInsets`. It initializes its [Insets] variable `insets` to the
+     * [WindowInsetsCompat.getInsets] of `windowInsets` with [WindowInsetsCompat.Type.systemBars] as
+     * the argument, then it updates the layout parameters of `v` to be a
+     * [ViewGroup.MarginLayoutParams] with the left margin set to `insets.left`, the right margin set
+     * to `insets.right`, the top margin set to `insets.top`, and the bottom margin set to
+     * `insets.bottom`. Finally it returns [WindowInsetsCompat.CONSUMED] to the caller (so that the
+     * window insets will not keep passing down to descendant views).
+     *
+     * We initialize our [NavController] variable `val navController` to the [NavController] in our
+     * layout file (the [NavHostFragment] with ID `R.id.myNavHostFragment` in our layout file).
+     * We then call the method [NavigationUI.setupActionBarWithNavController] to have it set up the
+     * `SupportActionBar` for use with the [NavController] `navController`, with [drawerLayout] the
+     * [DrawerLayout] that should be toggled from the home button. Finally we call the method
+     * [NavigationUI.setupWithNavController] to designate the [NavigationView] in our layout file
      * whose `binding` property is `navView` (resource ID `R.id.navView`) to be the view that should
-     * be kept in sync with changes to the NavController `navController`.
+     * be kept in sync with changes to the [NavController] `navController`.
      *
      * @param savedInstanceState we do not override [onSaveInstanceState] so do not use.
      */
@@ -70,8 +88,8 @@ class MainActivity : AppCompatActivity() {
         )
 
         drawerLayout = binding.drawerLayout
-        ViewCompat.setOnApplyWindowInsetsListener(drawerLayout) { v, windowInsets ->
-            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+        ViewCompat.setOnApplyWindowInsetsListener(drawerLayout) { v: View, windowInsets: WindowInsetsCompat ->
+            val insets: Insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
             // Apply the insets as a margin to the view.
             v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
                 leftMargin = insets.left
@@ -85,12 +103,16 @@ class MainActivity : AppCompatActivity() {
             WindowInsetsCompat.CONSUMED
         }
 
-        val navController = this.findNavController(R.id.myNavHostFragment)
-
-        NavigationUI.setupActionBarWithNavController(this, navController, drawerLayout)
-
-        NavigationUI.setupWithNavController(binding.navView, navController)
-
+        val navController: NavController = this.findNavController(viewId = R.id.myNavHostFragment)
+        NavigationUI.setupActionBarWithNavController(
+            activity = this,
+            navController = navController,
+            openableLayout = drawerLayout
+        )
+        NavigationUI.setupWithNavController(
+            navigationView = binding.navView,
+            navController = navController
+        )
     }
 
     /**
