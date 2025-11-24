@@ -22,6 +22,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.graphics.Insets
+import androidx.core.view.OnApplyWindowInsetsListener
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updateLayoutParams
@@ -39,15 +41,28 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     /**
-     * Called when the activity is starting. First we call our super's implementation of `onCreate`.
+     *
+     * Called when the activity is starting. First we call [enableEdgeToEdge] to enable edge to edge
+     * display, then we call our super's implementation of `onCreate`. We initialize our
      * Then we use the [ActivityMainBinding.inflate] method with the LayoutInflater instance that
      * this Window retrieved from its Context to inflate our layout file `R.layout.activity_main`
-     * into an [ActivityMainBinding] instance which we use to initialize our field [binding], and
-     * set our content view to the outermost View in the associated layout file associated with
-     * [ActivityMainBinding]. Finally we call our [setListeners] method to have it set the
-     * `OnClickListener` of the [View]'s in our layout file to a lambda which calls our [makeColored]
-     * method with the [View] clicked to have it set the background color of the [View] to different
-     * colors depending on the ID of the [View].
+     * into an [ActivityMainBinding] instance which we use to initialize our property [binding].
+     * We call the [ViewCompat.setOnApplyWindowInsetsListener] method to set an
+     * [OnApplyWindowInsetsListener] to take over over the policy for applying window insets to
+     * the `root` view of [binding], with the `listener` argument a lambda that accepts the [View]
+     * passed the lambda in variable `v` and the [WindowInsetsCompat] passed the lambda in variable
+     * `windowInsets`. It initializes its [Insets] variable `insets` to the
+     * [WindowInsetsCompat.getInsets] of `windowInsets` with [WindowInsetsCompat.Type.systemBars] as
+     * the argument, then it updates the layout parameters of `v` to be a
+     * [ViewGroup.MarginLayoutParams] with the left margin set to `insets.left`, the right margin set
+     * to `insets.right`, the top margin set to `insets.top`, and the bottom margin set to
+     * `insets.bottom`. Finally it returns [WindowInsetsCompat.CONSUMED] to the caller (so that the
+     * window insets will not keep passing down to descendant views).
+     *
+     * Finally we set our content view to `root` view of [binding], and call our [setListeners]
+     * method to have it set the `OnClickListener` of the [View]'s in our layout file to a lambda
+     * that calls our [makeColored] method with the [View] clicked to have it set the background
+     * color of the [View] to different colors depending on the ID of the [View].
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
      * shut down then this Bundle contains the data it most recently supplied in [onSaveInstanceState]
