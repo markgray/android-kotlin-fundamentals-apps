@@ -42,8 +42,8 @@ class DevByteActivity : AppCompatActivity() {
      * `R.layout.activity_dev_byte_viewer`.
      *
      * We initialize our [FrameLayout] variable `rootView` to the view with ID `R.id.root_view`,
-     * then we call the [ViewCompat.setOnApplyWindowInsetsListener] to set a
-     * [OnApplyWindowInsetsListener] to to take over over the policy for applying window insets to
+     * then we call the [ViewCompat.setOnApplyWindowInsetsListener] method to set a
+     * [OnApplyWindowInsetsListener] to take over over the policy for applying window insets to
      * `rootView`, with the `listener` argument a lambda that accepts the [View] passed the lambda
      * in variable `v` and the [WindowInsetsCompat] passed the lambda in variable `windowInsets`.
      * It initializes its [Insets] variable `insets` to the [WindowInsetsCompat.getInsets] of
