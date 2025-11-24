@@ -41,7 +41,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
     /**
-     *
      * Called when the activity is starting. First we call [enableEdgeToEdge] to enable edge to edge
      * display, then we call our super's implementation of `onCreate`. We initialize our
      * Then we use the [ActivityMainBinding.inflate] method with the LayoutInflater instance that
