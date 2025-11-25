@@ -58,7 +58,8 @@ class MainActivity : AppCompatActivity() {
      * Next we initialize our [Button] variable `val rollButton` by finding the view with ID
      * `R.id.roll_button` and set its `OnClickListener` to a lambda which calls our [rollDice]
      * method. We initialize our [Button] variable `val countButton` by finding the view with
-     * ID `R.id.countup_button` and set its `OnClickListener` to a lambda which calls our [countUp] method.
+     * ID `R.id.countup_button` and set its `OnClickListener` to a lambda that calls our
+     * [countUp] method.
      *
      * @param savedInstanceState If the activity is being re-initialized after previously being
      * shut down then this Bundle contains the data it most recently supplied in an override of
