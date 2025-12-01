@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
      * for applying window insets to `rootView`, with the `listener` argument
      * a lambda that accepts the [View] passed the lambda in variable `v` and
      * the [WindowInsetsCompat] passed the lambda in variable `windowInsets`. It
-         * initializes its [Insets] variable `insets` to the [WindowInsetsCompat.getInsets]
+     * initializes its [Insets] variable `insets` to the [WindowInsetsCompat.getInsets]
      * of `windowInsets` with [WindowInsetsCompat.Type.systemBars] as the
      * argument, then it updates the layout parameters of `v` to be a
      * [ViewGroup.MarginLayoutParams] with the left margin set to `insets.left`,
