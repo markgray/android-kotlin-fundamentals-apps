@@ -72,7 +72,7 @@ dependencies {
 
     // material design components
     implementation("com.google.android.material:material:1.13.0")
-    implementation("androidx.activity:activity-ktx:1.12.1")
+    implementation("androidx.activity:activity-ktx:1.12.2")
 
     // Moshi
     implementation("com.squareup.moshi:moshi:1.15.2")
